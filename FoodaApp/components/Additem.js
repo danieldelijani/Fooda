@@ -8,18 +8,19 @@ const AddItem = ({addItem}) => {
     return(
         <View>
             <TextInput
-            placeholder='please enter an item name here'
-            onChangeText={onChange}
-            value={text}
+                placeholder='please enter an item name here'
+                onChangeText={onChange}
+                value={text}
             />
-            <TouchableOpacity>
-            onPress={() => {
-                addItem(text);
-                setText('');
-            }}
+            <TouchableOpacity
+                onPress={() => {
+                    addItem(text);
+                    setText('');
+            }}>
             </TouchableOpacity>
         </View>
     );
 }
+
 
 export default AddItem;
