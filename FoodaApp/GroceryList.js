@@ -1,15 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
-import GoogleMaps from './GoogleMaps.js';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, FlatList, Alert} from 'react-native';
+import AddItem from './components/Additem';
+import ListItem from './components/Listitem';
 
 const GroceryList = ({ navigation, route }) => {
   let name = route.params.name;
+
+  const [items, setItems] = React.useState([]);
+
+  const deleteItem = (id) => {
+    setItems((prevItems) => {
+      return prevItems.filter((item) => item.id !== id);
+    });
+  };
+
+  const addItem = (text) => {
+    if (!text) {
+      Alert.alert(
+        'Error',
+        'Please enter an item',
+        [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+        {cancelable: false},
+      );
+    } else {
+      setItems((prevItems) => {
+        return [{id: Math.random(), text}, ...prevItems];
+      });
+    }
+  };
+
   return (
-    <Text>This is the Demo for Grocery List</Text>
+    <View style = {styles.container}> 
+      <AddItem addItem={addItem} />
+      <FlatList
+        data={items}
+        renderItem={({item}) => (
+          <ListItem item={item} deleteItem={deleteItem} />
+        )}
+      />
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});
 
 export default GroceryList;
