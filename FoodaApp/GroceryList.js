@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, FlatList, Alert} from 'react-native';
 import AddItem from './components/Additem';
 import ListItem from './components/Listitem';
+import AddDropdownMenu from './components/AddDropdownMenu';
 
 const GroceryList = ({ navigation, route }) => {
   let name = route.params.name;
@@ -31,6 +32,7 @@ const GroceryList = ({ navigation, route }) => {
 
   return (
     <View style = {styles.container}> 
+      <AddDropdownMenu></AddDropdownMenu>
       <AddItem addItem={addItem} />
       <FlatList
         data={items}
@@ -38,6 +40,7 @@ const GroceryList = ({ navigation, route }) => {
           <ListItem item={item} deleteItem={deleteItem} />
         )}
       />
+     
     </View>
   );
 };
