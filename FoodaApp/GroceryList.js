@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, FlatList, Alert} from 'react-native';
 import AddItem from './components/Additem';
 import ListItem from './components/Listitem';
 import AddDropdownMenu from './components/AddDropdownMenu';
+import CategoryList from './components/CategoryList';
 
 const GroceryList = ({ navigation, route }) => {
   let name = route.params.name;
@@ -34,13 +35,13 @@ const GroceryList = ({ navigation, route }) => {
     <View style = {styles.container}> 
       <AddDropdownMenu></AddDropdownMenu>
       <AddItem addItem={addItem} />
-      <FlatList
+      {/* <FlatList
         data={items}
         renderItem={({item}) => (
           <ListItem item={item} deleteItem={deleteItem} />
         )}
-      />
-     
+      /> */}
+      <CategoryList></CategoryList>
     </View>
   );
 };
