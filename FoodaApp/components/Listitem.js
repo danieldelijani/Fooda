@@ -1,15 +1,20 @@
-import { CheckBox } from 'native-base';
-//import CheckBox from '@react-native-community/checkbox';
-//import CheckBox from 'expo-checkbox';
+import CheckBox from 'expo-checkbox';
+
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 const ListItem = ({item, deleteItem}) => {
-  
+  const [isSelected, setSelection] = useState(false);
+
   return (
     <TouchableOpacity style={styles.listItem} >
       <View style={styles.listItemView}>
-        <CheckBox></CheckBox>
+        <View>
+          <CheckBox
+            value={isSelected}
+            onValueChange={setSelection}
+          />
+        </View>
         <Text style={styles.listItemText} >{item.text}</Text>
       </View>
     </TouchableOpacity>
