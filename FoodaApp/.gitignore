@@ -1,4 +1,6 @@
+credentials.json
 credentials.txt
+
 node_modules/
 .expo/
 dist/
