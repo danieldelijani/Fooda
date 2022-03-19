@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, FlatList, Alert} from 'react-native';
-import AddItem from './components/Additem';
-import ListItem from './components/Listitem';
-import AddDropdownMenu from './components/AddDropdownMenu';
-import CategoryList from './components/CategoryList';
+import AddItem from '../../components/Additem';
+import ListItem from '../../components/Listitem';
+import AddDropdownMenu from '../../components/AddDropdownMenu';
+import CategoryList from '../../components/CategoryList';
 
 const GroceryList = ({ navigation, route }) => {
-  let name = route.params.name;
+  // let name = route.params.name;
 
   const [items, setItems] = React.useState([]);
 
