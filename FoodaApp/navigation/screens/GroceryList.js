@@ -1,3 +1,4 @@
+
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, FlatList, Alert} from 'react-native';
 import AddItem from '../../components/Additem';
@@ -35,13 +36,14 @@ const GroceryList = ({ navigation, route }) => {
     <View style = {styles.container}> 
       <AddDropdownMenu></AddDropdownMenu>
       <AddItem addItem={addItem} />
-      {/* <FlatList
+       {/*<FlatList
         data={items}
         renderItem={({item}) => (
           <ListItem item={item} deleteItem={deleteItem} />
         )}
-      /> */}
-      <CategoryList></CategoryList>
+        /> */}
+      <CategoryList addItem={({addItem})}/>
+       
     </View>
   );
 };
