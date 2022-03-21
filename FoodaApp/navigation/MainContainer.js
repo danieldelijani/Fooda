@@ -32,9 +32,21 @@ export default function MainContainer() {
                     }
 
                     return <Ionicons name = {iconName} size = {size} color = {color}></Ionicons>
-                }
+                },
+                "tabBarActiveTintColor": "tomato",
+                "tabBarInactiveTintColor": "black",
+                "tabBarLabelStyle": {
+                    "paddingBottom": 0,
+                    "fontSize": 10
+                },
+                "tabBarStyle": [
+                    {
+                    "display": "flex"
+                    },
+                    null
+                ]
             })}
-            
+
             tabBarOptions = {{
                 activeTintColor: 'tomato',
                 inactiveTintColor: 'grey',
