@@ -22,7 +22,7 @@ export default function MainContainer() {
                 tabBarIcon: ({focused, color, size}) => {
                     let iconName;
                     let rn = route.name;
-                    if (rn == homeName) {
+                    if (rn == homeName) { 
                         iconName = focused ? 'home' : 'home-outline';
                     } else if (rn == groceryListName) {
                         iconName = focused ? 'list' : 'list-outline';
