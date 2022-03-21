@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown } from 'react-native-material-dropdown-v2';
+import AddCategory from './AddCategory';
 
 class AddDropdownMenu extends Component {
   render() {
@@ -12,10 +13,10 @@ class AddDropdownMenu extends Component {
     }];
 
     return (
-      <Dropdown
-        label='options'
-        data={data}
-      />
+        <Dropdown
+          label='options'
+          data={data}
+        />
     );
   }
 }

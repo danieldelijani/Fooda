@@ -1,10 +1,25 @@
 import React, {useState} from 'react';
 import CheckBox from 'expo-checkbox';
-import {StyleSheet, ScrollView, View, Text, SectionList} from 'react-native';
+import {StyleSheet, ScrollView, View, Text, SectionList, Button} from 'react-native';
+import { render } from 'react-dom';
+//import ListItem from './Listitem';
+//import AddItem from '../navigation/screens/GroceryList';
 
+//const [isSelected, setSelection] = useState(false);
+
+/*
 class CategoryList extends React.Component {
   render() {
     
+*/
+
+const CategoryList = () => {
+  
+  const [isSelected, setSelection] = useState(false);
+  
+
+  //render()
+
     return (
       <View style={styles.container}>
         <SectionList
@@ -12,23 +27,32 @@ class CategoryList extends React.Component {
             {
               title: 'General',
               data: [
-                "bananas",
-                "apples"
+                {txt:"pear", isSelected: false},
+                {txt:"apples", isSelected: false}
               ],
             },
             {
               title: 'Completed',
               data: [
-                "oranges",
-                "blueberries"
+                {txt: "oranges", isSelected: true},
+                {txt: "blueberries", isSelected: true}
               ],
             },
           ]}
-          renderItem={({item}) => 
+          renderItem={({item}) =>
+          
           <Text style={styles.item}>
-            <CheckBox
-            />{item}
+            <View>
+              <CheckBox
+                value={item.isSelected}
+                //onChange= {setSelection}
+                onValueChange={setSelection}
+                
+              />
+            </View>
+            {item.txt}
           </Text>}
+          
           renderSectionHeader={({section}) => (
             <Text style={styles.sectionHeader}>{section.title}</Text>
           )}
@@ -38,7 +62,7 @@ class CategoryList extends React.Component {
       </View>
     );
   }
-}
+//}
 
 const styles = StyleSheet.create({
   container: {
@@ -60,6 +84,11 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
     height: 44,
+  },
+  checkboxView: {
+    alignItems: 'flex-start',
+    padding: 20,
+    
   },
 });
 
