@@ -4,15 +4,15 @@ import { Button, Text, View, Modal } from "react-native";
 import AddDropdownMenu from './AddDropdownMenu';
 
 
-class AddCategory extends Component {
-  render() {
+const AddCategory = ({addCategory}) => {
+  
     const [text, setText] = useState('');
     const onChange = (textValue) => setText(textValue);
 
     const [isModalVisible, setModalVisible] = useState(false);
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
-    };
+    
     
 
     return (
@@ -33,6 +33,6 @@ class AddCategory extends Component {
       </View>
     );
   }
-}
+};
 
 export default AddCategory

@@ -3,7 +3,7 @@ import CheckBox from 'expo-checkbox';
 import {StyleSheet, ScrollView, View, Text, SectionList, Button} from 'react-native';
 import { render } from 'react-dom';
 //import ListItem from './Listitem';
-//import AddItem from '../navigation/screens/GroceryList';
+import AddItem from '../navigation/screens/GroceryList';
 
 //const [isSelected, setSelection] = useState(false);
 
@@ -13,7 +13,7 @@ class CategoryList extends React.Component {
     
 */
 
-const CategoryList = () => {
+const CategoryList = ({newItem}) => {
   
   const [isSelected, setSelection] = useState(false);
   const generalData = [
@@ -33,10 +33,7 @@ const CategoryList = () => {
             },
             {
               title: 'Completed',
-              data: [
-                {txt: "oranges", isSelected: true},
-                {txt: "blueberries", isSelected: true}
-              ],
+              data: {items},
             },
           ]}
           renderItem={({item}) =>
@@ -71,12 +68,13 @@ const styles = StyleSheet.create({
   },
 
   item: {
+    alignItems: 'center',
     padding: 10,
     fontSize: 18,
     height: 44,
   },
   checkboxView: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
     padding: 20,
     
   },

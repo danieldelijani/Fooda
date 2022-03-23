@@ -1,10 +1,11 @@
 
-import React, {useState, setState} from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, FlatList, Alert, SectionList} from 'react-native';
 import AddItem from '../../components/Additem';
 import ListItem from '../../components/Listitem';
 import AddDropdownMenu from '../../components/AddDropdownMenu';
-import CategoryList from '../../components/CategoryList'; 
+import CategoryList from '../../components/CategoryList';
+import { Button } from 'native-base';
 
 const GroceryList = ({ navigation, route }) => {
   // let name = route.params.name;
