@@ -3,10 +3,8 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, } from 'react-nati
 
 const AddItem = ({addItem}) => {
     const [text, setText] = useState('');
-    const [quantity, setQuantity] = useState(0);
     const onChange = (textValue) => setText(textValue);
     
-  
     return (
         <View>
           <TextInput
@@ -14,20 +12,12 @@ const AddItem = ({addItem}) => {
             placeholder="Enter an item here"
             onChangeText={onChange}
             value={text}
-           
           />
-           {/*<TextInput
-            style= {styles.numInput}
-             placeholder="Enter an item Quantity"
-             onChangeQ={onChange}
-             number={quantity}
-           />*/}
           <TouchableOpacity
             style={styles.btn}
             onPress={() => {
               addItem(text);
               setText('');
-              //setQuantity(0);
             }}>
             <Text style={styles.btnText}>
                 Add item 

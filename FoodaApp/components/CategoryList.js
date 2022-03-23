@@ -16,7 +16,10 @@ class CategoryList extends React.Component {
 const CategoryList = () => {
   
   const [isSelected, setSelection] = useState(false);
-  
+  const generalData = [
+    {txt:"pear", isSelected: false},
+    {txt:"apples", isSelected: false}
+  ]
 
   //render()
 
@@ -26,10 +29,7 @@ const CategoryList = () => {
            sections={[
             {
               title: 'General',
-              data: [
-                {txt:"pear", isSelected: false},
-                {txt:"apples", isSelected: false}
-              ],
+              data: generalData,
             },
             {
               title: 'Completed',
@@ -40,19 +40,9 @@ const CategoryList = () => {
             },
           ]}
           renderItem={({item}) =>
-          
           <Text style={styles.item}>
-            <View>
-              <CheckBox
-                value={item.isSelected}
-                //onChange= {setSelection}
-                onValueChange={setSelection}
-                
-              />
-            </View>
             {item.txt}
           </Text>}
-          
           renderSectionHeader={({section}) => (
             <Text style={styles.sectionHeader}>{section.title}</Text>
           )}

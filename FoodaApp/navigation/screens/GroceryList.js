@@ -1,21 +1,25 @@
 
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, FlatList, Alert} from 'react-native';
+import React, {useState, setState} from 'react';
+import {View, Text, StyleSheet, FlatList, Alert, SectionList} from 'react-native';
 import AddItem from '../../components/Additem';
 import ListItem from '../../components/Listitem';
 import AddDropdownMenu from '../../components/AddDropdownMenu';
-import CategoryList from '../../components/CategoryList';
+import CategoryList from '../../components/CategoryList'; 
 
 const GroceryList = ({ navigation, route }) => {
   // let name = route.params.name;
 
   const [items, setItems] = React.useState([]);
+  const [CategoriesAndItems, updateCategoriesAndItems] = React.useState
+    ([
+        {title: "General", data: ["cat"]}, 
+        {title: "Completed", data: ["DOG"]}
+     ])
 
-  const deleteItem = (id) => {
-    setItems((prevItems) => {
-      return prevItems.filter((item) => item.id !== id);
-    });
-  };
+  const update = (json, text) => {
+    json[0].data.push(text);
+    return json;
+  }
 
   const addItem = (text) => {
     if (!text) {
@@ -26,9 +30,7 @@ const GroceryList = ({ navigation, route }) => {
         {cancelable: false},
       );
     } else {
-      setItems((prevItems) => {
-        return [{id: Math.random(), text}, ...prevItems];
-      });
+      updateCategoriesAndItems(update(CategoriesAndItems, text));
     }
   };
 
@@ -36,22 +38,41 @@ const GroceryList = ({ navigation, route }) => {
     <View style = {styles.container}> 
       <AddDropdownMenu></AddDropdownMenu>
       <AddItem addItem={addItem} />
-       {/*<FlatList
-        data={items}
-        renderItem={({item}) => (
-          <ListItem item={item} deleteItem={deleteItem} />
-        )}
-        /> */}
-      <CategoryList addItem={({addItem})}/>
-       
+      <SectionList  
+      sections = {CategoriesAndItems}
+      renderItem={({item}) => ( <ListItem item={item} deleteItem={deleteItem} />)}
+      renderSectionHeader={({section}) => (<Text>{section.title}</Text>)}
+      keyExtractor={(item, index) => index}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+    paddingTop: 22,
+  },
+  sectionHeader: {
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#fff',
+    backgroundColor: '#F55145',
+  },
+
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+  checkboxView: {
+    alignItems: 'flex-start',
+    padding: 20,
+  },
 });
 
 export default GroceryList;
