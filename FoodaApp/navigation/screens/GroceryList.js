@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react';
+import React, {useState, setState} from 'react';
 import {View, Text, StyleSheet, FlatList, Alert, SectionList} from 'react-native';
 import AddItem from '../../components/Additem';
 import ListItem from '../../components/Listitem';
@@ -13,14 +13,30 @@ const GroceryList = ({ navigation, route }) => {
   const [items, setItems] = React.useState([]);
   const [CategoriesAndItems, updateCategoriesAndItems] = React.useState
     ([
-        {title: "General", data: ["cat"]}, 
-        {title: "Completed", data: ["DOG"]}
+      {
+        title: "General", 
+        data: [
+          {txt:"pear", isSelected: false}
+        ]
+      }, 
+      {
+        title: "Completed", 
+        data: [
+          {txt:"apples", isSelected: false}
+        ]
+      }
      ])
 
   const update = (json, text) => {
-    json[0].data.push(text);
+    json[0].data.push({txt: text, isSelected: false});
     return json;
   }
+
+  const deleteItem = (id) => {
+    setItems((prevItems) => {
+      return prevItems.filter((item) => item.id !== id);
+    });
+  };
 
   const addItem = (text) => {
     if (!text) {

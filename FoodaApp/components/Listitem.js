@@ -17,7 +17,7 @@ const ListItem = ({item, deleteItem}) => {
             onValueChange={setSelection}
           />
         </View>
-        <Text style={styles.listItemText} >{item.text}</Text>
+        <Text style={styles.listItemText} >{item.txt}</Text>
         <TouchableOpacity
             style={styles.btn}
             onPress={() => {
