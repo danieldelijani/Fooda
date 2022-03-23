@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, } from 'react-nati
 
 const AddItem = ({addItem}) => {
     const [text, setText] = useState('');
-    const [quantity, setQuantity] = useState(0);
+    //const [quantity, setQuantity] = useState(0);
     const onChange = (textValue) => setText(textValue);
     
   

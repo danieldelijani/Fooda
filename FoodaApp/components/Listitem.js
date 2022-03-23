@@ -17,7 +17,17 @@ const ListItem = ({item, deleteItem}) => {
             onValueChange={setSelection}
           />
         </View>
-        <Text style={styles.listItemText} >{item.text} </Text>
+        <Text style={styles.listItemText} >{item.text}</Text>
+        <TouchableOpacity
+            style={styles.btn}
+            onPress={() => {
+              deleteItem(item.id);
+            }}>
+            <Text style={styles.btnText}>
+                Delete
+            </Text>
+          </TouchableOpacity>
+        
       </View>
     </TouchableOpacity>
   );
@@ -41,7 +51,17 @@ const styles = StyleSheet.create({
     checkboxView: {
       alignItems: 'flex-start',
       padding: 20,
-    }
+    },
+    btn: {
+      backgroundColor: '#c2bad8',
+      padding: 9,
+      margin: 5,
+    },
+    btnText: {
+      color: 'darkslateblue',
+      fontSize: 20,
+      textAlign: 'center',
+    },
   });
 
 export default ListItem;
