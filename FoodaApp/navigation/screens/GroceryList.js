@@ -1,34 +1,27 @@
 
-import React, {useState, setState} from 'react';
-import {View, Text, StyleSheet, FlatList, Alert, SectionList} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, FlatList, Alert, SectionList, Input} from 'react-native';
 import AddItem from '../../components/Additem';
 import ListItem from '../../components/Listitem';
 import AddDropdownMenu from '../../components/AddDropdownMenu';
-import CategoryList from '../../components/CategoryList';
-import { Button } from 'native-base';
 
 const GroceryList = ({ navigation, route }) => {
-  // let name = route.params.name;
 
-  const [items, setItems] = React.useState([]);
-  const [CategoriesAndItems, updateCategoriesAndItems] = React.useState
-    ([
+  const [items, setItems] = useState([]);
+
+  const [CategoriesAndItems, updateCategoriesAndItems] = useState([
       {
         title: "General", 
-        data: [
-          {txt:"pear", isSelected: false}
-        ]
+        data: [ "pear"]
       }, 
       {
         title: "Completed", 
-        data: [
-          {txt:"apples", isSelected: false}
-        ]
+        data: [ "apples"]
       }
      ])
 
   const update = (json, text) => {
-    json[0].data.push({txt: text, isSelected: false});
+    json[0].data.push(text);
     return json;
   }
 
@@ -51,15 +44,21 @@ const GroceryList = ({ navigation, route }) => {
     }
   };
 
+  const renderItem = ({item}) => {
+    return (
+      <ListItem item={item} deleteItem={deleteItem} />
+    )
+  }
+
   return (
     <View style = {styles.container}> 
       <AddDropdownMenu></AddDropdownMenu>
       <AddItem addItem={addItem} />
       <SectionList  
       sections = {CategoriesAndItems}
-      renderItem={({item}) => ( <ListItem item={item} deleteItem={deleteItem} />)}
+      renderItem={renderItem}
       renderSectionHeader={({section}) => (<Text>{section.title}</Text>)}
-      keyExtractor={(item, index) => index}
+      keyExtractor={(item, index) => item+index}
       />
     </View>
   );
