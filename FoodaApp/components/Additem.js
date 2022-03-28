@@ -5,6 +5,8 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, } from 'react-nati
 const AddItem = ({addItem}) => {
     const [text, setText] = useState('');
     const onChange = (textValue) => setText(textValue);
+    const [currentOption, updateOption] = useState('Add Item')
+
     let data = [{
       value: 'Add Item',
     }, {
@@ -18,6 +20,7 @@ const AddItem = ({addItem}) => {
           <Dropdown
             label='options'
             data={data}
+            onChangeText = {value => updateOption(value)}
           />
           <TextInput
             style={styles.input}
@@ -28,11 +31,11 @@ const AddItem = ({addItem}) => {
           <TouchableOpacity
             style={styles.btn}
             onPress={() => {
-              addItem(text);
+              addItem(text, currentOption);
               setText('');
             }}>
             <Text style={styles.btnText}>
-                Add item 
+                Add
             </Text>
           </TouchableOpacity>
         </View>

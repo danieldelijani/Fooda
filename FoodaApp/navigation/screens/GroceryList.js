@@ -30,7 +30,7 @@ const GroceryList = ({ navigation, route }) => {
     });
   };
 
-  const addItem = (text) => {
+  const addItem = (text, currentOption) => {
     if (!text) {
       Alert.alert(
         'Error',
@@ -38,9 +38,9 @@ const GroceryList = ({ navigation, route }) => {
         [{text: 'OK', onPress: () => console.log('OK Pressed')}],
         {cancelable: false},
       );
-    } else {
+    } else if(currentOption == 'Add Item') {
       updateCategoriesAndItems(update(CategoriesAndItems, text));
-    }
+    } 
   };
 
   return (
