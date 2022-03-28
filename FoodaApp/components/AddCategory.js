@@ -10,11 +10,9 @@ const AddCategory = ({addCategory}) => {
     const onChange = (textValue) => setText(textValue);
 
     const [isModalVisible, setModalVisible] = useState(false);
-    const toggleModal = () => {
-        setModalVisible(!isModalVisible);
+    const toggleModal = () => { setModalVisible(!isModalVisible);
     
     
-
     return (
       <View style={{flex: 1 }}>
           <Button title = "Add Category" onPress= {toggleModal}/>

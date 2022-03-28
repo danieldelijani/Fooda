@@ -27,7 +27,6 @@ const ListItem = ({item, deleteItem}) => {
                 Delete
             </Text>
           </TouchableOpacity>
-        
       </View>
     </TouchableOpacity>
   );

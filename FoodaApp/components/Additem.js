@@ -1,12 +1,24 @@
 import React, {useState} from 'react';
+import { Dropdown } from 'react-native-material-dropdown-v2';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, } from 'react-native';
 
 const AddItem = ({addItem}) => {
     const [text, setText] = useState('');
     const onChange = (textValue) => setText(textValue);
+    let data = [{
+      value: 'Add Item',
+    }, {
+      value: 'Add Category',
+    }, {
+      value: 'Scan Receipt',
+    }];
     
     return (
         <View>
+          <Dropdown
+            label='options'
+            data={data}
+          />
           <TextInput
             style={styles.input}
             placeholder="Enter an item here"

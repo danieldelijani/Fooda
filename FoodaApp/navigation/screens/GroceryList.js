@@ -3,33 +3,29 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, FlatList, Alert, SectionList, Input} from 'react-native';
 import AddItem from '../../components/Additem';
 import ListItem from '../../components/Listitem';
-import AddDropdownMenu from '../../components/AddDropdownMenu';
 
 const GroceryList = ({ navigation, route }) => {
 
-  const [items, setItems] = useState([]);
-
+  const [Categories, updateCategories] = useState(["General", "Completed"]);
   const [CategoriesAndItems, updateCategoriesAndItems] = useState([
       {
         title: "General", 
-        data: [ "pear"]
+        data: []
       }, 
       {
         title: "Completed", 
-        data: [ "apples"]
+        data: []
       }
      ])
-
-  const update = (json, text) => {
-    json[0].data.push(text);
-    return json;
+    
+  
+    const update = (json, text) => {
+      const myJson = [...json]
+      myJson[0].data.push(text);
+      return myJson;
   }
+  
 
-  const deleteItem = (id) => {
-    setItems((prevItems) => {
-      return prevItems.filter((item) => item.id !== id);
-    });
-  };
 
   const addItem = (text) => {
     if (!text) {
@@ -43,20 +39,24 @@ const GroceryList = ({ navigation, route }) => {
       updateCategoriesAndItems(update(CategoriesAndItems, text));
     }
   };
+  
+ const deleteItem2 = (json, id) =>{
+  const prevJson = [...json]
+  prevJson[0].data.pop(id);
+  return prevJson
+  
+};
+const deleteItem = (id) =>{
+ updateCategories(deleteItem2(CategoriesAndItems, id));
+};
 
-  const renderItem = ({item}) => {
-    return (
-      <ListItem item={item} deleteItem={deleteItem} />
-    )
-  }
 
   return (
     <View style = {styles.container}> 
-      <AddDropdownMenu></AddDropdownMenu>
       <AddItem addItem={addItem} />
       <SectionList  
       sections = {CategoriesAndItems}
-      renderItem={renderItem}
+      renderItem = {({item}) => (<ListItem item={item} deleteItem={deleteItem} />)}
       renderSectionHeader={({section}) => (<Text>{section.title}</Text>)}
       keyExtractor={(item, index) => item+index}
       />
