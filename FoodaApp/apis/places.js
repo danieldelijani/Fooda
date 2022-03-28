@@ -1,4 +1,4 @@
-function get_nearby_grocery_stores(radius='500', location='42.353499665,-71.1206825957'){
+function get_nearby_grocery_stores(radius='1000', location='42.353499665,-71.1206825957', callback){
   //import api key and requirements
   const credentials_json = require('./credentials.json');
   const key = credentials_json['google'];
@@ -14,21 +14,16 @@ function get_nearby_grocery_stores(radius='500', location='42.353499665,-71.1206
   for (const paramater in paramaters){
     url += '&' + paramater + '=' + paramaters[paramater]
   };
-  console.log(url);
 
-  // send request!
+  // send request and send JSON response to callback funciton
   var config = {
     method: 'get',
     url: url,
     headers: { }
   };
   axios(config)
-  .then(function (response) {
-  console.log(JSON.stringify(response.data));
-  })
+  .then(function(response){ callback(response.data)})
   .catch(function (error) {
   console.log(error);
   });
-}
-
-get_nearby_grocery_stores("1000")
+} export default get_nearby_grocery_stores
