@@ -19,12 +19,14 @@ const GroceryList = ({ navigation, route }) => {
         data: []
       }
      ])
-
+    
+  
     const update = (json, text) => {
       const myJson = [...json];
       myJson[0].data.push(text);
       return myJson;
   }
+  
 
   const addCategory = (json, text) => {
     const myJson = [...json];
@@ -52,6 +54,17 @@ const GroceryList = ({ navigation, route }) => {
       updateCategoriesAndItems(addCategory(CategoriesAndItems, text));
     }
   };
+  
+ const deleteItem2 = (json, id) =>{
+  const prevJson = [...json]
+  prevJson[0].data.pop(id);
+  return prevJson
+  
+};
+const deleteItem = (id) =>{
+ updateCategories(deleteItem2(CategoriesAndItems, id));
+};
+
 
   return (
     <View style = {styles.container}> 

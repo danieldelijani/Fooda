@@ -14,14 +14,7 @@ class Map extends Component {
           longitude: this.props.location["longitude"],
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421
-        },
-        markers: [
-          {
-            latlng: {latitude: this.props.location["latitude"], longitude: this.props.location["longitude"]},
-            title: 'Foo Place',
-            description: 'Da crib'
-          }
-        ]
+        }
       };
       this.onRegionChange = this.onRegionChange.bind(this);
     }
@@ -46,7 +39,7 @@ class Map extends Component {
     render() {
       return (
         <MapView region={this.state.region} onRegionChange={this.onRegionChange} style={styles.map}>
-          {this.state.markers.map((marker, index) => (
+          {this.props.groceryStores.map((marker, index) => (
             <Marker
               key={index}
               coordinate={marker.latlng}

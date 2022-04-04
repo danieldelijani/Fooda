@@ -6,6 +6,7 @@ import React, {Component, useState, useEffect} from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import Map from '../../components/Map';
 import * as Location from 'expo-location';
+import get_nearby_grocery_stores from '../../apis/places.js';
 
 const GoogleMaps = ({ navigation, route }) => {
   // let name = route.params.name;
@@ -14,6 +15,8 @@ const GoogleMaps = ({ navigation, route }) => {
       "latitude": 37.78825,
     });
   const [errorMsg, setErrorMsg] = useState("");
+
+  const [groceryStores, setGroceryStores] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -25,12 +28,44 @@ const GoogleMaps = ({ navigation, route }) => {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      let latitude = location["coords"]["latitude"].toString();
+      let longitude = location["coords"]["longitude"].toString();
+      let coordinates = latitude + "," + longitude;
+      get_nearby_grocery_stores(500, coordinates, recieve_grocery_stores);
     })();
   }, []);
 
+  function recieve_grocery_stores(results) {
+    results = results['results']
+    let markers = []
+    for (var i = 0; i < results.length; i++){
+      let store = results[i];
+      let store_name = store["name"];
+
+      let latitude = store['geometry']['location']['lat'];
+      let longitude = store['geometry']['location']['lng'];
+      let store_loc = {
+        latitude: latitude,
+        longitude: longitude
+      }
+
+
+      let store_dec = store['rating'];
+      markers.push( {
+        title: store_name,
+        latlng: store_loc, //may need formating 
+        description: "store_dec"
+      } )
+    }
+    console.log(JSON.stringify(markers))
+
+    setGroceryStores(markers)
+
+  }
+
     return (
       <View style={styles.container}>
-        <Map location = {location}/>
+        <Map location = {location} groceryStores = {groceryStores}/>
       </View>
     );
   };
