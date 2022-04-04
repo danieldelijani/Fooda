@@ -9,7 +9,6 @@ const ListItem = ({item, deleteItem}) => {
   const [isSelected, setSelection] = useState(false);
 
   return (
-    <TouchableOpacity style={styles.listItem} >
       <View style={styles.listItemView}>
         <View style={styles.checkboxView}>
           <CheckBox
@@ -28,7 +27,6 @@ const ListItem = ({item, deleteItem}) => {
             </Text>
           </TouchableOpacity>
       </View>
-    </TouchableOpacity>
   );
 };
 

@@ -1,8 +1,10 @@
 
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, FlatList, Alert, SectionList, Input} from 'react-native';
+import Collapsible from 'react-native-collapsible';
 import AddItem from '../../components/Additem';
 import ListItem from '../../components/Listitem';
+import DraggableList from '../../components/DraggableList';
 
 const GroceryList = ({ navigation, route }) => {
 
@@ -19,16 +21,22 @@ const GroceryList = ({ navigation, route }) => {
      ])
 
     const update = (json, text) => {
-      const myJson = [...json]
+      const myJson = [...json];
       myJson[0].data.push(text);
       return myJson;
   }
 
-  const deleteItem = (id) => {
-    setItems((prevItems) => {
-      return prevItems.filter((item) => item.id !== id);
-    });
-  };
+  const addCategory = (json, text) => {
+    const myJson = [...json];
+    var newCategory = {
+      title: text,
+      data:[]
+    };
+    var completed = myJson[myJson.length - 1];
+    myJson[myJson.length - 1] = newCategory;
+    myJson.push(completed);
+    return myJson;
+  }
 
   const addItem = (text, currentOption) => {
     if (!text) {
@@ -40,18 +48,21 @@ const GroceryList = ({ navigation, route }) => {
       );
     } else if(currentOption == 'Add Item') {
       updateCategoriesAndItems(update(CategoriesAndItems, text));
-    } 
+    } else if(currentOption == 'Add Category'){
+      updateCategoriesAndItems(addCategory(CategoriesAndItems, text));
+    }
   };
 
   return (
     <View style = {styles.container}> 
-      <AddItem addItem={addItem} />
-      <SectionList  
+    <AddItem addItem={addItem} />
+    <DraggableList sectionData = {CategoriesAndItems} />
+      {/* <SectionList  
       sections = {CategoriesAndItems}
       renderItem = {({item}) => (<ListItem item={item} deleteItem={deleteItem} />)}
       renderSectionHeader={({section}) => (<Text>{section.title}</Text>)}
       keyExtractor={(item, index) => item+index}
-      />
+      /> */}
     </View>
   );
 };
