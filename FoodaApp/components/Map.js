@@ -1,7 +1,8 @@
 import React, {Component, useState, useEffect} from 'react';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, Callout } from 'react-native-maps';
 import {StyleSheet, Dimensions} from 'react-native';
 import * as Location from 'expo-location';
+import StoreView from './StoreView';
 
 
 class Map extends Component {
@@ -45,11 +46,19 @@ class Map extends Component {
               coordinate={marker.latlng}
               title={marker.title}
               description={marker.description}
+              onPress={e => this.onPressMarker(marker)}
+              //image={marker.image}
             />
           ))}
         </MapView>
       );
     };
+
+    onPressMarker(marker){
+      console.log(marker);
+      //render(StoreView(markers[index]))
+    }
+
   };
 
 const styles = StyleSheet.create({
