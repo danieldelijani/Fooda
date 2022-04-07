@@ -31,7 +31,7 @@ const GoogleMaps = ({ navigation, route }) => {
       let latitude = location["coords"]["latitude"].toString();
       let longitude = location["coords"]["longitude"].toString();
       let coordinates = latitude + "," + longitude;
-      get_nearby_grocery_stores(500, coordinates, recieve_grocery_stores);
+      get_nearby_grocery_stores(1000, coordinates, recieve_grocery_stores);
     })();
   }, []);
 
