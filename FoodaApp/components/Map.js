@@ -16,9 +16,25 @@ class Map extends Component {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421
         },
-        modalVisible: false
+        modalVisible: false,
+        // Change to whatever you want to pass to StoreView Object.
+        // This we defaultly passed in
+        currStore: {
+          "description": "3.8",
+          "image": {
+            "uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+          },
+          "latlng": {
+            "latitude": 42.35139110000001,
+            "longitude": -71.13172089999999,
+          },
+          "price_level": undefined,
+          "title": "Allston Market",
+        }
       };
       this.onRegionChange = this.onRegionChange.bind(this);
+      this.closeModal = this.closeModal.bind(this);
+      this.onPressMarker = this.onPressMarker.bind(this);
     }
 
     setModalVisible = (visible) => {
@@ -43,23 +59,10 @@ class Map extends Component {
     }
   
     render() {
-      const modalVisible = this.state.modalVisible;
       return (
         <View>
-            
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-              this.setModalVisible(!modalVisible);
-            }}
-            >
-              <View style={styles.modalView}>
-              <Text>Hello World</Text>
-              </View>
-          </Modal>
+
+          <StoreView storeInfo={this.state.currStore} modalVisible={this.state.modalVisible} closeModal={this.closeModal} />
             
           <MapView region={this.state.region} onRegionChange={this.onRegionChange} style={styles.map}>
             {this.props.groceryStores.map((marker, index) => (
@@ -68,7 +71,7 @@ class Map extends Component {
                 coordinate={marker.latlng}
                 title={marker.title}
                 description={marker.description}
-                onPress={e => this.setModalVisible(true)}
+                onPress={e => this.onPressMarker(marker)}
               />
             ))}
           </MapView>
@@ -77,8 +80,13 @@ class Map extends Component {
     };
 
     onPressMarker(marker){
-      console.log(marker);
-      //render(StoreView(markers[index]))
+      this.setModalVisible(true);
+      this.setState({ currStore: marker });
+      // console.log(marker);
+    }
+
+    closeModal() {
+      this.setModalVisible(false);
     }
 
   };
