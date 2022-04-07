@@ -7,6 +7,7 @@ import MapView, { Marker } from 'react-native-maps';
 import Map from '../../components/Map';
 import * as Location from 'expo-location';
 import get_nearby_grocery_stores from '../../apis/places.js';
+import StoreView from '../../components/StoreView';
 
 const GoogleMaps = ({ navigation, route }) => {
   // let name = route.params.name;
@@ -31,36 +32,47 @@ const GoogleMaps = ({ navigation, route }) => {
       let latitude = location["coords"]["latitude"].toString();
       let longitude = location["coords"]["longitude"].toString();
       let coordinates = latitude + "," + longitude;
-      get_nearby_grocery_stores(500, coordinates, recieve_grocery_stores);
+      // TODO: change default radius to 1000 metres (from 500) for production
+      get_nearby_grocery_stores(500, coordinates, recieve_grocery_stores); 
     })();
   }, []);
 
   function recieve_grocery_stores(results) {
     results = results['results']
     let markers = []
+
     for (var i = 0; i < results.length; i++){
       let store = results[i];
-      let store_name = store["name"];
-
+      let store_name = store['name'];
       let latitude = store['geometry']['location']['lat'];
       let longitude = store['geometry']['location']['lng'];
       let store_loc = {
         latitude: latitude,
         longitude: longitude
       }
+      let rating = store['rating'];
+      if (rating==undefined || rating==null){
+        rating = "Rating not found.";
+      } else { 
+        rating = rating.toString()
+      }
+      let image_uri = store['icon'];
+      let image_source = {
+        uri: image_uri
+      }
+      let price_level = store['price_level'];
+      
+      console.log(image_source);
 
-
-      let store_dec = store['rating'];
-      markers.push( {
+      markers.push({
         title: store_name,
-        latlng: store_loc, //may need formating 
-        description: "store_dec"
-      } )
+        latlng: store_loc, 
+        description: rating,
+        image: image_source,
+        price_level: price_level
+      })
     }
-    console.log(JSON.stringify(markers))
-
     setGroceryStores(markers)
-
   }
 
     return (

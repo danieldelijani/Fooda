@@ -1,7 +1,8 @@
 import React, {Component, useState, useEffect} from 'react';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, Callout } from 'react-native-maps';
 import {StyleSheet, Dimensions, View, Modal, Text} from 'react-native';
 import * as Location from 'expo-location';
+import StoreView from './StoreView';
 
 
 class Map extends Component {
@@ -74,6 +75,12 @@ class Map extends Component {
         </View>
       );
     };
+
+    onPressMarker(marker){
+      console.log(marker);
+      //render(StoreView(markers[index]))
+    }
+
   };
 
 const styles = StyleSheet.create({
