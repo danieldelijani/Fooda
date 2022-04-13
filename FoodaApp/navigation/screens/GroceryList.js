@@ -86,7 +86,6 @@ const deleteItem = (id) =>{
   return (
     <View style = {styles.container}> 
     <AddItem addItem={addItem} />
-    <Text> General </Text>
     <DraggableList sectionData = {CategoriesAndItems} deleteItem = {deleteItem} />
     </View>
   );

@@ -41,11 +41,11 @@ const DraggableList = ({sectionData, deleteItem}) => {
     useEffect(()=>{
         const flatSection = sectionData.map((section, index)=> {
                 return [{key: `${section.title}${index}`, label: section.title, isTitle: true}, ...(section.data.map((sectionItem, index) => {
-                return {key: `${sectionItem}${index}`, label: sectionItem, isTitle: false}
+                return {key: `${sectionItem}${index}`, label: sectionItem, isTitle: false, section: section.title}
             }))]
           })
-        
           setFlatData(flatSection.flat(1))
+          console.log(flatData)
     },[sectionData])
 
     return (
