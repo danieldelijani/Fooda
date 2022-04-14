@@ -14,7 +14,7 @@ const DraggableList = ({sectionData, deleteItem}) => {
                 backgroundColor: 'red',
                 underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
                 onPress: () => {
-                    deleteItem(index);
+                    deleteItem(item.label, item.section, item.isTitle);
                     setFlatData(flatData.filter(Element => Element.label != item.label ));
                 }
             }
@@ -40,7 +40,7 @@ const DraggableList = ({sectionData, deleteItem}) => {
 
     useEffect(()=>{
         const flatSection = sectionData.map((section, index)=> {
-                return [{key: `${section.title}${index}`, label: section.title, isTitle: true}, ...(section.data.map((sectionItem, index) => {
+                return [{key: `${section.title}${index}`, label: section.title, isTitle: true, section: ""}, ...(section.data.map((sectionItem, index) => {
                 return {key: `${sectionItem}${index}`, label: sectionItem, isTitle: false, section: section.title}
             }))]
           })

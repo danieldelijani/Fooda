@@ -53,33 +53,21 @@ const GroceryList = ({ navigation, route }) => {
     }
   };
   
- const deleteItem2 = (json, id) =>{
+ const deleteItem2 = (json, label, section, isTitle) =>{
   const prevJson = [...json]
-  index = 0
-  currentCategoryIndex = 0
-  breaker = false
-  while (currentCategoryIndex <= prevJson.length){
-    currentCategory = prevJson[currentCategoryIndex]
-    index += 1
-    for(let i = 0; i < currentCategory.data.length;i++){
-      if((i + index) == id){
-        prevJson[currentCategoryIndex].data.splice(i,1)
-        breaker = true
-        break
-      } else{
-        index+= 1
+  if(isTitle){
+  } else {
+    for(let i = 0;i < json.length;i++){
+      if (json[i].title == section){
+        json[i].data = json[i].data.filter(function(value){ return value != label;});
       }
     }
-    if (breaker){
-      break
-    }
-    currentCategoryIndex+=1
   }
   return prevJson
 };
 
-const deleteItem = (id) =>{
- updateCategories(deleteItem2(CategoriesAndItems, id));
+const deleteItem = (label, section, isTitle) =>{
+ updateCategories(deleteItem2(CategoriesAndItems, label, section, isTitle));
 };
 
 
