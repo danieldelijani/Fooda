@@ -1,13 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import DraggableFlatList from "react-native-draggable-flatlist";
-import ListItem from './Listitem';
+//import ListItem from './Listitem';
 import Swipeout from 'react-native-swipeout';
 
-const DraggableList = ({sectionData, deleteItem}) => {
+import CheckBox from 'expo-checkbox';
+import { Button } from 'native-base';
+
+
+const DraggableList = ({sectionData, deleteItem, moveCompleted}) => {
     const [flatData, setFlatData] = useState([])
+    //const [isSelected, setSelection] = useState(false);
+    
 
     renderItem = ({ item, index, drag, isActive }) => {
+      const [isSelected, setSelection] = useState(false);
         let deleteBtn = [
             {
                 text: 'Delete',
@@ -19,11 +26,42 @@ const DraggableList = ({sectionData, deleteItem}) => {
                 }
             }
         ]
+        /*let moveToComplete = [
+          {
+            backgroundColor: 'white',
+    
+            onclick: () => {
+              setSelection;
+              moveCompleted(item.label, index);
+              setFlatData(flatData.filter(Element => Element.label != item.label ));
+          }
+          }
+        ] */
+        
         if (!item.isTitle){
             return (
                 <Swipeout right ={deleteBtn}>
                     <TouchableOpacity onLongPress={item.isTitle?()=>{}: drag} >
-                        <ListItem item={item.label} deleteItem = {deleteItem} />
+                    {/*<ListItem item={item.label} deleteItem = {deleteItem} /> */}
+                      
+                        <View style={styles2.listItemView}>
+                            <View style={styles2.checkboxView}>
+                              {/*<Button  
+                                style={styles2.btn}
+                                //</View>onPress= {() => {moveCompleted(item.label, index)} }
+                              ></Button>*/}
+                              <CheckBox action={moveCompleted}
+                                  value={isSelected}
+                                  onValueChange={setSelection}
+                                  //onClick={moveCompleted(item.label, index)}
+                              /> 
+                            </View>
+                          <Text style={styles2.listItemText} >{item.label} </Text>
+                          <View>
+
+
+                          </View>
+                        </View> 
                     </TouchableOpacity>
                 </Swipeout>
             );
@@ -58,6 +96,37 @@ const DraggableList = ({sectionData, deleteItem}) => {
             />
         </View>
     ) 
-}
+};
+const styles2 = StyleSheet.create({
+    listItem: {
+      padding: 20,
+      backgroundColor: '#f8f8f2',
+      borderBottomWidth: 2,
+      borderColor: '#eee',
+    },
+    listItemView: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    listItemText: {
+      fontSize: 20,
+    },
+    checkboxView: {
+      alignItems: 'flex-start',
+      padding: 20,
+    },
+    btn: {
+      backgroundColor: '#c2bad8',
+      padding: 9,
+      margin: 5,
+    },
+    btnText: {
+      color: 'darkslateblue',
+      fontSize: 20,
+      textAlign: 'center',
+    },
+  });
+
 
 export default DraggableList

@@ -19,9 +19,9 @@ const GroceryList = ({ navigation, route }) => {
      ])
     
   
-    const update = (json, text) => {
+    const update = (json, text, list) => {
       const myJson = [...json];
-      myJson[0].data.push(text);
+      myJson[list].data.push(text);
       return myJson;
   }
   
@@ -38,7 +38,7 @@ const GroceryList = ({ navigation, route }) => {
     return myJson;
   }
 
-  const addItem = (text, currentOption) => {
+  const addItem = (text, currentOption, list=0) => {
     if (!text) {
       Alert.alert(
         'Error',
@@ -47,11 +47,13 @@ const GroceryList = ({ navigation, route }) => {
         {cancelable: false},
       );
     } else if(currentOption == 'Add Item') {
-      updateCategoriesAndItems(update(CategoriesAndItems, text));
+      updateCategoriesAndItems(update(CategoriesAndItems, text, list));
     } else if(currentOption == 'Add Category'){
       updateCategoriesAndItems(addCategory(CategoriesAndItems, text));
     }
   };
+
+ 
   
  const deleteItem2 = (json, id) =>{
   const prevJson = [...json]
@@ -82,12 +84,22 @@ const deleteItem = (id) =>{
  updateCategories(deleteItem2(CategoriesAndItems, id));
 };
 
+//For moving to completed section after check
+const addCompleted = (text) => {
+  addItem(text, currentOption, listItem= 1);
+};
+
+ const moveCompleted = (text, id) => {
+   deleteItem(id);
+   addCompleted(text);
+ }
+
 
   return (
     <View style = {styles.container}> 
     <AddItem addItem={addItem} />
     <Text> General </Text>
-    <DraggableList sectionData = {CategoriesAndItems} deleteItem = {deleteItem} />
+    <DraggableList sectionData = {CategoriesAndItems} deleteItem = {deleteItem} moveCompleted ={moveCompleted}/>
     </View>
   );
 };
