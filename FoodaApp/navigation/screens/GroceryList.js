@@ -97,9 +97,14 @@ const addCompleted = (text) => {
 
   return (
     <View style = {styles.container}> 
-    <AddItem addItem={addItem} />
-    <Text> General </Text>
+    
+    <Text style = {styles.sectionHeader}>
+       My Grocery List
+    </Text>
+    
     <DraggableList sectionData = {CategoriesAndItems} deleteItem = {deleteItem} moveCompleted ={moveCompleted}/>
+   
+    <AddItem addItem={addItem} />
     </View>
   );
 };
@@ -108,22 +113,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 22,
+    paddingBottom: 22,
+    backgroundColor: 'oldlace',
+    fontFamily:'serif',
   },
   sectionHeader: {
     paddingTop: 2,
-    paddingBottom: 2,
+    paddingBottom: 20,
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#fff',
-    backgroundColor: '#F55145',
+    color: 'sienna',
+    backgroundColor: 'oldlace',
+    fontFamily: 'serif',
   },
 
   item: {
     padding: 10,
     fontSize: 18,
     height: 44,
+    fontFamily: 'serif'
   },
   checkboxView: {
     alignItems: 'flex-start',
