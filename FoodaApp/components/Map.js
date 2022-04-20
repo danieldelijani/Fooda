@@ -98,23 +98,6 @@ container: {
     alignItems: 'center',
     justifyContent: 'center',
 },
-modalView: {
-  margin: 20,
-  backgroundColor: "white",
-  borderRadius: 20,
-  padding: 35,
-  alignItems: "center",
-  shadowColor: "#000",
-  shadowOffset: {
-    width: 0,
-    height: 2
-  },
-  shadowOpacity: 0.25,
-  shadowRadius: 4,
-  elevation: 5,
-  height: 700,
-  width: 700
-},
 map: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
