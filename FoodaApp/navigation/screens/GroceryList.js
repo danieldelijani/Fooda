@@ -2,11 +2,14 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, FlatList, Alert, SectionList, Input} from 'react-native';
 import AddItem from '../../components/Additem';
+import { useFonts, PTSerifCaption_400Regular} from '@expo-google-fonts/pt-serif-caption';
+import AppLoading from 'expo-app-loading';
 import DraggableList from '../../components/DraggableList';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const GroceryList = ({ navigation, route }) => {
+  let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
 
-  const [Categories, updateCategories] = useState(["General", "Completed"]);
   const [CategoriesAndItems, updateCategoriesAndItems] = useState([
       {
         title: "General", 
@@ -82,40 +85,47 @@ const addCompleted = (text) => {
    addCompleted(text);
  }
 
-
+ if (!fontsLoaded) {
+  return <AppLoading />;
+} else { 
   return (
     <View style = {styles.container}> 
     <AddItem addItem={addItem} />
     <DraggableList sectionData = {CategoriesAndItems} deleteItem = {deleteItem} moveCompleted ={moveCompleted}/>
+    <TouchableOpacity 
+      style = {styles.addBtn}
+      onPress={() => {navigation.navigate("ListsOfGroceryList", {list: CategoriesAndItems})}}
+    >
+      <Text style = {styles.addBtnText}> Create Grocery List</Text>
+    </TouchableOpacity>
     </View>
   );
+}
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 22,
+    backgroundColor: "#FFF6F0",
+    flex: 1
   },
-  sectionHeader: {
-    paddingTop: 2,
-    paddingBottom: 2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#fff',
-    backgroundColor: '#F55145',
+  addBtn: {
+    textAlign: "center",
+    backgroundColor: "#FBE0CE",
+    borderRadius: 10,
+    width: 316,
+    height: 50,
+    marginLeft: "auto",
+    marginRight: "auto"
   },
-
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-  checkboxView: {
-    alignItems: 'flex-start',
-    padding: 20,
-  },
+  addBtnText:{
+    fontFamily: 'PTSerifCaption_400Regular',
+    textAlign: "center",
+    fontStyle: 'normal',
+    fontWeight: "bold",
+    fontSize: 20,
+    lineHeight: 40,
+    color: "#000000"
+  }
 });
 
 export default GroceryList;

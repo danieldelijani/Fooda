@@ -4,11 +4,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
 import GoogleMaps from './screens/GoogleMaps';
-import GroceryList from './screens/GroceryList';
 import Profile from './screens/Profile';
+import GroceryListsNavigation from './GroceryListsNavigation';
 
 const homeName = 'Home';
-const groceryListName = 'GroceryList';
+const GroceryListsNavigationName = 'GroceryListsNavigation';
 const profileName = 'Profile';
 
 const Tab = createBottomTabNavigator();
@@ -24,7 +24,7 @@ export default function MainContainer() {
                     let rn = route.name;
                     if (rn == homeName) { 
                         iconName = focused ? 'home' : 'home-outline';
-                    } else if (rn == groceryListName) {
+                    } else if (rn == GroceryListsNavigationName) {
                         iconName = focused ? 'list' : 'list-outline';
                     }
                     else if (rn == profileName) {
@@ -56,7 +56,7 @@ export default function MainContainer() {
             >
 
                 <Tab.Screen name = {homeName} component = {GoogleMaps}/>
-                <Tab.Screen name = {groceryListName} component = {GroceryList}/>
+                <Tab.Screen name = {GroceryListsNavigationName } component = {GroceryListsNavigation}/>
                 <Tab.Screen name = {profileName} component = {Profile}/>
 
             </Tab.Navigator>

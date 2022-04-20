@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import { Dropdown } from 'react-native-material-dropdown-v2';
+import AppLoading from 'expo-app-loading';
+import { useFonts, PTSerifCaption_400Regular} from '@expo-google-fonts/pt-serif-caption';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, } from 'react-native';
 
 const AddItem = ({addItem}) => {
+    let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
     const [text, setText] = useState('');
     const onChange = (textValue) => setText(textValue);
     const [currentOption, updateOption] = useState('Add Item')
@@ -14,8 +17,11 @@ const AddItem = ({addItem}) => {
     }, {
       value: 'Scan Receipt',
     }];
-    
-    return (
+
+    if (!fontsLoaded) {
+      return <AppLoading />;
+    } else {
+      return (
         <View>
           <Dropdown
             label='options'
@@ -40,6 +46,7 @@ const AddItem = ({addItem}) => {
           </TouchableOpacity>
         </View>
       );
+    }
     };
 
     const styles = StyleSheet.create({
@@ -50,20 +57,22 @@ const AddItem = ({addItem}) => {
           textAlign: "center",
         },
         btn: {
-          backgroundColor: '#c2bad8',
-          padding: 9,
-          margin: 5,
+          textAlign: "center",
+          backgroundColor: "#FBE0CE",
+          borderRadius: 10,
+          width: 316,
+           height: 50,
+           marginLeft: "auto",
+           marginRight: "auto"
         },
         btnText: {
-          color: 'darkslateblue',
-          fontSize: 20,
-          textAlign: 'center',
-        },
-        numInput: {
-          height: 60, 
-          fontSize: 16, 
+          fontFamily: 'PTSerifCaption_400Regular',
           textAlign: "center",
-          padding: 8,
+          fontStyle: 'normal',
+          fontWeight: "bold",
+          fontSize: 20,
+          lineHeight: 40,
+          color: "#000000"
         },
       });
 

@@ -3,13 +3,13 @@ import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import DraggableFlatList from "react-native-draggable-flatlist";
 import Swipeout from 'react-native-swipeout';
 import CheckBox from 'expo-checkbox';
-import { Button } from 'native-base';
+import AppLoading from 'expo-app-loading';
+import { useFonts, PTSerifCaption_400Regular} from '@expo-google-fonts/pt-serif-caption';
 
 
 const DraggableList = ({sectionData, deleteItem, moveCompleted}) => {
+    let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
     const [flatData, setFlatData] = useState([])
-    //const [isSelected, setSelection] = useState(false);
-    
 
     renderItem = ({ item, index, drag, isActive }) => {
       const [isSelected, setSelection] = useState(false);
@@ -24,41 +24,19 @@ const DraggableList = ({sectionData, deleteItem, moveCompleted}) => {
                 }
             }
         ]
-        /*let moveToComplete = [
-          {
-            backgroundColor: 'white',
-    
-            onclick: () => {
-              setSelection;
-              moveCompleted(item.label, index);
-              setFlatData(flatData.filter(Element => Element.label != item.label ));
-          }
-          }
-        ] */
         
         if (!item.isTitle){
             return (
                 <Swipeout right ={deleteBtn}>
                     <TouchableOpacity onLongPress={item.isTitle?()=>{}: drag} >
-                    {/*<ListItem item={item.label} deleteItem = {deleteItem} /> */}
-                      
                         <View style={styles2.listItemView}>
                             <View style={styles2.checkboxView}>
-                              {/*<Button  
-                                style={styles2.btn}
-                                //</View>onPress= {() => {moveCompleted(item.label, index)} }
-                              ></Button>*/}
                               <CheckBox action={moveCompleted}
                                   value={isSelected}
                                   onValueChange={setSelection}
-                                  //onClick={moveCompleted(item.label, index)}
                               /> 
                             </View>
-                          <Text style={styles2.listItemText} >{item.label} </Text>
-                          <View>
-
-
-                          </View>
+                          <Text style={styles2.itemText} >{item.label} </Text>
                         </View> 
                     </TouchableOpacity>
                 </Swipeout>
@@ -66,7 +44,7 @@ const DraggableList = ({sectionData, deleteItem, moveCompleted}) => {
         } else {
             return (
                 <TouchableOpacity onLongPress={item.isTitle?()=>{}: drag} >
-                  <Text> 
+                  <Text style = {styles2.sectionText}> 
                       {item.label}
                   </Text>
                 </TouchableOpacity>
@@ -84,16 +62,20 @@ const DraggableList = ({sectionData, deleteItem, moveCompleted}) => {
           console.log(flatData)
     },[sectionData])
 
-    return (
-        <View>
-            <DraggableFlatList
-                data={flatData}
-                renderItem = {renderItem}
-                keyExtractor={(item, index) => `${item.key}`}
-                onDragEnd={({ data }) => setFlatData( data )}
-            />
-        </View>
-    ) 
+    if (!fontsLoaded) {
+      return <AppLoading />;
+    } else {
+      return (
+          <View>
+              <DraggableFlatList
+                  data={flatData}
+                  renderItem = {renderItem}
+                  keyExtractor={(item, index) => `${item.key}`}
+                  onDragEnd={({ data }) => setFlatData( data )}
+              />
+          </View>
+      ) 
+    }
 };
 
 const styles2 = StyleSheet.create({
@@ -107,9 +89,6 @@ const styles2 = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-    },
-    listItemText: {
-      fontSize: 20,
     },
     checkboxView: {
       alignItems: 'flex-start',
@@ -125,6 +104,20 @@ const styles2 = StyleSheet.create({
       fontSize: 20,
       textAlign: 'center',
     },
+    sectionText: {
+      fontFamily: 'PTSerifCaption_400Regular',
+      fontStyle: 'normal',
+      fontWeight: "bold",
+      fontSize: 20,
+      lineHeight: 26,
+      color: "#000000"
+    }, 
+    itemText:{
+      fontFamily: 'PTSerifCaption_400Regular',
+      fontSize: 16,
+      lineHeight: 21,
+      color: "#000000"
+    }
   });
 
 export default DraggableList
