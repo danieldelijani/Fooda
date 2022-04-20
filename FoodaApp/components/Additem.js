@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, } from 'react-native';
+import { EvilIcons } from '@expo/vector-icons';
 
 const AddItem = ({addItem}) => {
     const [text, setText] = useState('');
@@ -18,6 +19,7 @@ const AddItem = ({addItem}) => {
     return (
         <View>
           <Dropdown
+            style= {styles.input}
             label='options'
             data={data}
             onChangeText = {value => updateOption(value)}
@@ -34,30 +36,35 @@ const AddItem = ({addItem}) => {
               addItem(text, currentOption);
               setText('');
             }}>
-            <Text style={styles.btnText}>
-                Add
-            </Text>
+            <EvilIcons name="plus" size={80} color="black" />
           </TouchableOpacity>
+          
         </View>
       );
     };
 
     const styles = StyleSheet.create({
         input: {
-          height: 60,
+          height: 50,
           padding: 8,
-          fontSize: 16,
+          fontSize: 12,
           textAlign: "center",
+          color: '#8B4513',
+          fontFamily: 'serif',
+          backgroundColor: 'oldlace',
+          
         },
         btn: {
-          backgroundColor: '#c2bad8',
-          padding: 9,
+          padding: 10,
           margin: 5,
+          width: 150,
+          
         },
         btnText: {
-          color: 'darkslateblue',
+          color: '#8B4513',
           fontSize: 20,
           textAlign: 'center',
+          fontFamily: 'serif',
         },
         numInput: {
           height: 60, 
