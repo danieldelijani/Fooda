@@ -32,6 +32,7 @@ const DraggableList = ({sectionData, deleteItem, moveCompleted}) => {
                         <View style={styles2.listItemView}>
                             <View style={styles2.checkboxView}>
                               <CheckBox action={moveCompleted}
+                                  color= 'sienna'
                                   value={isSelected}
                                   onValueChange={setSelection}
                               /> 
@@ -81,21 +82,23 @@ const DraggableList = ({sectionData, deleteItem, moveCompleted}) => {
 const styles2 = StyleSheet.create({
     listItem: {
       padding: 20,
-      backgroundColor: '#f8f8f2',
+      backgroundColor: 'oldlace',
       borderBottomWidth: 2,
       borderColor: '#eee',
     },
     listItemView: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      
       alignItems: 'center',
+      backgroundColor: 'oldlace',
     },
     checkboxView: {
       alignItems: 'flex-start',
       padding: 20,
+      color: 'white',
     },
     btn: {
-      backgroundColor: '#c2bad8',
+      backgroundColor: 'oldlace',
       padding: 9,
       margin: 5,
     },
