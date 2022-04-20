@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import DraggableFlatList from "react-native-draggable-flatlist";
-//import ListItem from './Listitem';
 import Swipeout from 'react-native-swipeout';
-
 import CheckBox from 'expo-checkbox';
 import { Button } from 'native-base';
 
@@ -97,6 +95,7 @@ const DraggableList = ({sectionData, deleteItem, moveCompleted}) => {
         </View>
     ) 
 };
+
 const styles2 = StyleSheet.create({
     listItem: {
       padding: 20,
@@ -127,6 +126,5 @@ const styles2 = StyleSheet.create({
       textAlign: 'center',
     },
   });
-
 
 export default DraggableList

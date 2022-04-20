@@ -86,7 +86,6 @@ const addCompleted = (text) => {
   return (
     <View style = {styles.container}> 
     <AddItem addItem={addItem} />
-    <Text> General </Text>
     <DraggableList sectionData = {CategoriesAndItems} deleteItem = {deleteItem} moveCompleted ={moveCompleted}/>
     </View>
   );
