@@ -33,7 +33,7 @@ const GoogleMaps = ({ navigation, route }) => {
       let longitude = location["coords"]["longitude"].toString();
       let coordinates = latitude + "," + longitude;
       // TODO: change default radius to 1000 metres (from 500) for production
-      get_nearby_grocery_stores(1000, coordinates, recieve_grocery_stores); 
+      get_nearby_grocery_stores(500, coordinates, recieve_grocery_stores); 
     })();
   }, []);
 
@@ -56,16 +56,12 @@ const GoogleMaps = ({ navigation, route }) => {
       } else { 
         rating = rating.toString()
       }
-      let image_source = {
-        uri: "FoodaApp/resources/shoppingcart-icon.png" // NOT WORKING
-      }
       let price_level = store['price_level'];
       
       markers.push({
         title: store_name,
         latlng: store_loc, 
         description: rating,
-        image: image_source,
         price_level: price_level
       })
     }
