@@ -51,18 +51,17 @@ const GoogleMaps = ({ navigation, route }) => {
         longitude: longitude
       }
       let rating = store['rating'];
-      if (rating==undefined || rating==null){
-        rating = "Rating not found.";
-      } else { 
-        rating = rating.toString()
-      }
+      let num_reviews = store['user_ratings_total']
       let price_level = store['price_level'];
-      
+      let opening_hours = store['opening_hours']
+
       markers.push({
         title: store_name,
-        latlng: store_loc, 
-        description: rating,
-        price_level: price_level
+        latlng: store_loc,
+        description: "",
+        price_level: price_level,
+        rating: rating,
+        num_reviews: num_reviews,
       })
     }
     setGroceryStores(markers)

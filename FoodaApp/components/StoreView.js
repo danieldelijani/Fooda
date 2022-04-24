@@ -2,21 +2,29 @@ import React, {useState} from 'react';
 import {View, StyleSheet, Button, Modal, Dimensions} from 'react-native';
 import { Avatar, Card, IconButton, Divider, Text } from 'react-native-paper';
 import Swiper from 'react-native-swiper'
-
+import StarRating from 'react-native-star-rating';
 
 
 const StoreView = (props) => {
-    console.log(props.storeInfo);
+    console.log(props.storeInfo)
     store_name = props.storeInfo.title;
-    rating = props.storeInfo.description;
+    const store_name_lower = store_name.toLowerCase().split(" ").join("")
+    rating = props.storeInfo.rating;
+    if (!Number.isFinite(rating)){
+        rating = 0; // if rating is not a number we set it to 0
+      }
+
+    price_level = props.storeInfo.price_level;
+    if (!Number.isFinite(price_level)){
+        price_level = 0; // if price_level is not a number we set it to 0
+    }
+
     items_available = Math.floor(Math.random() * 18);
     items_total = items_available + 1;
     total_price = Math.round(Math.random() * 10000) / 100;
-    const store_name_lower = store_name.toLowerCase().split(" ").join("")
-    console.log(store_name_lower)
     var stores = {}
-    if (store_name_lower in ['amazon', 'costco', 'starmarket', 'targetgrocery', 'traderjoes', 'wholefoods']) {
-        const logo_image = '../resources/store-logos/' + store_name_lower
+    if (['amazon', 'costco', 'starmarket', 'targetgrocery', 'traderjoes', 'wholefoods', 'hongkongsupermarket'].indexOf(store_name_lower) !== -1) {
+        var logo_image = '../resources/store-logos/' + store_name_lower
         console.log(logo_image)
     }
     return (
@@ -67,7 +75,7 @@ const StoreView = (props) => {
                                 <Text style={styles.itemAvail}>━</Text>
                                 <Text style={styles.itemAvail}>18</Text>
                             </View>
-                            <View styles={{flexDirection:'column', flex:1, backgroundColor: 'white', borderRadius: 10, margin: 5, justifyContent:'center', justifySelf:'center'}}>
+                            <View styles={{flexDirection:'column', flex:1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5, justifyContent:'center', justifySelf:'center'}}>
                                 <Text>Total Cost:</Text>
                                 <Text style={{fontSize:32}}>${total_price}</Text>
                             </View>
@@ -83,24 +91,42 @@ const StoreView = (props) => {
                                 <IconButton
                                 icon="walk"
                                 size={20}/>
-                                <Text> 12 min</Text>
+                                <Text>12 min</Text>
 
                                 <IconButton
                                 icon="train"
                                 size={20}/>
-                                <Text> 7 min</Text>
+                                <Text>7 min</Text>
                             </View>
                         </View>
-                            <View style={{flexDirection:'row', flex:1, backgroundColor: '#FFF6F0', alignItems:'center', margin: 10, justifyContent:'center', justifySelf:'center', borderRadius: 10}}>
+                            <View style={{flexDirection:'row', flex:1, alignItems:'center', margin: 10, justifyContent:'space-between', justifySelf:'center', borderRadius: 10, backgroundColor:'transparent'}}>
                                 <View styles={{flexDirection:'column', flex:1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5, justifyContent:'flex-start'}}>
-                                    <Text style={{fontSize: 16}}> Items {"\n"} Available </Text>
-                                    <Text style={styles.itemAvail}>{items_available}</Text>
-                                    <Text style={styles.itemAvail}>━</Text>
-                                    <Text style={styles.itemAvail}>18</Text>
+                                <Text>Affordability: {'\n'}</Text>
+                                <StarRating
+                                    disabled={true}
+                                    emptyStar={'currency-usd'}
+                                    fullStar={'currency-usd'}
+                                    halfStar={'currency-usd'}
+                                    iconSet={'MaterialCommunityIcons'}
+                                    maxStars={4}
+                                    rating={price_level}
+                                    starSize={30}
+                                    fullStarColor={'black'}
+                                />
                                 </View>
-                                <View styles={{flexDirection:'column', flex:1, backgroundColor: 'white', borderRadius: 10, margin: 5, justifyContent:'center', justifySelf:'center'}}>
-                                    <Text>Total Cost:</Text>
-                                    <Text style={{fontSize:32}}>${total_price}</Text>
+                                <View styles={{flexDirection:'column', flex:1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5}}>
+                                    <Text>Rating: {'\n'}</Text>
+                                    <StarRating
+                                    disabled={true}
+                                    emptyStar={'star-outline'}
+                                    fullStar={'star'}
+                                    halfStar={'star-half'}
+                                    iconSet={'MaterialCommunityIcons'}
+                                    maxStars={5}
+                                    rating={rating}
+                                    fullStarColor={"gold"}
+                                    starSize={30}
+                                />
                                 </View>
                             </View>
                         <View style={{flexDirection:'row', flex:.1}}> 
