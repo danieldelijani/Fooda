@@ -3,18 +3,13 @@ import {View, Text, StyleSheet, FlatList} from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { useFonts, PTSerifCaption_400Regular} from '@expo-google-fonts/pt-serif-caption';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import GroceryList from './GroceryList';
 
 const ListsOfGroceryList = ({ navigation, route }) => {
     let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
-    let [count, updateCount] = useState(1);
-    const [groceryLists, updateGroceryLists] = useState([]);
-    const [groceryListsDisplay, updateGroceryListsDisplay] = useState([
-        {name: "grocerylist0", num: 3}
-    ])
+    const [groceryListsDisplay, updateGroceryListsDisplay] = useState([])
 
     const countNumOfItem = (GroceryList) =>{
-        count = 0
+        let count = 0
         for(let i = 0; i < GroceryList.length;i++){
             count += GroceryList[i].data.length
         }
@@ -22,15 +17,14 @@ const ListsOfGroceryList = ({ navigation, route }) => {
     }
 
     if(route.params.list){
-        console.log("we made it")
-        updateGroceryLists([...groceryLists, route.params.list])
+        console.log(route.params.name)
         updateGroceryListsDisplay([...groceryListsDisplay,{
-            name: "grocerylist" + count.toString(),
-            num: countNumOfItem(route.params.list)
-        }]
-            )
-        updateCount(count + 1);
+            name: route.params.name,
+            num: countNumOfItem(route.params.list),
+            items: route.params.list
+        }])
         delete route.params.list
+        delete route.params.name
     }
 
     if (!fontsLoaded) {

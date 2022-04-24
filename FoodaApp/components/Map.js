@@ -72,7 +72,7 @@ class Map extends Component {
                 title={marker.title}
                 description={marker.description}
                 onPress={e => this.onPressMarker(marker)}
-                image={require('../resources/redlocation.png')}
+                // image={require('../resources/redlocation.png')}
               />
             ))}
           </MapView>
