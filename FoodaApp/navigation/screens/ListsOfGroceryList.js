@@ -1,12 +1,23 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, StyleSheet, FlatList, SectionList} from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { useFonts, PTSerifCaption_400Regular} from '@expo-google-fonts/pt-serif-caption';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ListsOfGroceryList = ({ navigation, route }) => {
     let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
+    const [listsOfGroceryLists, updateListsOfGroceryLists] = useState([])
     const [groceryListsDisplay, updateGroceryListsDisplay] = useState([])
+
+    const storeData = async (key, value) => {
+        try {
+          const jsonValue = JSON.stringify(value)
+          await AsyncStorage.setItem(key, jsonValue)
+          console.log(jsonValue)
+        } catch (e) {
+          // saving error
+        }
+      }
 
     const countNumOfItem = (GroceryList) =>{
         let count = 0
@@ -16,13 +27,28 @@ const ListsOfGroceryList = ({ navigation, route }) => {
         return count 
     }
 
+    const convertListToString = (GroceryList) => {
+        let stringArray = []
+        for(let i = 0; i < GroceryList.length;i++){
+            for(let j = 0; j < GroceryList[i].data.length;j++){
+                stringArray.push(GroceryList[i].data[j])
+            }
+        }
+        return stringArray
+    }
+
     if(route.params.list){
-        console.log(route.params.name)
         updateGroceryListsDisplay([...groceryListsDisplay,{
             name: route.params.name,
             num: countNumOfItem(route.params.list),
             items: route.params.list
         }])
+        updateListsOfGroceryLists([...listsOfGroceryLists, {
+            name: route.params.name,
+            items: convertListToString(route.params.list)
+        }])
+        console.log(groceryListsDisplay)
+        storeData('ListsOfLists', {ListsOfLists: listsOfGroceryLists})
         delete route.params.list
         delete route.params.name
     }

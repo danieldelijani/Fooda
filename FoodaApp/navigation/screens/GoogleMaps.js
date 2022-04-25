@@ -7,6 +7,8 @@ import MapView, { Marker } from 'react-native-maps';
 import Map from '../../components/Map';
 import * as Location from 'expo-location';
 import get_nearby_grocery_stores from '../../apis/places.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 import StoreView from '../../components/StoreView';
 
 const GoogleMaps = ({ navigation, route }) => {
@@ -69,7 +71,7 @@ const GoogleMaps = ({ navigation, route }) => {
 
     return (
       <View style={styles.container}>
-        <Map location = {location} groceryStores = {groceryStores}/>
+          <Map location = {location} groceryStores = {groceryStores}/>
       </View>
     );
   };
