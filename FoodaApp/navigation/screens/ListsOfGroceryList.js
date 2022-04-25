@@ -48,6 +48,7 @@ const ListsOfGroceryList = ({ navigation, route }) => {
                                     </View>
                                 }
                     contentContainerStyle={styles.listView}
+                    
                 />
                 <TouchableOpacity 
                     style = {styles.addBtn}

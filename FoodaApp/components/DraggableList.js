@@ -82,7 +82,7 @@ const DraggableList = ({sectionData, deleteItem, moveCompleted}) => {
 const styles2 = StyleSheet.create({
     listItem: {
       padding: 20,
-      backgroundColor: 'oldlace',
+      backgroundColor: '#FFF6F0',
       borderBottomWidth: 2,
       borderColor: '#eee',
     },
@@ -90,7 +90,7 @@ const styles2 = StyleSheet.create({
       flexDirection: 'row',
       
       alignItems: 'center',
-      backgroundColor: 'oldlace',
+      backgroundColor: '#FFF6F0',
     },
     checkboxView: {
       alignItems: 'flex-start',
@@ -98,7 +98,7 @@ const styles2 = StyleSheet.create({
       color: 'white',
     },
     btn: {
-      backgroundColor: 'oldlace',
+      backgroundColor: '#FFF6F0',
       padding: 9,
       margin: 5,
     },

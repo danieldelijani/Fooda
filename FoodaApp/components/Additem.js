@@ -26,7 +26,7 @@ const AddItem = ({addItem}) => {
         <View>
           <Dropdown
             style= {styles.input}
-            label='options'
+            label='Options'
             data={data}
             onChangeText = {value => updateOption(value)}
           />
@@ -42,7 +42,7 @@ const AddItem = ({addItem}) => {
               addItem(text, currentOption);
               setText('');
             }}>
-            <EvilIcons name="plus" size={80} color="black" />
+            <EvilIcons name="plus" size={60} color="black" padding= {5} />
           </TouchableOpacity>
           
         </View>
@@ -58,12 +58,12 @@ const AddItem = ({addItem}) => {
           textAlign: "center",
           color: '#8B4513',
           fontFamily: 'serif',
-          backgroundColor: 'oldlace',
+          backgroundColor: '#FFF6F0',
           
         },
         btn: {
           textAlign: "center",
-          backgroundColor: "#FBE0CE",
+          //backgroundColor: "#FBE0CE", #FFF6F0
           borderRadius: 10,
           width: 316,
            height: 50,
