@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -22,6 +20,7 @@ const GroceryListsNavigation = () => {
         <Stack.Screen
           name="GroceryList"
           component={GroceryList}
+          initialParams = {{name: "grocerylist0", num: 3}}
         />
       </Stack.Navigator>
     </NavigationContainer>

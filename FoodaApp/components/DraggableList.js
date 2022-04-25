@@ -88,7 +88,6 @@ const styles2 = StyleSheet.create({
     },
     listItemView: {
       flexDirection: 'row',
-      
       alignItems: 'center',
       backgroundColor: '#FFF6F0',
     },

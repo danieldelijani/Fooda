@@ -1,6 +1,6 @@
 
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, FlatList, Alert, SectionList, Input} from 'react-native';
+import {View, Text, StyleSheet, Alert, Modal, TextInput} from 'react-native';
 import AddItem from '../../components/Additem';
 import { useFonts, PTSerifCaption_400Regular} from '@expo-google-fonts/pt-serif-caption';
 import AppLoading from 'expo-app-loading';
@@ -9,7 +9,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const GroceryList = ({ navigation, route }) => {
   let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
-
+  const [isOldList, setOldList] = useState(false);
+  const [text, setText] = useState('');
+  const [ID, setID] = useState(-1);
+  const [addBtnHeader, setAddBtnHeader] = useState("Name this Grocery List")
+  const onChange = (textValue) => setText(textValue);
+  const [modalVisible, setModalVisible] = useState(false);
   const [CategoriesAndItems, updateCategoriesAndItems] = useState([
       {
         title: "General", 
@@ -20,9 +25,18 @@ const GroceryList = ({ navigation, route }) => {
         data: []
       }
      ])
+
+  if(route.params.list){
+    setOldList(true)
+    setAddBtnHeader("Rename this Grocery List")
+    setID(route.params.ID)
+    updateCategoriesAndItems(route.params.list)
+    setText(route.params.name)
+    delete route.params.name
+    delete route.params.list
+  }
     
-  
-    const update = (json, text, list) => {
+  const update = (json, text, list) => {
       const myJson = [...json];
       myJson[list].data.push(text);
       return myJson;
@@ -94,10 +108,34 @@ const addCompleted = (text) => {
     <DraggableList sectionData = {CategoriesAndItems} deleteItem = {deleteItem} moveCompleted ={moveCompleted}/>
     <TouchableOpacity 
       style = {styles.addBtn}
-      onPress={() => {navigation.navigate("ListsOfGroceryList", {list: CategoriesAndItems})}}
+      onPress={() => {setModalVisible(!modalVisible)}}
     >
-      <Text style = {styles.addBtnText}> Create Grocery List</Text>
+      <Text style = {styles.addBtnText}> Save Grocery List</Text>
     </TouchableOpacity>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+    >
+      <View style = {styles.addGroceryNamePopUpView}>
+      <Text style = {styles.addGroceryNamePopUpText}> {addBtnHeader} </Text>
+      <TextInput
+        placeholder="Name List here"
+        onChangeText={onChange}
+        value={text}
+      />
+      <TouchableOpacity
+        onPress={() => {navigation.navigate("ListsOfGroceryList", {
+          alreadyCreated: isOldList,
+          ID: ID,
+          name: text,
+          list: CategoriesAndItems
+        })}}
+      >
+        <Text> Add List</Text>
+      </TouchableOpacity>
+      </View>
+    </Modal>
     </View>
   );
 }
@@ -125,6 +163,27 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 40,
     color: "#000000"
+  },
+  addGroceryNamePopUpView:{
+    display: 'flex',
+        flexDirection: 'column',
+        borderRadius: 10,
+        alignSelf:"center",
+        justifyContent: "space-around",
+        padding:5,
+        width: 330,
+        height: 260,
+        alignItems: "stretch",
+        top: 250,
+        backgroundColor: "#F2DACA"
+  },
+  addGroceryNamePopUpText:{
+    fontFamily: 'PTSerifCaption_400Regular',
+    fontStyle: "normal",
+    fontWeight: "700",
+    fontSize: 16,
+    lineHeight: 21,
+    color: "#000000",
   }
 });
 
