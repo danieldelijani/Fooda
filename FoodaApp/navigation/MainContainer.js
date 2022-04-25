@@ -60,20 +60,12 @@ export default function MainContainer() {
                         null
                     ]
                 })}
-
-                tabBarOptions = {{
-                    activeTintColor: 'tomato',
-                    inactiveTintColor: 'white',
-                    labelStyle: {paddingBottom: 10, fontSize: 10},
-                    style: {padding:10, height:70}
-                }}
                 >
                     {/*<Tab.Screen name = {onboardingName} component = {OnboardingDemo}/>  */}
                     <Tab.Screen name = {homeName} component = {GoogleMaps} />
                     <Tab.Screen name = {GroceryListsNavigationName } component = {GroceryListsNavigation}/>
                     <Tab.Screen name = {profileName} component = {Profile}/>
                     
-
                 </Tab.Navigator>
              
         </NavigationContainer>
