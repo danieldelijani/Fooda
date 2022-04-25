@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Button, Modal, Dimensions} from 'react-native';
-import { Avatar, Card, IconButton, Divider, Text } from 'react-native-paper';
+import {View, StyleSheet, Modal, Dimensions} from 'react-native';
+import { Avatar, Card, IconButton, Divider, Text, Button } from 'react-native-paper';
 import Swiper from 'react-native-swiper'
 import StarRating from 'react-native-star-rating';
+import { color } from 'react-native-reanimated';
 
 
 const StoreView = (props) => {
@@ -67,17 +68,18 @@ const StoreView = (props) => {
                 activeDot={<View style={{backgroundColor: '#CC7C48', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: -30,}} />}
                 >
                     <View description="page one" style={{flex:1}}>
-                        <View style={{flexDirection:'row', flex:1, justifyContent:'center', alignItems:'center', backgroundColor: '#FFF6F0', borderRadius: 10, margin:10}}>
-                            <View styles={{}}>
+                        <View style={{flexDirection:'column', flex:1, backgroundColor: '#FFF6F0', borderRadius: 10, margin:10}}>
+                            <View style={{flexDirection:'row', flex:1, justifyContent:'center', alignItems:'center'}}>
                                 <IconButton
                                 icon="walk"
-                                size={20}/>
-                                <Text> 12 min</Text>
-
+                                size={25}/>
+                                <Text>12 min</Text> 
+                            </View>
+                            <View style={{flexDirection:'row', flex:1, justifyContent:'center', alignItems:'center'}}>
                                 <IconButton
                                 icon="train"
-                                size={20}/>
-                                <Text> 7 min</Text>
+                                size={25}/>
+                                <Text>7 min</Text>
                             </View>
                         </View>
                             
@@ -147,9 +149,9 @@ const StoreView = (props) => {
                     </View>
                 </Swiper>
                 </View>
-                <View style={{flexDirection:'row', flex: .5, justifyContent:'center', justifySelf:'center', alignItems:'flex-end'}}>
-                    <Button onPress={props.closeModal} title="Close"/>
-                    <Button title="Start Trip"/>
+                <View style={{flexDirection:'row', flex: .5, justifyContent:'space-around', justifySelf:'center', alignItems:'flex-end', }}>
+                    <Button mode='outlined' color='#CC7C48' onPress={props.closeModal} title="Close">Close</Button>
+                    <Button mode='outlined' color='#CC7C48' onPress={null} title="Start Trip">Start Trip</Button>
                 </View>
                 
             </View>
