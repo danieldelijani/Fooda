@@ -6,6 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ListsOfGroceryList = ({ navigation, route }) => {
     let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
+    const [currentID, setNewID] = useState(0)
     const [listsOfGroceryLists, updateListsOfGroceryLists] = useState([])
     const [groceryListsDisplay, updateGroceryListsDisplay] = useState([])
 
@@ -37,17 +38,40 @@ const ListsOfGroceryList = ({ navigation, route }) => {
         return stringArray
     }
 
-    if(route.params.list){
+    if (route.params.alreadyCreated){
+        MyJsonGroceryListsDisplay = [...groceryListsDisplay]
+        MyJsonListsOfGroceryLists = [...listsOfGroceryLists]
+        for(let i = 0; i < groceryListsDisplay.length;i++){
+            if(groceryListsDisplay[i].ID == route.params.ID){
+                MyJsonGroceryListsDisplay[i] = {
+                    ID: route.params.ID,
+                    name: route.params.name,
+                    num: countNumOfItem(route.params.list),
+                    items: route.params.list
+                }
+                MyJsonListsOfGroceryLists[i] = {
+                    ID: route.params.ID,
+                    name: route.params.name,
+                    items: convertListToString(route.params.list)
+                }
+            }
+        }
+        storeData('ListsOfLists', {ListsOfLists: listsOfGroceryLists})
+        delete route.params.list
+        delete route.params.name
+    } else if(route.params.list){
         updateGroceryListsDisplay([...groceryListsDisplay,{
+            ID: currentID,
             name: route.params.name,
             num: countNumOfItem(route.params.list),
             items: route.params.list
         }])
         updateListsOfGroceryLists([...listsOfGroceryLists, {
+            ID: currentID,
             name: route.params.name,
             items: convertListToString(route.params.list)
         }])
-        console.log(groceryListsDisplay)
+        setNewID(currentID+1)
         storeData('ListsOfLists', {ListsOfLists: listsOfGroceryLists})
         delete route.params.list
         delete route.params.name
@@ -63,8 +87,16 @@ const ListsOfGroceryList = ({ navigation, route }) => {
                     data={groceryListsDisplay}
                     renderItem = { ({item}) => 
                                     <View style = {styles.card}>
-                                    <Text style = {styles.cardtext}> {item.name} </Text>
-                                    <Text style = {styles.cardtext}> {item.num} items </Text>
+                                    <TouchableOpacity
+                                        onPress={() => {navigation.navigate("GroceryList", {
+                                            ID: item.ID,
+                                            name: item.name,
+                                            list: item.items
+                                        })}}
+                                    >
+                                        <Text style = {styles.cardtext}> {item.name} </Text>
+                                        <Text style = {styles.cardtext}> {item.num} items </Text>
+                                    </TouchableOpacity>
                                     </View>
                                 }
                     contentContainerStyle={styles.listView}
