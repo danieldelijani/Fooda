@@ -14,8 +14,8 @@ class Map extends Component {
         region: {
           latitude: this.props.location["latitude"],
           longitude: this.props.location["longitude"],
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.03,
         },
         modalVisible: false,
         // Change to whatever you want to pass to StoreView Object.
@@ -48,8 +48,8 @@ class Map extends Component {
           region: {
             latitude: this.props.location["coords"]["latitude"],
             longitude: this.props.location["coords"]["longitude"],
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.03,
           }
         })
       }
@@ -87,6 +87,9 @@ class Map extends Component {
                 // image={require('../resources/redlocation.png')}
               />
             ))}
+            {/* <Marker>
+               coordinate={{latitude: this.props.location["coords"]["latitude"], longitude: this.props.location["coords"]["longitude"]}} 
+            </Marker> */}
           </MapView>
         </View>
       );

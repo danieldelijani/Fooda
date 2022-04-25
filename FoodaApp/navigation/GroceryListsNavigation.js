@@ -4,12 +4,14 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ListsOfGroceryList from './screens/ListsOfGroceryList'
 import GroceryList from './screens/GroceryList'
 
+
 const Stack = createStackNavigator();
 
 const GroceryListsNavigation = () => {
   return (
     <NavigationContainer independent = {true}>
-      <Stack.Navigator initialRouteName="ListsOfGroceryList">
+      <Stack.Navigator initialRouteName="ListOfGroceryList">   
+        
         <Stack.Screen
           name="ListsOfGroceryList"
           component={ListsOfGroceryList}

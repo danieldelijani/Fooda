@@ -14,8 +14,8 @@ import StoreView from '../../components/StoreView';
 const GoogleMaps = ({ navigation, route }) => {
   // let name = route.params.name;
   const [location, setLocation] = useState({
-      "longitude": -122.4324,
-      "latitude": 37.78825,
+      "longitude": -71.106918,
+      "latitude": 42.350876,
     });
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -35,7 +35,7 @@ const GoogleMaps = ({ navigation, route }) => {
       let longitude = location["coords"]["longitude"].toString();
       let coordinates = latitude + "," + longitude;
       // TODO: change default radius to 1000 metres (from 500) for production
-      get_nearby_grocery_stores(500, coordinates, recieve_grocery_stores); 
+      get_nearby_grocery_stores(1000, coordinates, recieve_grocery_stores); 
     })();
   }, []);
 
