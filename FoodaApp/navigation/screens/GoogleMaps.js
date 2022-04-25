@@ -12,8 +12,8 @@ import StoreView from '../../components/StoreView';
 const GoogleMaps = ({ navigation, route }) => {
   // let name = route.params.name;
   const [location, setLocation] = useState({
-      "longitude": -122.4324,
-      "latitude": 37.78825,
+      "longitude": -71.106918,
+      "latitude": 42.350876,
     });
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -51,22 +51,17 @@ const GoogleMaps = ({ navigation, route }) => {
         longitude: longitude
       }
       let rating = store['rating'];
-      if (rating==undefined || rating==null){
-        rating = "Rating not found.";
-      } else { 
-        rating = rating.toString()
-      }
-      let image_source = {
-        uri: "FoodaApp/resources/shoppingcart-icon.png" // NOT WORKING
-      }
+      let num_reviews = store['user_ratings_total']
       let price_level = store['price_level'];
-      
+      let opening_hours = store['opening_hours']
+
       markers.push({
         title: store_name,
-        latlng: store_loc, 
-        description: rating,
-        image: image_source,
-        price_level: price_level
+        latlng: store_loc,
+        description: "",
+        price_level: price_level,
+        rating: rating,
+        num_reviews: num_reviews,
       })
     }
     setGroceryStores(markers)
