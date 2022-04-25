@@ -66,7 +66,7 @@ const AddName = ({addName}) => {
   };
 
 
-const onboardingDemo = ({addName}) => {
+const OnboardingDemo = ({addName}) => {
   const navigation = useNavigation();
   let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
 
@@ -120,7 +120,7 @@ const onboardingDemo = ({addName}) => {
             //titleStyles: {position: 'absolute'},
             title: 'Enter your name here!',
             subtitle: (
-              <View style = {styles.container}>
+              <View style={styles.container}>
                 <AddName addName ={addName}/>
               </View>
                 ),
@@ -153,20 +153,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "left",
     color: '#813300',
-    fontFamily: 'serif',
+    fontFamily: 'PTSerifCaption_400Regular',
     backgroundColor: '#FFEBDD',
     fontWeight: '400',
-    paddingLeft: 0
+    paddingLeft: 0, 
+    paddingBottom: 0,
     
     
   },
   container: {
     backgroundColor: "#FFF6F0",
-    flex: 1,
+    //flex: 1,
     width: 250,
     paddingTop: 0,
     paddingBottom: 0,
-    height: 20
+    height: 50
   },
   addBtn: {
     textAlign: "center",
@@ -189,5 +190,5 @@ const styles = StyleSheet.create({
   
 });
 
-export default onboardingDemo;
+export default OnboardingDemo;
 

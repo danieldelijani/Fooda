@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import GoogleMaps from './screens/GoogleMaps';
 import Profile from './screens/Profile';
 import GroceryListsNavigation from './GroceryListsNavigation';
-import onboardingDemo from './screens/onboardingDemo';
+import OnboardingDemo from './screens/OnboardingDemo';
 
 
 
@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator();
 
 export default function MainContainer() {
     /*const onboardingState = useAppSelector(
-        (state) => state.onboardingDemo.viewedOnBoarding
+        (state) => state.OnboardingDemo.viewedOnBoarding
     ) */
     const [onboarded, setOnboarded] = React.useState(false) 
 
@@ -71,7 +71,7 @@ export default function MainContainer() {
                     style: {padding:10, height:70}
                 }}
                 >
-                    <Tab.Screen name = {onboardingName} component = {onboardingDemo}/> 
+                    <Tab.Screen name = {onboardingName} component = {OnboardingDemo}/> 
                     <Tab.Screen name = {homeName} component = {GoogleMaps} />
                     <Tab.Screen name = {GroceryListsNavigationName } component = {GroceryListsNavigation}/>
                     <Tab.Screen name = {profileName} component = {Profile}/>
