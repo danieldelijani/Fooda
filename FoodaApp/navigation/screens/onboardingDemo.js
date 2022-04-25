@@ -25,7 +25,7 @@ const AddName = ({addName}) => {
     return <AppLoading />;
   } else { 
   return (
-      <View>
+      <View >
         <TextInput
           label="Name"
           value={text}
@@ -37,7 +37,7 @@ const AddName = ({addName}) => {
           //containerViewStyle={{ marginTop: 20 }}
           //backgroundColor={'white'}
           //borderRadius={5}
-          //textStyle={{ color: 'black' }}
+          textStyle={{ color: 'black' }}
           onPress={() => {
             addName(text);
             setText('');
@@ -56,8 +56,9 @@ const AddName = ({addName}) => {
                 
               }}
               onPress={() => {
-                navigation.navigate("Profile", {name: addName})}
+                //navigation.navigate("Profile", {name: addName})}
               
+                navigation.navigate("Home")}
               }
             />
           </TouchableOpacity>
@@ -162,8 +163,8 @@ const styles = StyleSheet.create({
     
   },
   container: {
-    backgroundColor: "#FFF6F0",
-    //flex: 1,
+    backgroundColor: "#FFEBDD", 
+    flex: 1,
     width: 250,
     paddingTop: 0,
     paddingBottom: 0,
