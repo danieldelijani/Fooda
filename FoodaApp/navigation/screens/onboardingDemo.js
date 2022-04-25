@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "left",
     color: '#813300',
-    fontFamily: 'serif',
+    fontFamily: 'PTSerifCaption_400Regular',
     backgroundColor: '#FFEBDD',
     fontWeight: '400',
     paddingLeft: 0, 
