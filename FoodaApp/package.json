@@ -42,6 +42,7 @@
     "react-native-gesture-handler": "~2.1.0",
     "react-native-maps": "0.29.4",
     "react-native-material-dropdown-v2": "^0.11.1",
+    "react-native-os": "^1.2.6",
     "react-native-onboarding-swiper": "^1.2.0",
     "react-native-reanimated": "~2.3.1",
     "react-native-safe-area-context": "3.3.2",
@@ -51,7 +52,8 @@
     "react-native-swiper": "^1.6.0",
     "react-native-web": "0.17.1",
     "react-navigation": "^4.4.4",
-    "react-navigation-stack": "^2.10.4"
+    "react-navigation-stack": "^2.10.4",
+    "webscrapingapi": "^1.0.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import GoogleMaps from './screens/GoogleMaps';
 import Profile from './screens/Profile';
 import GroceryListsNavigation from './GroceryListsNavigation';
-import OnboardingDemo from './screens/OnboardingDemo';
+//import OnboardingDemo from './screens/OnboardingDemo';
 
 
 
@@ -30,7 +30,7 @@ export default function MainContainer() {
         <NavigationContainer>
                 <Tab.Navigator
                     initialRouteName={
-                        onboarded ==true ? homeName : onboardingName}  //changed from homeName
+                        onboarded ==true ? homeName : profileName}  //changed from homeName
                 screenOptions={({route}) => ({
                     tabBarIcon: ({focused, color, size}) => {
                         let iconName;
@@ -42,9 +42,6 @@ export default function MainContainer() {
                         }
                         else if (rn == profileName) {
                             iconName = focused ? 'settings' : 'settings-outline';
-                        }
-                        else if (rn ==onboardingName){
-                            return 
                         }
                         
 
@@ -71,7 +68,7 @@ export default function MainContainer() {
                     style: {padding:10, height:70}
                 }}
                 >
-                    <Tab.Screen name = {onboardingName} component = {OnboardingDemo}/> 
+                    {/*<Tab.Screen name = {onboardingName} component = {OnboardingDemo}/>  */}
                     <Tab.Screen name = {homeName} component = {GoogleMaps} />
                     <Tab.Screen name = {GroceryListsNavigationName } component = {GroceryListsNavigation}/>
                     <Tab.Screen name = {profileName} component = {Profile}/>
