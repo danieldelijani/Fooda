@@ -75,9 +75,9 @@ class Map extends Component {
                 image={require('../resources/redlocation.png')}
               />
             ))}
-            <Marker>
-              coordinate={{latitude: this.props.location["coords"]["latitude"], longitude: this.props.location["coords"]["longitude"]}}
-            </Marker>
+            {/* <Marker>
+               coordinate={{latitude: this.props.location["coords"]["latitude"], longitude: this.props.location["coords"]["longitude"]}} 
+            </Marker> */}
           </MapView>
         </View>
       );
