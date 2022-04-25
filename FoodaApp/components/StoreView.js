@@ -8,7 +8,7 @@ import StarRating from 'react-native-star-rating';
 const StoreView = (props) => {
     console.log(props.storeInfo)
     store_name = props.storeInfo.title;
-    const store_name_lower = store_name.toLowerCase().split(" ").join("")
+    const store_name_lower = store_name.toLowerCase().replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, '').split(" ").join("")
     rating = props.storeInfo.rating;
     if (!Number.isFinite(rating)){
         rating = 0; // if rating is not a number we set it to 0
@@ -22,11 +22,23 @@ const StoreView = (props) => {
     items_available = Math.floor(Math.random() * 18);
     items_total = items_available + 1;
     total_price = Math.round(Math.random() * 10000) / 100;
-    var stores = {}
-    if (['amazon', 'costco', 'starmarket', 'targetgrocery', 'traderjoes', 'wholefoods', 'hongkongsupermarket'].indexOf(store_name_lower) !== -1) {
-        var logo_image = '../resources/store-logos/' + store_name_lower
-        console.log(logo_image)
+    let stores = {
+        'amazonhublocker': require("../resources/store-logos/amazon.jpg"), 
+        'costco': require("../resources/store-logos/costco.jpg"), 
+        'starmarket': require("../resources/store-logos/starmarket.jpg"), 
+        'targetgrocery': require("../resources/store-logos/targetgrocery.jpg"), 
+        'traderjoes': require("../resources/store-logos/traderjoes.jpg"), 
+        'wholefoodsmarket': require("../resources/store-logos/wholefoodsmarket.jpg"), 
+        'hongkongsupermarket': require("../resources/store-logos/hongkongsupermarket.jpg"),
     }
+    if (store_name_lower in stores) {
+        logo_image = stores[store_name_lower]
+    } else{
+        logo_image = require("../resources/store-logos/default.png")
+        //<Avatar.Icon size={50} icon="food-apple" color='#813300' style={{backgroundColor:'transparent'}}/>
+
+    }
+
     return (
         <Modal
             animationType="slide"
@@ -41,7 +53,8 @@ const StoreView = (props) => {
                     <Card.Title
                     title={store_name}
                     subtitle="0.5 mi away" //TODO: add accurate distance info 
-                    left={(props) => <Avatar.Icon size={50} icon="food-apple" color='#813300' style={{backgroundColor:'transparent'}}/>}
+                    left={(props) => <Avatar.Image size={50} source={logo_image} style={{backgroundColor: 'transparent'}} /> 
+                    } 
                     style={{flex:1}}
                     />
                 </View>
@@ -68,14 +81,14 @@ const StoreView = (props) => {
                             </View>
                         </View>
                             
-                        <View style={{flexDirection:'row', flex:1, backgroundColor: '#FFF6F0', alignItems:'center', margin: 10, justifyContent:'center', justifySelf:'center', borderRadius: 10}}>
-                            <View styles={{flexDirection:'column', flex:1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5, justifyContent:'flex-start'}}>
+                        <View style={{flexDirection:'row', flex:1, alignItems:'center', margin: 10, justifyContent:'space-around', justifySelf:'center', borderRadius: 10}}>
+                            <View styles={{flexDirection:'column', flex:1, borderRadius: 10, margin: 5, justifyContent:'flex-start'}}>
                                 <Text style={{fontSize: 16}}> Items {"\n"} Available </Text>
                                 <Text style={styles.itemAvail}>{items_available}</Text>
                                 <Text style={styles.itemAvail}>━</Text>
                                 <Text style={styles.itemAvail}>18</Text>
                             </View>
-                            <View styles={{flexDirection:'column', flex:1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5, justifyContent:'center', justifySelf:'center'}}>
+                            <View styles={{flexDirection:'column', flex:1, borderRadius: 10, margin: 5, justifyContent:'flex-start'}}>
                                 <Text>Total Cost:</Text>
                                 <Text style={{fontSize:32}}>${total_price}</Text>
                             </View>
@@ -99,7 +112,7 @@ const StoreView = (props) => {
                                 <Text>7 min</Text>
                             </View>
                         </View>
-                            <View style={{flexDirection:'row', flex:1, alignItems:'center', margin: 10, justifyContent:'space-between', justifySelf:'center', borderRadius: 10, backgroundColor:'transparent'}}>
+                            <View style={{flexDirection:'row', flex:1, alignItems:'center', margin: 10, justifyContent:'space-around', justifySelf:'center', borderRadius: 10}}>
                                 <View styles={{flexDirection:'column', flex:1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5, justifyContent:'flex-start'}}>
                                 <Text>Affordability: {'\n'}</Text>
                                 <StarRating
@@ -118,13 +131,11 @@ const StoreView = (props) => {
                                     <Text>Rating: {'\n'}</Text>
                                     <StarRating
                                     disabled={true}
-                                    emptyStar={'star-outline'}
-                                    fullStar={'star'}
-                                    halfStar={'star-half'}
-                                    iconSet={'MaterialCommunityIcons'}
                                     maxStars={5}
                                     rating={rating}
                                     fullStarColor={"gold"}
+                                    halfStarColor={"gold"}
+                                    emptyStarColor={"gold"}
                                     starSize={30}
                                 />
                                 </View>
@@ -158,7 +169,6 @@ const styles = StyleSheet.create({
         width: 330,
         height: 460,
         // justifyContent: "center",
-        alignItems: "stretch",
         top: 234,
         backgroundColor: "#FFFFFF"
     },
