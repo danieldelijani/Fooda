@@ -11,8 +11,10 @@ class Map extends Component {
       
       this.state = {
         region: {
-          latitude: this.props.location["latitude"],
-          longitude: this.props.location["longitude"],
+          // latitude: this.props.location["latitude"],
+          // longitude: this.props.location["longitude"],
+          latitude: this.props.location["coords"]["latitude"],
+          longitude: this.props.location["coords"]["longitude"],
           latitudeDelta: 0.02,
           longitudeDelta: 0.03,
         },
@@ -59,6 +61,8 @@ class Map extends Component {
     }
   
     render() {
+      console.log("LOCATION=");
+      console.log(this.props.location);
       return (
         <View>
 
@@ -75,9 +79,7 @@ class Map extends Component {
                 image={require('../resources/redlocation.png')}
               />
             ))}
-            {/* <Marker>
-               coordinate={{latitude: this.props.location["coords"]["latitude"], longitude: this.props.location["coords"]["longitude"]}} 
-            </Marker> */}
+            <Marker coordinate={{latitude: this.props.location["coords"]["latitude"], longitude: this.props.location["coords"]["longitude"]}} />
           </MapView>
         </View>
       );

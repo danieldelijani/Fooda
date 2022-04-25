@@ -12,9 +12,16 @@ import StoreView from '../../components/StoreView';
 const GoogleMaps = ({ navigation, route }) => {
   // let name = route.params.name;
   const [location, setLocation] = useState({
-      "longitude": -71.106918,
-      "latitude": 42.350876,
+      "coords": {
+        "longitude": -71.106918,
+        "latitude": 42.350876
+      }
     });
+
+  // const [location, setLocation] = useState({
+  //   "longitude": -71.106918,
+  //   "latitude": 42.350876
+  // });
   const [errorMsg, setErrorMsg] = useState("");
 
   const [groceryStores, setGroceryStores] = useState([]);
