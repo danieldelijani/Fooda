@@ -1,11 +1,10 @@
-import { Image, StyleSheet, Button, Alert, StatusBar,Text, View, TouchableOpacity} from 'react-native';
+import { Image, StyleSheet, Alert, StatusBar,Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
-
 
 import Onboarding from 'react-native-onboarding-swiper';
 
 import { useNavigation } from '@react-navigation/native';
-import { TextInput } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 
 import AppLoading from 'expo-app-loading';
 import { useFonts, PTSerifCaption_400Regular} from '@expo-google-fonts/pt-serif-caption';
@@ -25,14 +24,13 @@ const AddName = ({addName}) => {
     return <AppLoading />;
   } else { 
   return (
-      <View >
+      <View>
         <TextInput
           label="Name"
           value={text}
           onChangeText={text => setText(text)}
         />
         <TouchableOpacity
-          //style={styles.addBtn}
           //title={'I got it :)'}
           //containerViewStyle={{ marginTop: 20 }}
           //backgroundColor={'white'}
@@ -44,23 +42,15 @@ const AddName = ({addName}) => {
 
           }} >
             <Button
+            style={{width:150, alignSelf:'center'}}
               title={'I got it :)'}
-              titleStyles = {styles.title}
-              style = {styles.addBtn}
-              //containerViewStyle={{ marginTop: 20 }}
-              //backgroundColor={'white'}
-              //borderRadius={5}
-              textStyle={{
-                fontFamily: 'PTSerifCaption_400Regular',
-                color: 'black',
-                
-              }}
+              mode='outlined' 
+              color='#CC7C48'
               onPress={() => {
-                //navigation.navigate("Profile", {name: addName})}
-              
-                navigation.navigate("Home")}
+                navigation.navigate("Profile", {name: addName})}
+                //navigation.navigate("Home")}
               }
-            />
+            >I got it :)</Button>
           </TouchableOpacity>
       </View>
     )};
@@ -169,15 +159,6 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 0,
     height: 50
-  },
-  addBtn: {
-    textAlign: "center",
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: 316,
-    height: 20,
-    marginLeft: "auto",
-    marginRight: "auto"
   },
   addBtnText:{
     fontFamily: 'PTSerifCaption_400Regular',
