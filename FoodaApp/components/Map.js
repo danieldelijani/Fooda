@@ -72,8 +72,6 @@ class Map extends Component {
     }
 
     render() {
-      console.log("LOCATION=");
-      console.log(this.props.location);
       this.getData()
       return (
         <View>
