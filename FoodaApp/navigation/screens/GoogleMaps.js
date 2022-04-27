@@ -49,7 +49,7 @@ const GoogleMaps = ({ navigation, route }) => {
   function recieve_grocery_stores(results) {
     results = results['results']
     let markers = []
-
+    console.log(results)
     for (var i = 0; i < results.length; i++){
       let store = results[i];
       let store_name = store['name'];
@@ -62,7 +62,7 @@ const GoogleMaps = ({ navigation, route }) => {
       let rating = store['rating'];
       let num_reviews = store['user_ratings_total']
       let price_level = store['price_level'];
-      let opening_hours = store['opening_hours']
+      let open_now = store['opening_hours']['open_now']
 
       markers.push({
         title: store_name,
@@ -71,6 +71,7 @@ const GoogleMaps = ({ navigation, route }) => {
         price_level: price_level,
         rating: rating,
         num_reviews: num_reviews,
+        open_now: open_now,
       })
     }
     setGroceryStores(markers)

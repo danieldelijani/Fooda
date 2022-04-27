@@ -7,22 +7,28 @@ import { color } from 'react-native-reanimated';
 
 
 const StoreView = (props) => {
-    console.log(props.storeInfo)
-    store_name = props.storeInfo.title;
-    const store_name_lower = store_name.toLowerCase().replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, '').split(" ").join("")
-    rating = props.storeInfo.rating;
+    //console.log(props.storeInfo)
+    let store_name = props.storeInfo.title;
+    let store_name_lower = store_name.toLowerCase().replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, '').split(" ").join("")
+    let rating = props.storeInfo.rating;
     if (!Number.isFinite(rating)){
         rating = 0; // if rating is not a number we set it to 0
       }
-
-    price_level = props.storeInfo.price_level;
+    let num_reviews = props.storeInfo.num_reviews;
+    if (!Number.isFinite(num_reviews)){
+        num_reviews = 0; // if rating is not a number we set it to 0
+      }
+    let open_now = props.storeInfo.open_now;
+    let price_level = props.storeInfo.price_level;
     if (!Number.isFinite(price_level)){
         price_level = 0; // if price_level is not a number we set it to 0
     }
 
-    items_available = Math.floor(Math.random() * 18);
-    items_total = items_available + 1;
-    total_price = Math.round(Math.random() * 10000) / 100;
+    let items_available = Math.floor(Math.random() * 18);
+    let items_total = items_available + 1;
+    let total_price = Math.round(Math.random() * 10000) / 100;
+    let transit_time = '16 min'
+    let walking_time = '22 min'
     let stores = {
         'amazonhublocker': require("../resources/store-logos/amazon.jpg"), 
         'costco': require("../resources/store-logos/costco.jpg"), 
@@ -34,10 +40,9 @@ const StoreView = (props) => {
     }
     if (store_name_lower in stores) {
         logo_image = stores[store_name_lower]
-    } else{
+    } else {
         logo_image = require("../resources/store-logos/default.png")
         //<Avatar.Icon size={50} icon="food-apple" color='#813300' style={{backgroundColor:'transparent'}}/>
-
     }
 
     return (
@@ -48,7 +53,7 @@ const StoreView = (props) => {
             onRequestClose={() => {
                 Alert.alert("Modal has been closed.");
                 this.setModalVisible(!modalVisible);
-            }}>
+        }}>
             <View style={styles.modalView}>
                 <View style={{flexDirection:'row', justifyContent:'space-around', flex:1}}>
                     <Card.Title
@@ -73,13 +78,13 @@ const StoreView = (props) => {
                                 <IconButton
                                 icon="walk"
                                 size={25}/>
-                                <Text>12 min</Text> 
+                                <Text>{walking_time}</Text> 
                             </View>
                             <View style={{flexDirection:'row', flex:1, justifyContent:'center', alignItems:'center'}}>
                                 <IconButton
                                 icon="train"
                                 size={25}/>
-                                <Text>7 min</Text>
+                                <Text>{transit_time}</Text>
                             </View>
                         </View>
                             
@@ -88,7 +93,7 @@ const StoreView = (props) => {
                                 <Text style={{fontSize: 16}}> Items {"\n"} Available </Text>
                                 <Text style={styles.itemAvail}>{items_available}</Text>
                                 <Text style={styles.itemAvail}>━</Text>
-                                <Text style={styles.itemAvail}>18</Text>
+                                <Text style={styles.itemAvail}>{items_total}</Text>
                             </View>
                             <View styles={{flexDirection:'column', flex:1, borderRadius: 10, margin: 5, justifyContent:'flex-start'}}>
                                 <Text>Total Cost:</Text>
@@ -101,17 +106,12 @@ const StoreView = (props) => {
                         </View>
                     </View>
                     <View description="page two" style={{flex:1}}>
-                        <View style={{flexDirection:'row', flex:1, justifyContent:'center', alignItems:'center', backgroundColor: '#FFF6F0', borderRadius: 10, margin:10}}>
-                            <View styles={{}}>
+                        <View style={{flexDirection:'column', flex:1, backgroundColor: '#FFF6F0', borderRadius: 10, margin:10}}>
+                            <View styles={{flexDirection:'row', flex:1, justifyContent:'center', alignItems:'center'}}>
                                 <IconButton
-                                icon="walk"
+                                icon="store"
                                 size={20}/>
-                                <Text>12 min</Text>
-
-                                <IconButton
-                                icon="train"
-                                size={20}/>
-                                <Text>7 min</Text>
+                                {open_now ? <Text style={{color:'green'}}>Open Now</Text> : <Text style={{color:'red'}}>Closed</Text>} 
                             </View>
                         </View>
                             <View style={{flexDirection:'row', flex:1, alignItems:'center', margin: 10, justifyContent:'space-around', justifySelf:'center', borderRadius: 10}}>
@@ -130,7 +130,7 @@ const StoreView = (props) => {
                                 />
                                 </View>
                                 <View styles={{flexDirection:'column', flex:1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5}}>
-                                    <Text>Rating: {'\n'}</Text>
+                                    <Text>Rating: ({num_reviews} Reviews){'\n'}</Text>
                                     <StarRating
                                     disabled={true}
                                     maxStars={5}
@@ -149,9 +149,8 @@ const StoreView = (props) => {
                     </View>
                 </Swiper>
                 </View>
-                <View style={{flexDirection:'row', flex: .5, justifyContent:'space-around', justifySelf:'center', alignItems:'flex-end', }}>
+                <View style={{flexDirection:'row', flex: .6, justifyContent:'space-around', justifySelf:'center', alignItems:'center',}}>
                     <Button mode='outlined' color='#CC7C48' onPress={props.closeModal} title="Close">Close</Button>
-                    <Button mode='outlined' color='#CC7C48' onPress={null} title="Start Trip">Start Trip</Button>
                 </View>
                 
             </View>
