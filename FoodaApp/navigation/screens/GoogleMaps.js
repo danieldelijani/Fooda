@@ -63,7 +63,8 @@ const GoogleMaps = ({ navigation, route }) => {
       let num_reviews = store['user_ratings_total']
       let price_level = store['price_level'];
       let open_now = store['opening_hours']['open_now']
-
+      let place_id = store['place_id']
+      
       markers.push({
         title: store_name,
         latlng: store_loc,
@@ -72,6 +73,7 @@ const GoogleMaps = ({ navigation, route }) => {
         rating: rating,
         num_reviews: num_reviews,
         open_now: open_now,
+        place_id: place_id,
       })
     }
     setGroceryStores(markers)

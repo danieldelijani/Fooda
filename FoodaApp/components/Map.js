@@ -76,7 +76,7 @@ class Map extends Component {
       return (
         <View>
 
-          <StoreView storeInfo={this.state.currStore} modalVisible={this.state.modalVisible} closeModal={this.closeModal} />
+          <StoreView storeInfo={this.state.currStore} modalVisible={this.state.modalVisible} closeModal={this.closeModal} userLocation = {this.props.location} />
             
           <MapView region={this.state.region} onRegionChange={this.onRegionChange} style={styles.map}>
             {this.props.groceryStores.map((marker, index) => (
