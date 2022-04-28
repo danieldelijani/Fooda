@@ -8,6 +8,9 @@ import get_directions from '../apis/directions';
 import {getTargetPrice, getTraderJoesPrice, getUnimplementedPrices} from '../apis/prices';
 
 const StoreView = (props) => {
+    // getTargetPrice("Milk");
+    // getTraderJoesPrice("Milk");
+
     const [walkingDist, setWalkingDist] = useState("- mi");
     const [walkingTime, setWalkingTime] = useState("- min");
     const [transitTime, setTransitTime] = useState("- min");
