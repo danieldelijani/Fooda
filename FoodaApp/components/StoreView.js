@@ -4,10 +4,15 @@ import { Avatar, Card, IconButton, Divider, Text, Button } from 'react-native-pa
 import Swiper from 'react-native-swiper'
 import StarRating from 'react-native-star-rating';
 import { color } from 'react-native-reanimated';
+import {getTargetPrice, getTraderJoesPrice, getUnimplementedPrices} from '../apis/prices';
 
 
 const StoreView = (props) => {
-    console.log(props.storeInfo)
+    console.log(props.storeInfo);
+    // getUnimplementedPrices(["Milk", "Apples"]);
+    // getTraderJoesPrice("Milk");
+    // getTargetPrice("Turkey Bacon");
+
     store_name = props.storeInfo.title;
     const store_name_lower = store_name.toLowerCase().replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, '').split(" ").join("")
     rating = props.storeInfo.rating;
