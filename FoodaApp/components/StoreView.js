@@ -8,9 +8,9 @@ import get_directions from '../apis/directions';
 import {getTargetPrice, getTraderJoesPrice, getUnimplementedPrices} from '../apis/prices';
 
 const StoreView = (props) => {
-    var transit_time = '- min'
-    var walking_time = '- min'
-    var walking_dist = '- mi'
+    const [walkingDist, setWalkingDist] = useState("- mi");
+    const [walkingTime, setWalkingTime] = useState("- min");
+    const [transitTime, setTransitTime] = useState("- min");
     let placeID = 'place_id:' + props.storeInfo.place_id;
     let user_lat = props.userLocation["coords"]["latitude"];
     let user_long = props.userLocation["coords"]["longitude"];
@@ -21,11 +21,23 @@ const StoreView = (props) => {
             var route = res['routes'][0];
             var leg = route['legs'][0]
             console.log(leg);
-            walking_time = leg['duration']['text']
-            walking_dist = leg['distance']['text']
+            var walking_time = leg['duration']['text'];
+            setWalkingTime(walking_time);
+            var walking_dist = leg['distance']['text'];
+            setWalkingDist(walking_dist + ' away');
         }
     })
-    //console.log(props.storeInfo)
+    let respt = get_directions(user_loc, placeID, 'transit');
+    respt.then((rest) => {
+        if (rest) {
+            var route = rest['routes'][0];
+            var leg = route['legs'][0]
+            console.log(leg);
+            var transit_time = leg['duration']['text']
+            setTransitTime(transit_time)
+        }
+    })
+
     let store_name = props.storeInfo.title;
     let store_name_lower = store_name.toLowerCase().replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, '').split(" ").join("")
     let rating = props.storeInfo.rating;
@@ -75,7 +87,7 @@ const StoreView = (props) => {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1 }}>
                     <Card.Title
                         title={store_name}
-                        subtitle="0.5 mi away" //TODO: add accurate distance info 
+                        subtitle={walkingDist}
                         left={(props) => <Avatar.Image size={50} source={logo_image} style={{ backgroundColor: 'transparent' }} />
                         }
                         style={{ flex: 1 }}
@@ -95,13 +107,13 @@ const StoreView = (props) => {
                                     <IconButton
                                         icon="walk"
                                         size={25} />
-                                    <Text>{walking_time}</Text>
+                                    <Text>{walkingTime}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <IconButton
                                         icon="train"
                                         size={25} />
-                                    <Text>{transit_time}</Text>
+                                    <Text>{transitTime}</Text>
                                 </View>
                             </View>
 
