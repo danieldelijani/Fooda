@@ -3,6 +3,8 @@ import {View, Text, StyleSheet, FlatList, SectionList} from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { useFonts, PTSerifCaption_400Regular} from '@expo-google-fonts/pt-serif-caption';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 
 const ListsOfGroceryList = ({ navigation, route }) => {
     let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
@@ -12,11 +14,11 @@ const ListsOfGroceryList = ({ navigation, route }) => {
 
     const storeData = async (key, value) => {
         try {
-          const jsonValue = JSON.stringify(value)
-          await AsyncStorage.setItem(key, jsonValue)
-          console.log(jsonValue)
+            ///await AsyncStorage.removeItem(key)
+          await AsyncStorage.setItem(key, value)
+          console.log(value)
         } catch (e) {
-          // saving error
+          console.log(e)
         }
       }
 
@@ -56,7 +58,7 @@ const ListsOfGroceryList = ({ navigation, route }) => {
                 }
             }
         }
-        storeData('ListsOfLists', {ListsOfLists: listsOfGroceryLists})
+        storeData('ListsOfLists', JSON.stringify({ListsOfLists: listsOfGroceryLists}))
         delete route.params.list
         delete route.params.name
     } else if(route.params.list){
@@ -66,13 +68,14 @@ const ListsOfGroceryList = ({ navigation, route }) => {
             num: countNumOfItem(route.params.list),
             items: route.params.list
         }])
-        updateListsOfGroceryLists([...listsOfGroceryLists, {
+        myJson = [...listsOfGroceryLists, {
             ID: currentID,
             name: route.params.name,
             items: convertListToString(route.params.list)
-        }])
+        }]
+        updateListsOfGroceryLists(myJson)
         setNewID(currentID+1)
-        storeData('ListsOfLists', {ListsOfLists: listsOfGroceryLists})
+        storeData('ListsOfLists', JSON.stringify({ListsOfLists: myJson}))
         delete route.params.list
         delete route.params.name
     }

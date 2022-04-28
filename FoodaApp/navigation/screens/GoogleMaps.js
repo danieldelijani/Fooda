@@ -7,26 +7,23 @@ import MapView, { Marker } from 'react-native-maps';
 import Map from '../../components/Map';
 import * as Location from 'expo-location';
 import get_nearby_grocery_stores from '../../apis/places.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useIsFocused } from '@react-navigation/native';
-import StoreView from '../../components/StoreView';
+import DropDownMenuForMaps from '../../components/DropDownMenuForMaps';
 
 const GoogleMaps = ({ navigation, route }) => {
-  // let name = route.params.name;
+  const [currentlySelectedList, updateCurrentlySelectedList] = useState([])
   const [location, setLocation] = useState({
       "coords": {
         "longitude": -71.106918,
         "latitude": 42.350876
       }
     });
-
-  // const [location, setLocation] = useState({
-  //   "longitude": -71.106918,
-  //   "latitude": 42.350876
-  // });
   const [errorMsg, setErrorMsg] = useState("");
-
   const [groceryStores, setGroceryStores] = useState([]);
+
+  const updatelistForDropDown = (list) => {
+    updateCurrentlySelectedList(list)
+    console.log("this is the data that is uploaded to maps")
+  }
 
   useEffect(() => {
     (async () => {
@@ -49,7 +46,6 @@ const GoogleMaps = ({ navigation, route }) => {
   function recieve_grocery_stores(results) {
     results = results['results']
     let markers = []
-    console.log(results)
     for (var i = 0; i < results.length; i++){
       let store = results[i];
       let store_name = store['name'];
@@ -78,8 +74,9 @@ const GoogleMaps = ({ navigation, route }) => {
   }
 
     return (
-      <View style={styles.container}>
-          <Map location = {location} groceryStores = {groceryStores}/>
+      <View >
+          <DropDownMenuForMaps updateList = {updatelistForDropDown}/>
+          <Map location = {location} groceryStores = {groceryStores} list = {currentlySelectedList}/>
       </View>
     );
   };
@@ -92,7 +89,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   map: {
-    width: Dimensions.get('window').width,
+    width: Dimensions.get('window').width - 1000,
     height: Dimensions.get('window').height,
   },
 });

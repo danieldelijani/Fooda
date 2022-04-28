@@ -4,7 +4,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ListsOfGroceryList from './screens/ListsOfGroceryList'
 import GroceryList from './screens/GroceryList'
 
-
 const Stack = createStackNavigator();
 
 const GroceryListsNavigation = () => {
