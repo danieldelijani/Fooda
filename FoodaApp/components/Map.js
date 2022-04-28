@@ -60,26 +60,13 @@ class Map extends Component {
     onRegionChange(region) {
       this.setState({ region });
     }
-  
-    getData = async () => {
-      try {
-        const value = await AsyncStorage.getItem('ListsOfLists')
-        console.log("data collected")
-        console.log(value)
-      } catch(e) {
-        console.log("no data collected")
-      }
-    }
 
     render() {
-      console.log("LOCATION=");
-      console.log(this.props.location);
-      this.getData()
       return (
         <View>
 
           <StoreView storeInfo={this.state.currStore} modalVisible={this.state.modalVisible} closeModal={this.closeModal} />
-            
+    
           <MapView region={this.state.region} onRegionChange={this.onRegionChange} style={styles.map}>
             {this.props.groceryStores.map((marker, index) => (
               <Marker
