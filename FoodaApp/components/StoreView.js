@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { View, StyleSheet, Modal, Dimensions } from 'react-native';
 import { Avatar, Card, IconButton, Divider, Text, Button } from 'react-native-paper';
 import Swiper from 'react-native-swiper'
 import StarRating from 'react-native-star-rating';
 import { color } from 'react-native-reanimated';
 import get_directions from '../apis/directions';
-
+import {getTargetPrice, getTraderJoesPrice, getUnimplementedPrices} from '../apis/prices';
 
 const StoreView = (props) => {
+    // getTargetPrice("Milk");
+    // getTraderJoesPrice("Milk");
+
     const [walkingDist, setWalkingDist] = useState("- mi");
     const [walkingTime, setWalkingTime] = useState("- min");
     const [transitTime, setTransitTime] = useState("- min");
@@ -15,28 +18,32 @@ const StoreView = (props) => {
     let user_lat = props.userLocation["coords"]["latitude"];
     let user_long = props.userLocation["coords"]["longitude"];
     let user_loc = user_lat + ',' + user_long;
-    let resp = get_directions(user_loc, placeID, 'walking');
-    resp.then((res) => {
-        if (res) {
-            var route = res['routes'][0];
-            var leg = route['legs'][0]
-            console.log(leg);
-            var walking_time = leg['duration']['text'];
-            setWalkingTime(walking_time);
-            var walking_dist = leg['distance']['text'];
-            setWalkingDist(walking_dist + ' away');
-        }
-    })
-    let respt = get_directions(user_loc, placeID, 'transit');
-    respt.then((rest) => {
-        if (rest) {
-            var route = rest['routes'][0];
-            var leg = route['legs'][0]
-            console.log(leg);
-            var transit_time = leg['duration']['text']
-            setTransitTime(transit_time)
-        }
-    })
+
+    useEffect(() => {
+        console.log("You press dat bitch?");
+        let resp = get_directions(user_loc, placeID, 'walking');
+        resp.then((res) => {
+            if (res) {
+                var route = res['routes'][0];
+                var leg = route['legs'][0]
+                console.log(leg);
+                var walking_time = leg['duration']['text'];
+                setWalkingTime(walking_time);
+                var walking_dist = leg['distance']['text'];
+                setWalkingDist(walking_dist + ' away');
+            }
+        })
+        let respt = get_directions(user_loc, placeID, 'transit');
+        respt.then((rest) => {
+            if (rest) {
+                var route = rest['routes'][0];
+                var leg = route['legs'][0]
+                console.log(leg);
+                var transit_time = leg['duration']['text']
+                setTransitTime(transit_time)
+            }
+        })
+      }, [props.storeInfo.place_id]);
 
     let store_name = props.storeInfo.title;
     let store_name_lower = store_name.toLowerCase().replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, '').split(" ").join("")
