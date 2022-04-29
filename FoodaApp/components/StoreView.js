@@ -5,21 +5,66 @@ import Swiper from 'react-native-swiper'
 import StarRating from 'react-native-star-rating';
 import { color } from 'react-native-reanimated';
 import get_directions from '../apis/directions';
-import {getTargetPrice, getTraderJoesPrice, getUnimplementedPrices} from '../apis/prices';
+import {getTargetPrices, getTraderJoesPrices, getUnimplementedPrices} from '../apis/prices';
 
 const StoreView = (props) => {
     // getTargetPrice("Milk");
     // getTraderJoesPrice("Milk");
 
+    // console.log("LIST INCOMING");
+    // console.log(props.list);
+
     const [walkingDist, setWalkingDist] = useState("- mi");
     const [walkingTime, setWalkingTime] = useState("- min");
     const [transitTime, setTransitTime] = useState("- min");
+    const [total_price, setTotalPrice] = useState("-");
+
     let placeID = 'place_id:' + props.storeInfo.place_id;
     let user_lat = props.userLocation["coords"]["latitude"];
     let user_long = props.userLocation["coords"]["longitude"];
     let user_loc = user_lat + ',' + user_long;
 
+    let store_name = props.storeInfo.title;
+    let store_name_lower = store_name.toLowerCase().replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, '').split(" ").join("")
+    let rating = props.storeInfo.rating;
+    if (!Number.isFinite(rating)) {
+        rating = 0; // if rating is not a number we set it to 0
+    }
+    let num_reviews = props.storeInfo.num_reviews;
+    if (!Number.isFinite(num_reviews)) {
+        num_reviews = 0; // if rating is not a number we set it to 0
+    }
+    let open_now = props.storeInfo.open_now;
+    let price_level = props.storeInfo.price_level;
+    if (!Number.isFinite(price_level)) {
+        price_level = 0; // if price_level is not a number we set it to 0
+    }
+
+    
+    let items_total = props.list.length;
+    // let items_available = Math.floor(Math.random() * 18);
+    let items_available = props.list.length;
+
+    let stores = {
+        'amazonhublocker': require("../resources/store-logos/amazon.jpg"),
+        'costco': require("../resources/store-logos/costco.jpg"),
+        'starmarket': require("../resources/store-logos/starmarket.jpg"),
+        'targetgrocery': require("../resources/store-logos/targetgrocery.jpg"),
+        'traderjoes': require("../resources/store-logos/traderjoes.jpg"),
+        'wholefoodsmarket': require("../resources/store-logos/wholefoodsmarket.jpg"),
+        'hongkongsupermarket': require("../resources/store-logos/hongkongsupermarket.jpg"),
+    }
+    let logo_image;
+    if (store_name_lower in stores) {
+        logo_image = stores[store_name_lower]
+    } else {
+        logo_image = require("../resources/store-logos/default.png")
+        //<Avatar.Icon size={50} icon="food-apple" color='#813300' style={{backgroundColor:'transparent'}}/>
+    }
+
     useEffect(() => {
+
+        // Google Directions
         console.log("You press dat bitch?");
         let resp = get_directions(user_loc, placeID, 'walking');
         resp.then((res) => {
@@ -43,43 +88,40 @@ const StoreView = (props) => {
                 setTransitTime(transit_time)
             }
         })
+
+        // Prices
+        
+        setTotalPrice("-");
+
+        if (store_name_lower == 'targetgrocery') {
+            console.log("TARGET SELECTED");
+
+            getTargetPrices(props.list).then(res => {
+                setTotalPrice(res.reduce((a, b) => a + b, 0));
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+        else if (store_name_lower == 'traderjoes') {
+            console.log("TRADER JOES SELECTED");
+
+            getTraderJoesPrices(props.list).then(res => {
+                setTotalPrice(res.reduce((a, b) => a + b, 0));
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+        else {
+            console.log("OTHER SELECTED");
+
+            getUnimplementedPrices(props.list).then(res => {
+                setTotalPrice(res.reduce((a, b) => a + b, 0).toFixed(2));
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+        
       }, [props.storeInfo.place_id]);
-
-    let store_name = props.storeInfo.title;
-    let store_name_lower = store_name.toLowerCase().replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, '').split(" ").join("")
-    let rating = props.storeInfo.rating;
-    if (!Number.isFinite(rating)) {
-        rating = 0; // if rating is not a number we set it to 0
-    }
-    let num_reviews = props.storeInfo.num_reviews;
-    if (!Number.isFinite(num_reviews)) {
-        num_reviews = 0; // if rating is not a number we set it to 0
-    }
-    let open_now = props.storeInfo.open_now;
-    let price_level = props.storeInfo.price_level;
-    if (!Number.isFinite(price_level)) {
-        price_level = 0; // if price_level is not a number we set it to 0
-    }
-
-    let items_available = Math.floor(Math.random() * 18);
-    let items_total = items_available + 1;
-    let total_price = Math.round(Math.random() * 10000) / 100;
-    let stores = {
-        'amazonhublocker': require("../resources/store-logos/amazon.jpg"),
-        'costco': require("../resources/store-logos/costco.jpg"),
-        'starmarket': require("../resources/store-logos/starmarket.jpg"),
-        'targetgrocery': require("../resources/store-logos/targetgrocery.jpg"),
-        'traderjoes': require("../resources/store-logos/traderjoes.jpg"),
-        'wholefoodsmarket': require("../resources/store-logos/wholefoodsmarket.jpg"),
-        'hongkongsupermarket': require("../resources/store-logos/hongkongsupermarket.jpg"),
-    }
-    let logo_image;
-    if (store_name_lower in stores) {
-        logo_image = stores[store_name_lower]
-    } else {
-        logo_image = require("../resources/store-logos/default.png")
-        //<Avatar.Icon size={50} icon="food-apple" color='#813300' style={{backgroundColor:'transparent'}}/>
-    }
 
     return (
         <Modal
