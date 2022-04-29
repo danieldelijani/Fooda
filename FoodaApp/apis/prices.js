@@ -1,8 +1,34 @@
 // NEW
 const axios = require('axios'); 
 const webScrapingApiClient = require('webscrapingapi');
-const client = new webScrapingApiClient("R0YDeuj4qe21H1q996Qgn03HBQ7utex8");
 const cheerio = require('cheerio');
+
+const client = new webScrapingApiClient("R0YDeuj4qe21H1q996Qgn03HBQ7utex8");
+
+
+function convertTargetItemNameToUrl(name) {
+    // URL: name of a product
+    // Returns: url for the product for Target.com 
+    nameString = name.replace(" ", "+");
+    baseURL = "https://www.target.com/s?searchTerm=";
+    return baseURL + nameString;
+}
+
+function convertTargetItemNamesToUrls(names) {
+    return names.map(convertTargetItemNameToUrl);
+}
+
+
+function convertTraderJoesNameToUrl(name) {
+    baseURL = "https://www.traderjoes.com/home/search?q=";
+    nameString = name.replace(" ", "+");
+    afterURL = "&section=products&global=no";
+    return baseURL + nameString + afterURL;
+}
+
+function convertTraderJoesNamesToUrls(names) {
+    return names.map(convertTraderJoesNameToUrl);
+}
 
 async function getTraderJoesPrice(productName) {
     let url = convertTraderJoesNameToUrl(productName);
@@ -75,38 +101,6 @@ async function getTargetPrice(productName) {
     }
 }
 
-// getTraderJoesPrice("Milk");
-// getTargetPrice("Turkey Bacon");
-
-// TARGET
-
-// single item
-
-function convertTargetItemNameToUrl(name) {
-    // URL: name of a product
-    // Returns: url for the product for Target.com 
-    nameString = name.replace(" ", "+");
-    baseURL = "https://www.target.com/s?searchTerm=";
-    return baseURL + nameString;
-}
-
-function convertTargetItemNamesToUrls(names) {
-    return names.map(convertTargetItemNameToUrl);
-}
-
-
-function convertTraderJoesNameToUrl(name) {
-    baseURL = "https://www.traderjoes.com/home/search?q=";
-    nameString = name.replace(" ", "+");
-    afterURL = "&section=products&global=no";
-    return baseURL + nameString + afterURL;
-}
-
-function convertTraderJoesNamesToUrls(names) {
-    return names.map(convertTraderJoesNameToUrl);
-}
-
-
 async function getUnimplementedPrices(names) {
     prices = []
 
@@ -114,9 +108,11 @@ async function getUnimplementedPrices(names) {
         random_price = Math.floor(Math.random() * 1000) / 100;
         prices.push(random_price);
     }
-    console.log(prices);
     return prices
 }
+
+// getTraderJoesPrice("Milk");
+// getTargetPrice("Turkey Bacon");
 
 export {getTargetPrice, getTraderJoesPrice, getUnimplementedPrices};
 
