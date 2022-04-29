@@ -47,8 +47,8 @@ async function getTraderJoesPrice(productName) {
 }
 
 async function getTraderJoesPrices(productNames) {
-    let urls = convertTraderJoesNamesToUrls(productNames);
-    let promises = await Promise.all(urls.map(getTraderJoesPrice));
+    // let urls = convertTraderJoesNamesToUrls(productNames);
+    let promises = await Promise.all(productNames.map(getTraderJoesPrice));
     console.log(promises);
     return promises;
 }
@@ -108,8 +108,7 @@ async function getTargetPrice(productName) {
 }
 
 async function getTargetPrices(productNames) {
-    let urls = convertTargetItemNamesToUrls(productNames);
-    let promises = await Promise.all(urls.map(getTargetPrice));
+    let promises = await Promise.all(productNames.map(getTargetPrice));
     console.log(promises);
     return promises;
 }
@@ -125,7 +124,7 @@ async function getUnimplementedPrices(names) {
 }
 
 // getTraderJoesPrice("Milk");
-getTargetPrice("Turkey Bacon");
+// getTargetPrice("Turkey Bacon");
 // getTraderJoesPrices(["Milk", "Turkey Bacon", "Pork"]);
 // getTargetPrices(["Milk", "Turkey Bacon", "Pork"]);
 
