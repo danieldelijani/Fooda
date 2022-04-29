@@ -33,6 +33,7 @@ class Map extends Component {
           },
           "price_level": undefined,
           "title": "Allston Market",
+          "place_id": 'ChIJf0QQ6cV544kR852uAss73Js'
         }
       };
       this.onRegionChange = this.onRegionChange.bind(this);
