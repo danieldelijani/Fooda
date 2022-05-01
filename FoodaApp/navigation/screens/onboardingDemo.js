@@ -47,7 +47,7 @@ const AddName = ({addName}) => {
               color='#CC7C48'
               onPress={() => {
                 onboarded = true;
-                navigation.navigate("Profile", {addName})}
+                navigation.navigate("Profile", {text})}
                 //navigation.navigate("Home")}
               }
             >I got it :)</Button>

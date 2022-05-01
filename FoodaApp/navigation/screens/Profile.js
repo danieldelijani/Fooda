@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const Profile = ({ navigation, route }) => {
     
-    //"John Smith"
+    
     /*const onboardingState = useAppSelector(
         (state) => state.OnboardingDemo.viewedOnBoarding
     ) */
@@ -21,8 +21,8 @@ const Profile = ({ navigation, route }) => {
         );
     } 
     else{
-    let user_name = 'John SMith' //route.params.addName
-    //console.log('USERNAME: ', route.params.addName)
+    let user_name = route.params.text    //'John Smith' //
+    console.log('USERNAME: ', route.params.text)
         return (
             <View>
                 <IconButton
