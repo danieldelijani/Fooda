@@ -28,7 +28,7 @@ export default function MainContainer() {
     /*const onboardingState = useAppSelector(
         (state) => state.OnboardingDemo.viewedOnBoarding
     ) */
-    const [onboarded, setOnboarded] = React.useState(false) 
+    //const [onboarded, setOnboarded] = React.useState(false) 
 
     return (
         <NavigationContainer>
