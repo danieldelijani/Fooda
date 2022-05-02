@@ -14,7 +14,6 @@ const Profile = ({ navigation, route }) => {
     } 
     else{
     let user_name = route.params.text  
-    console.log('USERNAME: ', route.params.text)
         return (
             <View style={{flexDirection:'column', alignContent:'space-between', padding:10}}>
                 <View style={{flexDirection:'column', alignItems:'center', justifyContent:'space-around', alignContent:'space-around', borderRadius:10, backgroundColor: '#FFF6F0', margin:10, padding:20}}>
