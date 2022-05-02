@@ -58,16 +58,18 @@ export default function MainContainer() {
                     },
                     "tabBarActiveTintColor": "sienna",
                     "tabBarInactiveTintColor": "sienna",
+                    "tabBarShowLabel": false, 
                     "tabBarLabelStyle": {
                         "paddingBottom": 0,
-                        "fontSize": 10
+                        "fontSize": 10, 
                     },
                     "tabBarStyle": [
                         {
-                        "display": "flex"
+                        "display": "flex",
                         },
                         null
-                    ]
+                    ],
+                    
                 })}
                 >
                     {/*<Tab.Screen name = {onboardingName} component = {OnboardingDemo}/>  */}
