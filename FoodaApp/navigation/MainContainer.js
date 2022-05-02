@@ -48,7 +48,7 @@ export default function MainContainer() {
                             //iconName = listIcon;
                         }
                         else if (rn == profileName) {
-                            iconName = focused ? 'settings' : 'settings-outline';
+                            iconName = focused ? 'person' : 'person-outline';
                             //iconName = profileIcon;
                             
                         }

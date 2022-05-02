@@ -1,11 +1,11 @@
-import React, {useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Modal, Dimensions } from 'react-native';
 import { Avatar, Card, IconButton, Divider, Text, Button } from 'react-native-paper';
 import Swiper from 'react-native-swiper'
 import StarRating from 'react-native-star-rating';
 import { color } from 'react-native-reanimated';
 import get_directions from '../apis/directions';
-import {getTargetPrices, getTraderJoesPrices, getUnimplementedPrices} from '../apis/prices';
+import { getTargetPrices, getTraderJoesPrices, getUnimplementedPrices } from '../apis/prices';
 
 const StoreView = (props) => {
     // getTargetPrice("Milk");
@@ -32,7 +32,7 @@ const StoreView = (props) => {
     }
     let num_reviews = props.storeInfo.num_reviews;
     if (!Number.isFinite(num_reviews)) {
-        num_reviews = 0; // if rating is not a number we set it to 0
+        num_reviews = 0; // if num_reviews is not a number we set it to 0
     }
     let open_now = props.storeInfo.open_now;
     let price_level = props.storeInfo.price_level;
@@ -40,7 +40,7 @@ const StoreView = (props) => {
         price_level = 0; // if price_level is not a number we set it to 0
     }
 
-    
+
     let items_total = props.list.length;
     // let items_available = Math.floor(Math.random() * 18);
     let items_available = props.list.length;
@@ -85,7 +85,7 @@ const StoreView = (props) => {
         })
 
         // Prices
-        
+
         setTotalPrice("-");
 
         if (store_name_lower == 'targetgrocery') {
@@ -115,8 +115,8 @@ const StoreView = (props) => {
                 console.log(err);
             })
         }
-        
-      }, [props.storeInfo.place_id]);
+
+    }, [props.storeInfo.place_id]);
 
     return (
         <Modal
@@ -145,50 +145,50 @@ const StoreView = (props) => {
                         dot={<View style={{ backgroundColor: '#FBE0CE', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: -30, }} />}
                         activeDot={<View style={{ backgroundColor: '#CC7C48', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: -30, }} />}
                     >
-                        <View description="page one" style={{ flex: 1 }}>
-                            <View style={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 10 }}>
+                        <View description="page one" style={{ flex: 1, padding:5 }}>
+                            <View style={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5 }}>
                                 <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <IconButton
                                         icon="walk"
-                                        size={25} />
-                                    <Text>{walkingTime}</Text>
+                                        size={24} />
+                                    <Text style={{ fontSize: 24 }}>{walkingTime}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <IconButton
                                         icon="train"
-                                        size={25} />
-                                    <Text>{transitTime}</Text>
+                                        size={24} />
+                                    <Text style={{ fontSize: 24 }}>{transitTime}</Text>
                                 </View>
                             </View>
 
-                            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', margin: 10, justifyContent: 'space-around', justifySelf: 'center', borderRadius: 10 }}>
-                                <View styles={{ flexDirection: 'column', flex: 1, borderRadius: 10, margin: 5, justifyContent: 'flex-start' }}>
+                            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', margin: 5, justifyContent: 'space-around', justifySelf: 'center', borderRadius: 10, backgroundColor: '#FFF6F0', padding:10}}>
+                                <View styles={{backgroundColor: '#FFF6F0', flex:.5}}>
                                     <Text style={{ fontSize: 16 }}> Items {"\n"} Available </Text>
                                     <Text style={styles.itemAvail}>{items_available}</Text>
                                     <Text style={styles.itemAvail}>━</Text>
                                     <Text style={styles.itemAvail}>{items_total}</Text>
                                 </View>
-                                <View styles={{ flexDirection: 'column', flex: 1, borderRadius: 10, margin: 5, justifyContent: 'flex-start' }}>
+                                <View styles={{ borderRadius: 10, margin: 5, backgroundColor: '#FFF6F0', flex:.5}}>
                                     <Text>Total Cost:</Text>
                                     <Text style={{ fontSize: 32 }}>${total_price}</Text>
                                 </View>
                             </View>
-                            <View style={{ flexDirection: 'row', flex: .1 }}>
+                            <View style={{ flex: .1 }}>
                                 {/* empty row to add space for the page indicator dots 
                                 (so theyre not overlayed on the content) */}
                             </View>
                         </View>
-                        <View description="page two" style={{ flex: 1 }}>
-                            <View style={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 10 }}>
-                                <View styles={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <View description="page two" style={{ flex: 1, padding:5 }}>
+                            <View style={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5 }}>
+                                <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <IconButton
                                         icon="store"
-                                        size={20} />
-                                    {open_now ? <Text style={{ color: 'green' }}>Open Now</Text> : <Text style={{ color: 'red' }}>Closed</Text>}
+                                        size={28} />
+                                    {open_now ? <Text style={{ color: 'green',  fontSize: 24, }}>Open Now</Text> : <Text style={{ color: 'red', fontSize: 24,  }}>Closed Now</Text>}
                                 </View>
                             </View>
-                            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', margin: 10, justifyContent: 'space-around', justifySelf: 'center', borderRadius: 10 }}>
-                                <View styles={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5, justifyContent: 'flex-start' }}>
+                            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', margin: 5, justifyContent: 'space-around', justifySelf: 'center', borderRadius: 10, backgroundColor: '#FFF6F0'}}>
+                                <View styles={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5, justifyContent: 'flex-start'}}>
                                     <Text>Affordability: {'\n'}</Text>
                                     <StarRating
                                         disabled={true}

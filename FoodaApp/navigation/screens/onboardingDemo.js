@@ -32,72 +32,36 @@ const AddName = ({addName}) => {
           label="Name"
           onChangeText={onChange}        //text => setText(text)}
           value={text}
+          color="#CC7C48"
+          style={{color:'#CC7C48'}}
         />
         <TouchableOpacity
           textStyle={{ color: 'black' }}
           onPress={() => {
             addName(text);
             setText('');
-            
-          }} >
+          }} 
+          color="#CC7C48"
+          style={{color:'#CC7C48'}}>
             <Button
-            style={{width:150, alignSelf:'center'}}
+            style={{width:150, alignSelf:'center', margin:20}}
               title={'I got it :)'}
               mode='outlined' 
               color='#CC7C48'
               onPress={() => {
                 onboarded = true;
                 navigation.navigate("Profile", {text})}
-                //navigation.navigate("Home")}
               }
             >I got it :)</Button>
           </TouchableOpacity>
       </View>
     )};
   };
-/*
-  const AddItem = ({addItem}) => {
-    let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
-    const [text, setText] = useState('');
-    const onChange = (textValue) => setText(textValue);
-    const [currentOption, updateOption] = useState('Add Item')
-    
-    if (!fontsLoaded) {
-      return <AppLoading />;
-    } else {
-      return (
-        <View>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter an item here"
-            onChangeText={onChange}
-            value={text}
-          />
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => {
-              addItem(text, currentOption);
-              setText('');
-            }}>
-            <EvilIcons name="plus" size={60} color="black" padding= {5} />
-          </TouchableOpacity>
-          
-        </View>
-      );
-    }
-    };
-
-
-  */
-
-
 
 const OnboardingDemo = ({addName}) => {
-  //const navigation = useNavigation();
   let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
   const storeData = async (key, value) => {
     try {
-        ///await AsyncStorage.removeItem(key)
       await AsyncStorage.setItem(key, value)
       console.log(value)
     } catch (e) {
@@ -124,7 +88,7 @@ const OnboardingDemo = ({addName}) => {
           {
             backgroundColor: '#FFEBDD',
             image: <Image source={pear} size= {20}/>,
-            title: "Welcome to mart. Let's help you shop smarter! \n \n How it works: \n \n 1. Create your Grocery List",
+            title: "Welcome to mart. Let's help you shop smarter! \n \n 1. Create your grocery list on the list page",
             subtitle: '',
             color: '#813300',
             
@@ -139,13 +103,7 @@ const OnboardingDemo = ({addName}) => {
           {
             backgroundColor: '#FFEBDD',
             image: <Image source={leaf} size= {20}  />,
-            title: '3. Choose your grocery store, check for item availability, trip time, and more!',
-            subtitle: "",
-          },
-          {
-            backgroundColor: '#FFEBDD',
-            image: <Image source={tomato} size= {20} />,
-            title: '4. Start your trip and find items with ease!',
+            title: '3. Choose your grocery store on the homepage, check for item availability, trip time, and more!',
             subtitle: "",
           },
           {
@@ -167,7 +125,7 @@ const OnboardingDemo = ({addName}) => {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 16,
+    fontSize: 24,
     textAlign: "center",
     color: '#813300',
     fontFamily: 'PTSerifCaption_400Regular',
