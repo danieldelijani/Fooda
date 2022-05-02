@@ -31,11 +31,6 @@ const DraggableList = ({sectionData, deleteItem, moveCompleted}) => {
                     <TouchableOpacity onLongPress={item.isTitle?()=>{}: drag} >
                         <View style={styles2.listItemView}>
                             <View style={styles2.checkboxView}>
-                              <CheckBox action={moveCompleted}
-                                  color= 'sienna'
-                                  value={isSelected}
-                                  onValueChange={setSelection}
-                              /> 
                             </View>
                           <Text style={styles2.itemText} >{item.label} </Text>
                         </View> 

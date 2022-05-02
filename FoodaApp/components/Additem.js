@@ -15,8 +15,6 @@ const AddItem = ({addItem}) => {
       value: 'Add Item',
     }, {
       value: 'Add Category',
-    }, {
-      value: 'Scan Receipt',
     }];
     
     if (!fontsLoaded) {

@@ -6,6 +6,7 @@ import { useFonts, PTSerifCaption_400Regular} from '@expo-google-fonts/pt-serif-
 import AppLoading from 'expo-app-loading';
 import DraggableList from '../../components/DraggableList';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { EvilIcons } from '@expo/vector-icons';
 
 const GroceryList = ({ navigation, route }) => {
   let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
@@ -118,13 +119,20 @@ const addCompleted = (text) => {
       visible={modalVisible}
     >
       <View style = {styles.addGroceryNamePopUpView}>
-      <Text style = {styles.addGroceryNamePopUpText}> {addBtnHeader} </Text>
+      <TouchableOpacity
+        onPress={() => {setModalVisible(!modalVisible)}}
+      >
+        <EvilIcons name="close-o" size={30} color="black" padding= {5} />
+      </TouchableOpacity>
+      <Text style = {styles.addGroceryNamePopUpHeader}> {addBtnHeader} </Text>
+      <Text style = {styles.addbtntext}> Name: </Text>
       <TextInput
-        placeholder="Name List here"
+        style = {styles.textInput}
         onChangeText={onChange}
         value={text}
       />
       <TouchableOpacity
+        style = {styles.addbtn}
         onPress={() => {navigation.navigate("ListsOfGroceryList", {
           alreadyCreated: isOldList,
           ID: ID,
@@ -132,7 +140,7 @@ const addCompleted = (text) => {
           list: CategoriesAndItems
         })}}
       >
-        <Text> Add List</Text>
+        <Text style = {styles.addbtntext}> Add List</Text>
       </TouchableOpacity>
       </View>
     </Modal>
@@ -171,19 +179,35 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         justifyContent: "space-around",
         padding:5,
-        width: 330,
-        height: 260,
+        width: 300,
+        height: 180,
         alignItems: "stretch",
         top: 250,
         backgroundColor: "#F2DACA"
   },
-  addGroceryNamePopUpText:{
+  addGroceryNamePopUpHeader:{
     fontFamily: 'PTSerifCaption_400Regular',
     fontStyle: "normal",
     fontWeight: "700",
     fontSize: 16,
     lineHeight: 21,
     color: "#000000",
+  }, 
+  textInput:{
+    width: 193,
+    height: 28,
+    backgroundColor: "#FFF6F0"
+  },
+  addbtntext:{
+    fontFamily: 'PTSerifCaption_400Regular',
+    fontWeight: "400",
+    fontSize: 13,
+    lineHeight: 17, 
+  },
+  addbtn: {
+    backgroundColor: "#FFF6F0", 
+    width: 60,
+    height: 30, 
   }
 });
 
