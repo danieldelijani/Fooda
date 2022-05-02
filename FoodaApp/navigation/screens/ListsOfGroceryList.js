@@ -4,7 +4,6 @@ import AppLoading from 'expo-app-loading';
 import { useFonts, PTSerifCaption_400Regular} from '@expo-google-fonts/pt-serif-caption';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useIsFocused } from '@react-navigation/native';
 
 const ListsOfGroceryList = ({ navigation, route }) => {
     let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
