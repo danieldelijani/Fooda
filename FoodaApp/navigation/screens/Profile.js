@@ -12,8 +12,6 @@ const Profile = ({ navigation, route }) => {
         (state) => state.OnboardingDemo.viewedOnBoarding
     ) */
     //const [onboarded, setOnboarded] = React.useState(false) 
-    
-      //changed from onboarded to onboardedVal
     if(!onboarded){
         //setOnboarded();
         return (
@@ -22,13 +20,15 @@ const Profile = ({ navigation, route }) => {
     } 
     else{
     let user_name = route.params.text    //'John Smith' //
-    console.log('USERNAME: ', route.params.text)
+    //console.log('USERNAME: ', route.params.text)
         return (
-            <View>
+            <View style = {{backgroundColor: '#FFF6F0'}}>
                 <IconButton
                 icon="account-circle"
-                size={65}/>
-                <Text style={{fontSize:32}}>{user_name}</Text>
+                size={65}
+                paddingLeft= {20}
+                color= '#813300'/>
+                <Text style={{fontSize:32, paddingLeft: 20,paddingBottom: 450, color: '#813300'}}>{user_name}</Text>
 
                 
             </View>
