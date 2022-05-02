@@ -88,7 +88,7 @@ const ListsOfGroceryList = ({ navigation, route }) => {
         return(
             <View style = {styles.container}>
                 <Text style = {styles.header}> Grocery Lists</Text>
-                <Image source={fruits} />
+                {groceryListsDisplay.length ? null : <Image source={fruits} style={{alignSelf:'center', height:350, width:350, resizeMode: 'contain'}}/>}
                 <FlatList
                     data={groceryListsDisplay}
                     renderItem = { ({item}) => 
@@ -151,7 +151,6 @@ const styles = StyleSheet.create({
     }, 
     listView: {
         flexDirection: 'row',
-        flexWrap: 'wrap'
     }, 
     card: {
         backgroundColor: "#FFEBDD",
