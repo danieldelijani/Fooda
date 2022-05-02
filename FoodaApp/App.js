@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import MainContainer from './navigation/MainContainer.js';
 
+import "./components/global.js"
+
 export default function App() {
   return (
     <MainContainer />

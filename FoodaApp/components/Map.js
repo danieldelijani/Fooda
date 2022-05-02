@@ -33,6 +33,7 @@ class Map extends Component {
           },
           "price_level": undefined,
           "title": "Allston Market",
+          "place_id": 'ChIJf0QQ6cV544kR852uAss73Js'
         }
       };
       this.onRegionChange = this.onRegionChange.bind(this);
@@ -65,7 +66,7 @@ class Map extends Component {
       return (
         <View>
 
-          <StoreView storeInfo={this.state.currStore} modalVisible={this.state.modalVisible} closeModal={this.closeModal} />
+          <StoreView list={this.props.list} userLocation = {this.props.location} storeInfo={this.state.currStore} modalVisible={this.state.modalVisible} closeModal={this.closeModal} />
     
           <MapView region={this.state.region} onRegionChange={this.onRegionChange} style={styles.map}>
             {this.props.groceryStores.map((marker, index) => (

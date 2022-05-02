@@ -3,5 +3,6 @@
     "@googlemaps/google-maps-services-js": "^3.3.11",
     "jquery": "^3.6.0",
     "node-fetch": "^3.2.3"
-  }
+  },
+  "rnpm": { "assets": [ "resources/fonts" ] }
 }
