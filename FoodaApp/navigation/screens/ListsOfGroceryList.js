@@ -83,11 +83,23 @@ const ListsOfGroceryList = ({ navigation, route }) => {
 
     if (!fontsLoaded) {
         return <AppLoading />;
-      } else { 
+      } else if (groceryListsDisplay.length == 0) { 
         return(
             <View style = {styles.container}>
                 <Text style = {styles.header}> Grocery Lists</Text>
                 <Image source={fruits} />
+                <TouchableOpacity 
+                    style = {styles.addBtn}
+                    onPress={() => {navigation.navigate("GroceryList")}}
+                >
+                    <Text style = {styles.addBtnText}> Create New List </Text>
+                </TouchableOpacity>
+            </View>
+        )
+      } else {
+        return(
+            <View style = {styles.container}>
+                <Text style = {styles.header}> Grocery Lists</Text>
                 <FlatList
                     data={groceryListsDisplay}
                     renderItem = { ({item}) => 

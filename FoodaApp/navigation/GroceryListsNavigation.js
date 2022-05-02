@@ -10,7 +10,6 @@ const GroceryListsNavigation = () => {
   return (
     <NavigationContainer independent = {true}>
       <Stack.Navigator initialRouteName="ListOfGroceryList">   
-        
         <Stack.Screen
           name="ListsOfGroceryList"
           component={ListsOfGroceryList}
