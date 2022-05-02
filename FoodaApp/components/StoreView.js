@@ -20,7 +20,6 @@ const StoreView = (props) => {
     let user_loc = user_lat + ',' + user_long;
 
     useEffect(() => {
-        console.log("called directions api");
         let resp = get_directions(user_loc, placeID, 'walking');
         resp.then((res) => {
             if (res) {
@@ -32,7 +31,6 @@ const StoreView = (props) => {
                 setWalkingDist(walking_dist + ' away');
             }
         })
-        console.log("called directions api");
         let respt = get_directions(user_loc, placeID, 'transit');
         respt.then((rest) => {
             if (rest) {
