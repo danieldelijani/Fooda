@@ -16,7 +16,7 @@ import profileIcon from '../assets/profileIcon.svg'
 
 
 const homeName = 'Home';
-const GroceryListsNavigationName = 'GroceryListsNavigation';
+const GroceryListsNavigationName = 'Grocery Lists';
 const profileName = 'Profile';
 const onboardingName = 'Onboarding';
 
