@@ -9,8 +9,7 @@ const Stack = createStackNavigator();
 const GroceryListsNavigation = () => {
   return (
     <NavigationContainer independent = {true}>
-      <Stack.Navigator initialRouteName="ListOfGroceryList">   
-        
+      <Stack.Navigator initialRouteName="ListOfGroceryList" screenOptions={{headerShown: false}}>   
         <Stack.Screen
           name="ListsOfGroceryList"
           component={ListsOfGroceryList}
