@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, FlatList, SectionList} from 'react-native';
+import {View, Text, StyleSheet, FlatList, SectionList, Image} from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { useFonts, PTSerifCaption_400Regular} from '@expo-google-fonts/pt-serif-caption';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
+
+import fruits from '../../assets/fruits.png'
 
 const ListsOfGroceryList = ({ navigation, route }) => {
     let [fontsLoaded] = useFonts({ PTSerifCaption_400Regular});
@@ -86,6 +88,7 @@ const ListsOfGroceryList = ({ navigation, route }) => {
         return(
             <View style = {styles.container}>
                 <Text style = {styles.header}> Grocery Lists</Text>
+                <Image source={fruits} />
                 <FlatList
                     data={groceryListsDisplay}
                     renderItem = { ({item}) => 

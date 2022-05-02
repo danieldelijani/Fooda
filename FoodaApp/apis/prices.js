@@ -1,23 +1,9 @@
-// NEW
-const axios = require('axios'); 
 const webScrapingApiClient = require('webscrapingapi');
 const cheerio = require('cheerio');
 
 const client = new webScrapingApiClient("R0YDeuj4qe21H1q996Qgn03HBQ7utex8");
 
-
-function convertTargetItemNameToUrl(name) {
-    // URL: name of a product
-    // Returns: url for the product for Target.com 
-    nameString = name.replace(" ", "+");
-    baseURL = "https://www.target.com/s?searchTerm=";
-    return baseURL + nameString;
-}
-
-function convertTargetItemNamesToUrls(names) {
-    return names.map(convertTargetItemNameToUrl);
-}
-
+// TRADER JOES
 
 function convertTraderJoesNameToUrl(name) {
     baseURL = "https://www.traderjoes.com/home/search?q=";
@@ -60,6 +46,26 @@ async function getTraderJoesPrice(productName) {
     }
 }
 
+async function getTraderJoesPrices(productNames) {
+    console.log("Calling trader joes prices...");
+    let promises = await Promise.all(productNames.map(getTraderJoesPrice));
+    console.log(promises);
+    return promises;
+}
+
+// TARGET
+
+function convertTargetItemNameToUrl(name) {
+    // URL: name of a product
+    // Returns: url for the product for Target.com 
+    nameString = name.replace(" ", "+");
+    baseURL = "https://www.target.com/s?searchTerm=";
+    return baseURL + nameString;
+}
+
+function convertTargetItemNamesToUrls(names) {
+    return names.map(convertTargetItemNameToUrl);
+}
 
 async function getTargetPrice(productName) {
     let url = convertTargetItemNameToUrl(productName);
@@ -101,7 +107,17 @@ async function getTargetPrice(productName) {
     }
 }
 
+async function getTargetPrices(productNames) {
+    console.log("Calling target prices...");
+    let promises = await Promise.all(productNames.map(getTargetPrice));
+    console.log(promises);
+    return promises;
+}
+
+// getTargetPrices(["Milk", "Turkey Bacon", "Chicken Breast"])
+
 async function getUnimplementedPrices(names) {
+    console.log("Calling unimplented prices...");
     prices = []
 
     for (let i = 0; i < names.length; i++) {
@@ -113,8 +129,13 @@ async function getUnimplementedPrices(names) {
 
 // getTraderJoesPrice("Milk");
 // getTargetPrice("Turkey Bacon");
+// getTraderJoesPrices(["Milk", "Turkey Bacon", "Pork"]);
+// getTargetPrices(["Milk", "Turkey Bacon", "Pork"]);
 
-export {getTargetPrice, getTraderJoesPrice, getUnimplementedPrices};
+
+
+
+export {getTargetPrices, getTraderJoesPrices, getUnimplementedPrices};
 
 
 // async function scrapeProductTarget(url) {
