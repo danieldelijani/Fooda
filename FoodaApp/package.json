@@ -29,7 +29,7 @@
     "expo-font": "~10.0.4",
     "expo-location": "~14.0.1",
     "expo-status-bar": "~1.2.0",
-    "expo-updates": "~0.11.6",
+    "expo-updates": "~0.11.7",
     "firebase": "^9.6.11",
     "graceful-fs": "^4.2.10",
     "install": "^0.13.0",

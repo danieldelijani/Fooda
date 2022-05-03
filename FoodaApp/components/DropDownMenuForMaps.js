@@ -1,59 +1,59 @@
-import React, {Component, useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
+import React, {useState} from 'react';
+import { View,} from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useIsFocused } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
-class DropDownMenuForMaps extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            DropdownLabel: "No Grocery lists have been created",
-            DropDownOptions: [],
-            GroceryListHashTable: {}
-        }
-    }
+const DropDownMenuForMaps = ({updateList}) => {
+    const [GroceryListHashTable, updateGroceryListHashTable] = useState({});
+    const [DropdownLabel, updateDropdownLabel] =useState("No grocery lists have been created");
+    const [DropDownOptions, updateDropDownOptions] = useState([]);
 
-    getData = async () => {
-        try {
-          const value = await AsyncStorage.getItem('ListsOfLists')
-          let myjson = JSON.parse(value)
-          let listoflists = myjson.ListsOfLists
-          let newGroceryListHashTable = {}
-          let newDropDownOptions = []
-          for(let i = 0; i < listoflists.length;i++){
-              let listname = listoflists[i].name
-              let listItems = listoflists[i].items
-              newGroceryListHashTable[listname] = listItems
-              newDropDownOptions.push({value: listname})
+    useFocusEffect(
+        React.useCallback(() => {
+          let isActive = true;
+
+          const getData = async () => {
+            try {
+              const value = await AsyncStorage.getItem('ListsOfLists')
+              let myjson = JSON.parse(value)
+              let listoflists = myjson.ListsOfLists
+              let newGroceryListHashTable = {}
+              let newDropDownOptions = []
+              for(let i = 0; i < listoflists.length;i++){
+                  let listname = listoflists[i].name
+                  let listItems = listoflists[i].items
+                  newGroceryListHashTable[listname] = listItems
+                  newDropDownOptions.push({value: listname})
+              }
+              if (isActive) {
+                updateGroceryListHashTable(newGroceryListHashTable);
+                updateDropdownLabel("Pick a grocery list")
+                updateDropDownOptions(newDropDownOptions)
+              }
+            } catch(e) {
+                console.log("Error in accessing data")
+                console.log(e)
+            }
           }
-          this.state.GroceryListHashTable = newGroceryListHashTable
-          this.state.DropdownLabel = "Pick a grocery list"
-          this.state.DropDownOptions = newDropDownOptions
-          console.log(this.state.GroceryListHashTable)
-          return listoflists
-        } catch(e) {
-            console.log("Error in accessing data")
-            console.log(e)
-        }
-      }
+      
+          getData();
+      
+          return () => {
+            isActive = false;
+          };
+        }, [GroceryListHashTable, DropdownLabel, DropDownOptions])
+      );
 
-
-    componentDidMount() {
-        this.getData()
-    }
-
-    render(){
-        return(
-            <View>
+    return(
+        <View>
                 <Dropdown
-                    label = {this.state.DropdownLabel}
-                    data = {this.state.DropDownOptions}
-                    onChangeText = {value => this.props.updateList(this.state.GroceryListHashTable[value])}
+                    label = {DropdownLabel}
+                    data = {DropDownOptions}
+                    onChangeText = {value => updateList(GroceryListHashTable[value])}
                 />
-            </View>
-        )
-    }
-}
+         </View>
+    )
+};
 
-export default DropDownMenuForMaps;
+export default DropDownMenuForMaps; 

@@ -1,15 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, {Component, useState, useEffect} from 'react';
-import MapView, { Marker } from 'react-native-maps';
 import Map from '../../components/Map';
 import * as Location from 'expo-location';
 import get_nearby_grocery_stores from '../../apis/places.js';
 import DropDownMenuForMaps from '../../components/DropDownMenuForMaps';
+import { useFocusEffect } from '@react-navigation/native';
 
 const GoogleMaps = ({ navigation, route }) => {
+  const [groceryData, UpdateGroceryData] = useState({});
   const [currentlySelectedList, updateCurrentlySelectedList] = useState([])
   const [location, setLocation] = useState({
       "coords": {
