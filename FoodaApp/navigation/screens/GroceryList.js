@@ -119,29 +119,32 @@ const addCompleted = (text) => {
       visible={modalVisible}
     >
       <View style = {styles.addGroceryNamePopUpView}>
-      <TouchableOpacity
-        onPress={() => {setModalVisible(!modalVisible)}}
-      >
-        <EvilIcons name="close-o" size={30} color="black" padding= {5} />
-      </TouchableOpacity>
-      <Text style = {styles.addGroceryNamePopUpHeader}> {addBtnHeader} </Text>
-      <Text style = {styles.addbtntext}> Name: </Text>
-      <TextInput
-        style = {styles.textInput}
-        onChangeText={onChange}
-        value={text}
-      />
-      <TouchableOpacity
-        style = {styles.addbtn}
-        onPress={() => {navigation.navigate("ListsOfGroceryList", {
-          alreadyCreated: isOldList,
-          ID: ID,
-          name: text,
-          list: CategoriesAndItems
-        })}}
-      >
-        <Text style = {styles.addbtntext}> Add List</Text>
-      </TouchableOpacity>
+        <View style = {styles.parent}>
+        <Text style = {styles.addGroceryNamePopUpHeader}> {addBtnHeader} </Text>
+          <TouchableOpacity
+            style = {styles.right}
+            onPress={() => {setModalVisible(!modalVisible)}}
+          >
+            <EvilIcons name="close-o" size={30} color="black" padding= {5} />
+          </TouchableOpacity>
+          </View>
+        <Text style = {styles.addbtntext}> Name: </Text>
+        <TextInput
+          style = {styles.textInput}
+          onChangeText={onChange}
+          value={text}
+        />
+        <TouchableOpacity
+          style = {styles.addbtn}
+          onPress={() => {navigation.navigate("ListsOfGroceryList", {
+            alreadyCreated: isOldList,
+            ID: ID,
+            name: text,
+            list: CategoriesAndItems
+          })}}
+        >
+          <Text style = {styles.addbtntext}> Add List</Text>
+        </TouchableOpacity>
       </View>
     </Modal>
     </View>
@@ -179,11 +182,14 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         justifyContent: "space-around",
         padding:5,
-        width: 300,
+        width: 230,
         height: 180,
         alignItems: "stretch",
         top: 250,
         backgroundColor: "#F2DACA"
+  },
+  parent:{
+    flexDirection:"row"
   },
   addGroceryNamePopUpHeader:{
     fontFamily: 'PTSerifCaption_400Regular',
@@ -193,8 +199,11 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     color: "#000000",
   }, 
+  right:{
+    textAlign: 'right'
+  },
   textInput:{
-    width: 193,
+    width: 220,
     height: 28,
     backgroundColor: "#FFF6F0"
   },
@@ -208,7 +217,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF6F0", 
     width: 60,
     height: 30, 
-  }
+    marginLeft: 'auto',
+    borderRadius: 5,
+    justifyContent: 'center'
+  }, 
 });
 
 export default GroceryList;
