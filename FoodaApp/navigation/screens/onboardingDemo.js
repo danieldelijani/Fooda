@@ -88,7 +88,7 @@ const OnboardingDemo = ({addName}) => {
           {
             backgroundColor: '#FFEBDD',
             image: <Image source={pear} size= {20}/>,
-            title: "Welcome to mart. Let's help you shop smarter! \n \n 1. Create your grocery list on the list page",
+            title: "Welcome to mart. Let's help you shop smarter! \n \n Step 1. Create your grocery list",
             subtitle: '',
             color: '#813300',
             
@@ -96,14 +96,14 @@ const OnboardingDemo = ({addName}) => {
           {
             backgroundColor: '#FFEBDD',
             image: <Image source= {cherry} size= {20} />,
-            title: '2. Select your grocery list from the drop down on the homepage',
+            title: 'Step 2. Select your grocery list from the drop down on the map',
             subtitle: '',
             paddingBottom: 0,
           },
           {
             backgroundColor: '#FFEBDD',
             image: <Image source={leaf} size= {20}  />,
-            title: '3. Choose your grocery store on the homepage, check for item availability, trip time, and more!',
+            title: 'Step 3. Choose your grocery store on the map \n \n  Then you can compare item prices, trip time, and more!',
             subtitle: "",
           },
           {

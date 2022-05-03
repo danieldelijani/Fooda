@@ -83,23 +83,11 @@ const ListsOfGroceryList = ({ navigation, route }) => {
 
     if (!fontsLoaded) {
         return <AppLoading />;
-      } else if (groceryListsDisplay.length == 0) { 
+      } else { 
         return(
             <View style = {styles.container}>
                 <Text style = {styles.header}> Grocery Lists</Text>
-                <Image source={fruits} />
-                <TouchableOpacity 
-                    style = {styles.addBtn}
-                    onPress={() => {navigation.navigate("GroceryList")}}
-                >
-                    <Text style = {styles.addBtnText}> Create New List </Text>
-                </TouchableOpacity>
-            </View>
-        )
-      } else {
-        return(
-            <View style = {styles.container}>
-                <Text style = {styles.header}> Grocery Lists</Text>
+                {groceryListsDisplay.length ? null : <Image source={fruits} style={{alignSelf:'center', height:350, width:350, resizeMode: 'contain'}}/>}
                 <FlatList
                     data={groceryListsDisplay}
                     renderItem = { ({item}) => 
@@ -162,7 +150,6 @@ const styles = StyleSheet.create({
     }, 
     listView: {
         flexDirection: 'row',
-        flexWrap: 'wrap'
     }, 
     card: {
         backgroundColor: "#FFEBDD",
