@@ -78,10 +78,10 @@ async function getTargetPrice(productName) {
         'wait_until': 'domcontentloaded',
         // 'wait_for_css': wait_for,
         'country': 'us',
-        'wait_for': 7000,// 8000,
+        'wait_for': 10000,// 8000,
         // 'proxy_type': 'residential',
         'disable_stealth':1,
-        'timeout': 10000
+        'timeout': 11000
     }, {
         
     });
