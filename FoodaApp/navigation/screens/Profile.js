@@ -1,38 +1,58 @@
-import React  from 'react';
-import {View, Text} from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import OnboardingDemo from './onboardingDemo';
-import {IconButton, Divider, Button } from 'react-native-paper';
+import { IconButton, Divider, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 
 const Profile = ({ navigation, route }) => {
-    
-    if(!onboarded){
+
+    if (!onboarded) {
         return (
             <OnboardingDemo></OnboardingDemo>
         );
-    } 
-    else{
-    let user_name = route.params.text  
+    }
+    else {
+        if (route.params.text) {
+            var user_name = route.params.text
+        } else {
+            var user_name = "John Smith"
+        }
         return (
-            <View style={{flexDirection:'column', alignContent:'space-between', padding:10}}>
-                <View style={{flexDirection:'column', alignItems:'center', justifyContent:'space-around', alignContent:'space-around', borderRadius:10, backgroundColor: '#FFF6F0', margin:10, padding:20}}>
+            <View style={{ flexDirection: 'column', alignContent: 'space-between', padding: 10, backgroundColor: "#FFF6F0", flex: 1 }}>
+                <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', alignContent: 'space-around', borderRadius: 10, backgroundColor: '#FDEBDF', margin: 10, padding: 20 }}>
                     <IconButton
-                    icon="account"
-                    size={65}
-                    color='black'
-                    style={{backgroundColor:'#CC7C48'}}/>
-                    <Text style={{fontSize:32, color:'black'}}>{user_name}</Text>
+                        icon="account"
+                        size={65}
+                        color='#F2DACA'
+                        style={{ backgroundColor: '#CC7C48' }} />
+                    <Text style={styles.name}>{user_name}</Text>
                 </View>
-                <View style={{borderRadius:10, backgroundColor: '#FFF6F0', margin:10, padding:20}}>
-                    <Text style={{fontSize:32, color:'black'}}>Try creating a grocery list in the list tab!</Text>
+                <View style={{ borderRadius: 10, backgroundColor: '#FDEBDF', margin: 10, padding: 20 }}>
+                    <Text style={styles.text}>Try creating a grocery list in the list tab, then use the map to see where is best to shop!</Text>
                 </View>
-                <View style={{borderRadius:10, backgroundColor: '#FFF6F0', margin:10, padding:20}}>
-                    <Text style={{fontSize:32, color:'black'}}>Shopping metrics and insights coming soon...</Text>
+                <View style={{ borderRadius: 10, backgroundColor: '#FDEBDF', margin: 10, padding: 20 }}>
+                    <Text style={styles.text}>Shopping metrics and insights coming here soon...</Text>
                 </View>
             </View>
         );
     }
-  };
+};
 
-  export default Profile;
+var styles = StyleSheet.create({
+    text: {
+        fontFamily: 'PTSerifCaption_400Regular',
+        fontStyle: 'normal',
+        fontWeight: "bold",
+        fontSize: 24,
+        lineHeight: 40,
+    }, 
+    name: {
+        fontFamily: 'PTSerifCaption_400Regular',
+        fontStyle: 'normal',
+        fontWeight: "bold",
+        fontSize: 30,
+        lineHeight: 40,
+    }
+});
+export default Profile;
