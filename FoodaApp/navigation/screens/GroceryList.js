@@ -16,6 +16,7 @@ const GroceryList = ({ navigation, route }) => {
   const [addBtnHeader, setAddBtnHeader] = useState("Name this Grocery List")
   const onChange = (textValue) => setText(textValue);
   const [modalVisible, setModalVisible] = useState(false);
+
   const [CategoriesAndItems, updateCategoriesAndItems] = useState([
       {
         title: "General", 
@@ -56,21 +57,25 @@ const GroceryList = ({ navigation, route }) => {
     return myJson;
   }
 
-  const addItem = (text, currentOption, list=0) => {
-    if (!text) {
-      Alert.alert(
-        'Error',
-        'Please enter an item',
-        [{text: 'OK', onPress: () => console.log('OK Pressed')}],
-        {cancelable: false},
-      );
-    } else if(currentOption == 'Add Item') {
-      updateCategoriesAndItems(update(CategoriesAndItems, text, list));
-    } else if(currentOption == 'Add Category'){
-      updateCategoriesAndItems(addCategory(CategoriesAndItems, text));
+  const addSave = (text, currentOption, list, option) => {
+    console.log("add")
+    if (option == 0){
+      if (!text) {
+        Alert.alert(
+          'Error',
+          'Please enter an item',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+          {cancelable: false},
+        );
+      } else if(currentOption == 'Add Item') {
+        updateCategoriesAndItems(update(CategoriesAndItems, text, list));
+      } else if(currentOption == 'Add Category'){
+        updateCategoriesAndItems(addCategory(CategoriesAndItems, text));
+      }
+    } else if (option == 1){
+      setModalVisible(!modalVisible)
     }
   };
-
  
   
  const deleteItem2 = (json, label, section, isTitle) =>{
@@ -90,29 +95,15 @@ const deleteItem = (label, section, isTitle) =>{
  updateCategories(deleteItem2(CategoriesAndItems, label, section, isTitle));
 };
 
-//For moving to completed section after check
-const addCompleted = (text) => {
-  addItem(text, currentOption, listItem= 1);
-};
-
- const moveCompleted = (text, id) => {
-   deleteItem(id);
-   addCompleted(text);
- }
-
  if (!fontsLoaded) {
   return <AppLoading />;
 } else { 
   return (
     <View style = {styles.container}> 
-    <AddItem addItem={addItem} />
-    <DraggableList sectionData = {CategoriesAndItems} deleteItem = {deleteItem} moveCompleted ={moveCompleted}/>
-    <TouchableOpacity 
-      style = {styles.addBtn}
-      onPress={() => {setModalVisible(!modalVisible)}}
-    >
-      <Text style = {styles.addBtnText}> Save Grocery List</Text>
-    </TouchableOpacity>
+     <DraggableList sectionData = {CategoriesAndItems} deleteItem = {deleteItem} />
+    <View style = {styles.bottomBar}>
+      <AddItem addSave={addSave} />
+    </View>
     <Modal
       animationType="slide"
       transparent={true}
@@ -120,13 +111,13 @@ const addCompleted = (text) => {
     >
       <View style = {styles.addGroceryNamePopUpView}>
         <View style = {styles.parent}>
-        <Text style = {styles.addGroceryNamePopUpHeader}> {addBtnHeader} </Text>
-          <TouchableOpacity
-            style = {styles.right}
-            onPress={() => {setModalVisible(!modalVisible)}}
-          >
-            <EvilIcons name="close-o" size={30} color="black" padding= {5} />
-          </TouchableOpacity>
+          <Text style = {styles.addGroceryNamePopUpHeader}> {addBtnHeader} </Text>
+            <TouchableOpacity
+              style = {styles.right}
+              onPress={() => {setModalVisible(!modalVisible)}}
+            >
+              <EvilIcons name="close-o" size={30} color="black" padding= {5} />
+            </TouchableOpacity>
           </View>
         <Text style = {styles.addbtntext}> Name: </Text>
         <TextInput
@@ -155,25 +146,7 @@ const addCompleted = (text) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FFF6F0",
-    flex: 1
-  },
-  addBtn: {
-    textAlign: "center",
-    backgroundColor: "#FBE0CE",
-    borderRadius: 10,
-    width: 316,
-    height: 50,
-    marginLeft: "auto",
-    marginRight: "auto"
-  },
-  addBtnText:{
-    fontFamily: 'PTSerifCaption_400Regular',
-    textAlign: "center",
-    fontStyle: 'normal',
-    fontWeight: "bold",
-    fontSize: 20,
-    lineHeight: 40,
-    color: "#000000"
+    flex: 1,
   },
   addGroceryNamePopUpView:{
     display: 'flex',
@@ -221,6 +194,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center'
   }, 
+  bottomBar:{
+    flex: 1,
+    alignContent:"center",
+    justifyContent: 'flex-end',
+    marginBottom: 30
+  }
 });
 
 export default GroceryList;
