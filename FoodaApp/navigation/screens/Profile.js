@@ -16,7 +16,7 @@ const Profile = ({ navigation, route }) => {
         if (route.params.text) {
             var user_name = route.params.text
         } else {
-            var user_name = "John Smith"
+            var user_name = ""
         }
         return (
             <View style={{ flexDirection: 'column', alignContent: 'space-between', padding: 10, backgroundColor: "#FFF6F0", flex: 1 }}>
@@ -46,6 +46,7 @@ var styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 24,
         lineHeight: 40,
+        color: '#813300'
     }, 
     name: {
         fontFamily: 'PTSerifCaption_400Regular',
