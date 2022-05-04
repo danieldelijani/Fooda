@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Alert, StatusBar,Text, View, TouchableOpacity} from 'react-native';
+import { Image, StyleSheet, Alert, StatusBar, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 
 import Onboarding from 'react-native-onboarding-swiper';
@@ -33,7 +33,7 @@ const AddName = ({addName}) => {
           onChangeText={onChange}        //text => setText(text)}
           value={text}
           color="#CC7C48"
-          style={{color:'#CC7C48'}}
+          style={{color: '#CC7C48', backgroundColor:'transparent'}}
         />
         <TouchableOpacity
           textStyle={{ color: 'black' }}
@@ -41,8 +41,7 @@ const AddName = ({addName}) => {
             addName(text);
             setText('');
           }} 
-          color="#CC7C48"
-          style={{color:'#CC7C48'}}>
+          color="#CC7C48">
             <Button
             style={{width:150, alignSelf:'center', margin:20}}
               title={'I got it :)'}

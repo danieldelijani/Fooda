@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         lineHeight: 40,
         color: "#813300",
+        margin: 10,
     },
     addBtn: {
         backgroundColor: "#FBE0CE",
@@ -141,7 +142,8 @@ const styles = StyleSheet.create({
         width: 316,
         height: 50,
         marginLeft: "auto",
-        marginRight: "auto"
+        marginRight: "auto", 
+        margin:10,
     },
     addBtnText: {
         fontFamily: 'PTSerifCaption_400Regular',

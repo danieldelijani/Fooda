@@ -8,12 +8,6 @@ import get_directions from '../apis/directions';
 import { getTargetPrices, getTraderJoesPrices, getUnimplementedPrices } from '../apis/prices';
 
 const StoreView = (props) => {
-    // getTargetPrice("Milk");
-    // getTraderJoesPrice("Milk");
-
-    // console.log("LIST INCOMING");
-    // console.log(props.list);
-
     const [walkingDist, setWalkingDist] = useState("- mi");
     const [walkingTime, setWalkingTime] = useState("- min");
     const [transitTime, setTransitTime] = useState("- min");
@@ -89,8 +83,7 @@ const StoreView = (props) => {
         setTotalPrice("-");
 
         if (store_name_lower == 'targetgrocery') {
-            console.log("TARGET SELECTED");
-
+            //console.log("TARGET SELECTED");
             getTargetPrices(props.list).then(res => {
                 setTotalPrice(res.reduce((a, b) => a + b, 0).toFixed(2));
             }).catch(err => {
@@ -98,8 +91,7 @@ const StoreView = (props) => {
             })
         }
         else if (store_name_lower == 'traderjoes') {
-            console.log("TRADER JOES SELECTED");
-
+            //console.log("TRADER JOES SELECTED");
             getTraderJoesPrices(props.list).then(res => {
                 setTotalPrice(res.reduce((a, b) => a + b, 0).toFixed(2));
             }).catch(err => {
@@ -107,8 +99,7 @@ const StoreView = (props) => {
             })
         }
         else {
-            console.log("OTHER SELECTED");
-
+            //console.log("OTHER SELECTED");
             getUnimplementedPrices(props.list).then(res => {
                 setTotalPrice(res.reduce((a, b) => a + b, 0).toFixed(2));
             }).catch(err => {
@@ -145,32 +136,34 @@ const StoreView = (props) => {
                         dot={<View style={{ backgroundColor: '#FBE0CE', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: -30, }} />}
                         activeDot={<View style={{ backgroundColor: '#CC7C48', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: -30, }} />}
                     >
-                        <View description="page one" style={{ flex: 1, padding:5 }}>
+                        <View description="page one" style={{ flex: 1, padding: 5 }}>
                             <View style={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5 }}>
                                 <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <IconButton
                                         icon="walk"
-                                        size={24} />
-                                    <Text style={{ fontSize: 24 }}>{walkingTime}</Text>
+                                        size={24}
+                                        color='black' />
+                                    <Text style={styles.textInfo}>{walkingTime}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <IconButton
                                         icon="train"
-                                        size={24} />
-                                    <Text style={{ fontSize: 24 }}>{transitTime}</Text>
+                                        size={24}
+                                        color='black' />
+                                    <Text style={styles.textInfo}>{transitTime}</Text>
                                 </View>
                             </View>
 
-                            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', margin: 5, justifyContent: 'space-around', justifySelf: 'center', borderRadius: 10, backgroundColor: '#FFF6F0', padding:10}}>
-                                <View styles={{backgroundColor: '#FFF6F0', flex:.5}}>
-                                    <Text style={{ fontSize: 16 }}> Items {"\n"} Available </Text>
-                                    <Text style={styles.itemAvail}>{items_available}</Text>
-                                    <Text style={styles.itemAvail}>━</Text>
-                                    <Text style={styles.itemAvail}>{items_total}</Text>
+                            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', margin: 5, justifyContent: 'space-around', justifySelf: 'center', borderRadius: 10, backgroundColor: '#FFF6F0', padding: 10 }}>
+                                <View styles={{ backgroundColor: '#FFF6F0', flex: .5 }}>
+                                    <Text style={styles.textSmaller}> Items {"\n"} Available </Text>
+                                    <Text style={styles.textInfo}>{items_available}</Text>
+                                    <Text style={styles.bar}>━</Text>
+                                    <Text style={styles.bar}>{items_total}</Text>
                                 </View>
-                                <View styles={{ borderRadius: 10, margin: 5, backgroundColor: '#FFF6F0', flex:.5}}>
-                                    <Text>Total Cost:</Text>
-                                    <Text style={{ fontSize: 32 }}>${total_price}</Text>
+                                <View styles={{ borderRadius: 10, margin: 5, backgroundColor: '#FFF6F0', flex: .5 }}>
+                                    <Text style={styles.textSmaller}>Total Cost:</Text>
+                                    <Text style={styles.textInfo}>${total_price}</Text>
                                 </View>
                             </View>
                             <View style={{ flex: .1 }}>
@@ -178,42 +171,41 @@ const StoreView = (props) => {
                                 (so theyre not overlayed on the content) */}
                             </View>
                         </View>
-                        <View description="page two" style={{ flex: 1, padding:5 }}>
-                            <View style={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5 }}>
+                        <View description="page two" style={{ flex: 1, padding: 5, flexDirection:'column'}}>
+                            <View style={styles.pageTwoContainer}>
                                 <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <IconButton
                                         icon="store"
-                                        size={28} />
-                                    {open_now ? <Text style={{ color: 'green',  fontSize: 24, }}>Open Now</Text> : <Text style={{ color: 'red', fontSize: 24,  }}>Closed Now</Text>}
+                                        size={28}
+                                        color='black' />
+                                    {open_now ? <Text style={{ fontFamily: 'PTSerifCaption_400Regular', fontSize: 28, color: 'green' }}>Open Now</Text> : <Text style={{ fontFamily: 'PTSerifCaption_400Regular', fontSize: 28, color: 'red' }}>Closed Now</Text>}
                                 </View>
                             </View>
-                            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', margin: 5, justifyContent: 'space-around', justifySelf: 'center', borderRadius: 10, backgroundColor: '#FFF6F0'}}>
-                                <View styles={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5, justifyContent: 'flex-start'}}>
-                                    <Text>Affordability: {'\n'}</Text>
-                                    <StarRating
-                                        disabled={true}
-                                        emptyStar={'currency-usd'}
-                                        fullStar={'currency-usd'}
-                                        halfStar={'currency-usd'}
-                                        iconSet={'MaterialCommunityIcons'}
-                                        maxStars={4}
-                                        rating={price_level}
-                                        starSize={30}
-                                        fullStarColor={'black'}
-                                    />
-                                </View>
-                                <View styles={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5 }}>
-                                    <Text>Rating: ({num_reviews} Reviews){'\n'}</Text>
-                                    <StarRating
-                                        disabled={true}
-                                        maxStars={5}
-                                        rating={rating}
-                                        fullStarColor={"gold"}
-                                        halfStarColor={"gold"}
-                                        emptyStarColor={"gold"}
-                                        starSize={30}
-                                    />
-                                </View>
+                            <View style={styles.pageTwoContainer}>
+                                <Text style={styles.textSmaller} >Affordability: {'\n'}</Text>
+                                <StarRating
+                                    disabled={true}
+                                    emptyStar={'currency-usd'}
+                                    fullStar={'currency-usd'}
+                                    halfStar={'currency-usd'}
+                                    iconSet={'MaterialCommunityIcons'}
+                                    maxStars={4}
+                                    rating={price_level}
+                                    starSize={30}
+                                    fullStarColor={'black'}
+                                />
+                            </View>
+                            <View style={styles.pageTwoContainer}>
+                                <Text style={styles.textSmaller}>Rating: ({num_reviews} Reviews){'\n'}</Text>
+                                <StarRating
+                                    disabled={true}
+                                    maxStars={5}
+                                    rating={rating}
+                                    fullStarColor={"#CC7C48"}
+                                    halfStarColor={"#CC7C48"}
+                                    emptyStarColor={"#CC7C48"}
+                                    starSize={30}
+                                />
                             </View>
                             <View style={{ flexDirection: 'row', flex: .1 }}>
                                 {/* empty row to add space for the page indicator dots 
@@ -248,6 +240,30 @@ const styles = StyleSheet.create({
     },
     itemAvail: {
         fontSize: 28
+    },
+    textSmaller: {
+        fontSize: 14,
+        //color: '#813300',
+        fontFamily: 'PTSerifCaption_400Regular',
+    },
+    bar: {
+        lineHeight: 28,
+        fontSize: 28,
+        fontFamily: 'PTSerifCaption_400Regular',
+    },
+    textInfo: {
+        fontSize: 28,
+        //color: '#813300',
+        fontFamily: 'PTSerifCaption_400Regular',
+    },
+    pageTwoContainer:{
+        flexDirection: 'column', 
+        flex: 1, 
+        backgroundColor: '#FFF6F0', 
+        borderRadius: 10, 
+        margin: 5, 
+        justifyContent: 'center', 
+        alignItems: 'center' 
     }
 });
 
