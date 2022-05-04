@@ -125,7 +125,7 @@ const StoreView = (props) => {
                         subtitle={walkingDist}
                         left={(props) => <Avatar.Image size={50} source={logo_image} style={{ backgroundColor: 'transparent' }} />
                         }
-                        style={{ flex: 1}}
+                        style={{ flex: 1 }}
                     />
                 </View>
                 <View style={{ flex: 4 }}>
@@ -136,32 +136,32 @@ const StoreView = (props) => {
                         dot={<View style={{ backgroundColor: '#FBE0CE', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: -30, }} />}
                         activeDot={<View style={{ backgroundColor: '#CC7C48', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: -30, }} />}
                     >
-                        <View description="page one" style={{ flex: 1, padding:5 }}>
+                        <View description="page one" style={{ flex: 1, padding: 5 }}>
                             <View style={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5 }}>
                                 <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <IconButton
                                         icon="walk"
-                                        size={24} 
-                                        color='black'/>
-                                    <Text style={ styles.textInfo }>{walkingTime}</Text>
+                                        size={24}
+                                        color='black' />
+                                    <Text style={styles.textInfo}>{walkingTime}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <IconButton
                                         icon="train"
-                                        size={24} 
-                                        color='black'/>
+                                        size={24}
+                                        color='black' />
                                     <Text style={styles.textInfo}>{transitTime}</Text>
                                 </View>
                             </View>
 
-                            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', margin: 5, justifyContent: 'space-around', justifySelf: 'center', borderRadius: 10, backgroundColor: '#FFF6F0', padding:10}}>
-                                <View styles={{backgroundColor: '#FFF6F0', flex:.5}}>
+                            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', margin: 5, justifyContent: 'space-around', justifySelf: 'center', borderRadius: 10, backgroundColor: '#FFF6F0', padding: 10 }}>
+                                <View styles={{ backgroundColor: '#FFF6F0', flex: .5 }}>
                                     <Text style={styles.textSmaller}> Items {"\n"} Available </Text>
                                     <Text style={styles.textInfo}>{items_available}</Text>
                                     <Text style={styles.bar}>━</Text>
                                     <Text style={styles.bar}>{items_total}</Text>
                                 </View>
-                                <View styles={{ borderRadius: 10, margin: 5, backgroundColor: '#FFF6F0', flex:.5}}>
+                                <View styles={{ borderRadius: 10, margin: 5, backgroundColor: '#FFF6F0', flex: .5 }}>
                                     <Text style={styles.textSmaller}>Total Cost:</Text>
                                     <Text style={styles.textInfo}>${total_price}</Text>
                                 </View>
@@ -171,43 +171,41 @@ const StoreView = (props) => {
                                 (so theyre not overlayed on the content) */}
                             </View>
                         </View>
-                        <View description="page two" style={{ flex: 1, padding:5 }}>
-                            <View style={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5 }}>
+                        <View description="page two" style={{ flex: 1, padding: 5, flexDirection:'column'}}>
+                            <View style={styles.pageTwoContainer}>
                                 <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                     <IconButton
                                         icon="store"
-                                        size={28} 
-                                        color='black'/>
-                                    {open_now ? <Text style={{fontFamily: 'PTSerifCaption_400Regular', fontSize:28, color:'green'}}>Open Now</Text> : <Text style={{fontFamily: 'PTSerifCaption_400Regular', fontSize:28, color:'red'}}>Closed Now</Text>}
+                                        size={28}
+                                        color='black' />
+                                    {open_now ? <Text style={{ fontFamily: 'PTSerifCaption_400Regular', fontSize: 28, color: 'green' }}>Open Now</Text> : <Text style={{ fontFamily: 'PTSerifCaption_400Regular', fontSize: 28, color: 'red' }}>Closed Now</Text>}
                                 </View>
                             </View>
-                            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', margin: 5, justifyContent: 'space-around', justifySelf: 'center', borderRadius: 10, backgroundColor: '#FFF6F0'}}>
-                                <View styles={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5, justifyContent: 'flex-start'}}>
-                                    <Text style={styles.textSmaller} >Affordability: {'\n'}</Text>
-                                    <StarRating
-                                        disabled={true}
-                                        emptyStar={'currency-usd'}
-                                        fullStar={'currency-usd'}
-                                        halfStar={'currency-usd'}
-                                        iconSet={'MaterialCommunityIcons'}
-                                        maxStars={4}
-                                        rating={price_level}
-                                        starSize={30}
-                                        fullStarColor={'black'}
-                                    />
-                                </View>
-                                <View styles={{ flexDirection: 'column', flex: 1, backgroundColor: '#FFF6F0', borderRadius: 10, margin: 5 }}>
-                                    <Text style={styles.textSmaller}>Rating: ({num_reviews} Reviews){'\n'}</Text>
-                                    <StarRating
-                                        disabled={true}
-                                        maxStars={5}
-                                        rating={rating}
-                                        fullStarColor={"gold"}
-                                        halfStarColor={"gold"}
-                                        emptyStarColor={"gold"}
-                                        starSize={30}
-                                    />
-                                </View>
+                            <View style={styles.pageTwoContainer}>
+                                <Text style={styles.textSmaller} >Affordability: {'\n'}</Text>
+                                <StarRating
+                                    disabled={true}
+                                    emptyStar={'currency-usd'}
+                                    fullStar={'currency-usd'}
+                                    halfStar={'currency-usd'}
+                                    iconSet={'MaterialCommunityIcons'}
+                                    maxStars={4}
+                                    rating={price_level}
+                                    starSize={30}
+                                    fullStarColor={'black'}
+                                />
+                            </View>
+                            <View style={styles.pageTwoContainer}>
+                                <Text style={styles.textSmaller}>Rating: ({num_reviews} Reviews){'\n'}</Text>
+                                <StarRating
+                                    disabled={true}
+                                    maxStars={5}
+                                    rating={rating}
+                                    fullStarColor={"gold"}
+                                    halfStarColor={"gold"}
+                                    emptyStarColor={"gold"}
+                                    starSize={30}
+                                />
                             </View>
                             <View style={{ flexDirection: 'row', flex: .1 }}>
                                 {/* empty row to add space for the page indicator dots 
@@ -242,21 +240,30 @@ const styles = StyleSheet.create({
     },
     itemAvail: {
         fontSize: 28
-    }, 
-    textSmaller:{
-        fontSize: 14, 
+    },
+    textSmaller: {
+        fontSize: 14,
         //color: '#813300',
         fontFamily: 'PTSerifCaption_400Regular',
     },
-    bar:{
+    bar: {
         lineHeight: 28,
         fontSize: 28,
         fontFamily: 'PTSerifCaption_400Regular',
     },
     textInfo: {
-        fontSize: 28, 
+        fontSize: 28,
         //color: '#813300',
         fontFamily: 'PTSerifCaption_400Regular',
+    },
+    pageTwoContainer:{
+        flexDirection: 'column', 
+        flex: 1, 
+        backgroundColor: '#FFF6F0', 
+        borderRadius: 10, 
+        margin: 5, 
+        justifyContent: 'center', 
+        alignItems: 'center' 
     }
 });
 
