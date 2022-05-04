@@ -155,7 +155,10 @@ const styles = StyleSheet.create({
         color: "#000000"
     },
     listView: {
+        justifyContent: 'center',
         flexDirection: 'row',
+        flexWrap: 'wrap',
+        flex: 1,
     },
     card: {
         backgroundColor: "#FFEBDD",
