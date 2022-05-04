@@ -92,7 +92,7 @@ const StoreView = (props) => {
             console.log("TARGET SELECTED");
 
             getTargetPrices(props.list).then(res => {
-                setTotalPrice(res.reduce((a, b) => a + b, 0));
+                setTotalPrice(res.reduce((a, b) => a + b, 0).toFixed(2));
             }).catch(err => {
                 console.log(err);
             })
@@ -101,7 +101,7 @@ const StoreView = (props) => {
             console.log("TRADER JOES SELECTED");
 
             getTraderJoesPrices(props.list).then(res => {
-                setTotalPrice(res.reduce((a, b) => a + b, 0));
+                setTotalPrice(res.reduce((a, b) => a + b, 0).toFixed(2));
             }).catch(err => {
                 console.log(err);
             })

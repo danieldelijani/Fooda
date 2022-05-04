@@ -39,7 +39,7 @@ async function getTraderJoesPrice(productName) {
         let output = list_of_items.html();
         output = parseFloat(output.slice(1));
         console.log(output);
-        if (isNan(output)) {
+        if (isNaN(output)) {
             return 2;
         }
         return output;
@@ -80,11 +80,11 @@ async function getTargetPrice(productName) {
         'render_js': 1,
         'wait_until': 'domcontentloaded',
         // 'wait_for_css': wait_for,
-        'country': 'us',
-        'wait_for': 10000,// 8000,
+        // 'country': 'us',
+        'wait_for': 15000,// 8000,
         // 'proxy_type': 'residential',
         'disable_stealth':1,
-        'timeout': 11000
+        'timeout': 20000
     }, {
         
     });
@@ -103,7 +103,7 @@ async function getTargetPrice(productName) {
         let output = list_of_items.text();
         output = parseFloat(output.split("$")[1])
         console.log(output);
-        if (isNan(output)) {
+        if (isNaN(output)) {
             return 2;
         }
         return output;
@@ -127,7 +127,7 @@ async function getUnimplementedPrices(names) {
     prices = []
 
     for (let i = 0; i < names.length; i++) {
-        random_price = Math.floor(Math.random() * 1000) / 100;
+        let random_price = Math.floor(Math.random() * 1000) / 100;
         prices.push(random_price);
     }
     return prices
