@@ -39,6 +39,9 @@ async function getTraderJoesPrice(productName) {
         let output = list_of_items.html();
         output = parseFloat(output.slice(1));
         console.log(output);
+        if (isNan(output)) {
+            return 2;
+        }
         return output;
     } else {
         console.log("API CALL ERROR");
@@ -100,6 +103,9 @@ async function getTargetPrice(productName) {
         let output = list_of_items.text();
         output = parseFloat(output.split("$")[1])
         console.log(output);
+        if (isNan(output)) {
+            return 2;
+        }
         return output;
     } else {
         console.log("API CALL ERROR");
