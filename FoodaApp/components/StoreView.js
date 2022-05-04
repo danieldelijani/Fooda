@@ -201,9 +201,9 @@ const StoreView = (props) => {
                                     disabled={true}
                                     maxStars={5}
                                     rating={rating}
-                                    fullStarColor={"gold"}
-                                    halfStarColor={"gold"}
-                                    emptyStarColor={"gold"}
+                                    fullStarColor={"#CC7C48"}
+                                    halfStarColor={"#CC7C48"}
+                                    emptyStarColor={"#CC7C48"}
                                     starSize={30}
                                 />
                             </View>

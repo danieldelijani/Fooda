@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FFF6F0",
     flex: 1,
+    padding: 20
   },
   addGroceryNamePopUpView:{
     display: 'flex',
@@ -185,6 +186,8 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     fontSize: 13,
     lineHeight: 17, 
+    alignSelf:'center',
+
   },
   addbtn: {
     backgroundColor: "#FFF6F0", 
@@ -192,13 +195,13 @@ const styles = StyleSheet.create({
     height: 30, 
     marginLeft: 'auto',
     borderRadius: 5,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignContent: 'center'
   }, 
   bottomBar:{
     flex: 1,
     alignContent:"center",
     justifyContent: 'flex-end',
-    marginBottom: 30
   }
 });
 
