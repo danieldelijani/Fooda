@@ -27,20 +27,15 @@ async function getTraderJoesPrice(productName) {
     }, {
     });
     if (response.success) {
-        // console.log("SUCCESS WOOHOO");
-        // console.log(response);
-        // console.log(response.response);
-        // let html_file = Buffer.from(response.response.data, "utf-8");
-        // fs.writeFileSync("test_html.html", html_file, {encoding: 'utf8',flag: 'w'});
         let html = response.response.data;
-        
+
         const $ = cheerio.load(html);
         const list_of_items = $('.ProductPrice_productPrice__price__3-50j');
         let output = list_of_items.html();
         output = parseFloat(output.slice(1));
         console.log(output);
         if (isNaN(output)) {
-            return 2;
+            return 2.99;
         }
         return output;
     } else {
@@ -52,6 +47,12 @@ async function getTraderJoesPrice(productName) {
 async function getTraderJoesPrices(productNames) {
     console.log("Calling trader joes prices...");
     let promises = await Promise.all(productNames.map(getTraderJoesPrice));
+    console.log(promises);
+    for (var i = 0; i < promises.length; i++) {
+        if (!promises[i]) {
+            promises[i] = 3.99;
+        }
+    }
     console.log(promises);
     return promises;
 }
@@ -83,28 +84,22 @@ async function getTargetPrice(productName) {
         // 'country': 'us',
         'wait_for': 15000,// 8000,
         // 'proxy_type': 'residential',
-        'disable_stealth':1,
+        'disable_stealth': 1,
         'timeout': 20000
     }, {
-        
+
     });
     if (response.success) {
         console.log("SUCCESS WOOHOO");
-        // console.log(response);
-        // console.log(response.response);
-        // var fs = require('fs');
-        // let html_file = Buffer.from(response.response.data, "utf-8");
-        // fs.writeFileSync("test_html.html", html_file, {encoding: 'utf8',flag: 'w'});
-
         let html = response.response.data;
-        
+
         const $ = cheerio.load(html);
         const list_of_items = $($('.h-padding-r-tiny'));
         let output = list_of_items.text();
         output = parseFloat(output.split("$")[1])
         console.log(output);
         if (isNaN(output)) {
-            return 2;
+            return 2.99;
         }
         return output;
     } else {
@@ -117,10 +112,13 @@ async function getTargetPrices(productNames) {
     console.log("Calling target prices...");
     let promises = await Promise.all(productNames.map(getTargetPrice));
     console.log(promises);
+    for (var i = 0; i < promises.length; i++) {
+        if (!promises[i]) {
+            promises[i] = 3.99;
+        }
+    }
     return promises;
 }
-
-// getTargetPrices(["Milk", "Turkey Bacon", "Chicken Breast"])
 
 async function getUnimplementedPrices(names) {
     console.log("Calling unimplented prices...");
@@ -133,137 +131,5 @@ async function getUnimplementedPrices(names) {
     return prices
 }
 
-// getTraderJoesPrice("Milk");
-// getTargetPrice("Turkey Bacon");
-// getTraderJoesPrices(["Milk", "Turkey Bacon", "Pork"]);
-// getTargetPrices(["Milk", "Turkey Bacon", "Pork"]);
 
-
-
-
-export {getTargetPrices, getTraderJoesPrices, getUnimplementedPrices};
-
-
-// async function scrapeProductTarget(url) {
-//     const puppeteer = require('puppeteer');
-//     const browser = await puppeteer.launch({
-//         headless:false
-//     });
-//     const page = await browser.newPage();
-//     await page.goto(url);
-//     await page.waitForSelector('.ProductCardImageWrapper-sc-5fgvkn-0');
-
-//     const [el] = await page.$x('//*[@id="pageBodyContainer"]/div[1]/div/div[4]/div/div[1]/div[2]/div/section/div/div[1]/div/div/div[2]/div/div/div[2]/div/div[1]/div/span');
-//     const price = await el.getProperty('textContent')
-//     const rawTxt = await price.jsonValue();
-//     priceInt = parseFloat(rawTxt.slice(1));
-//     console.log(priceInt);
-//     browser.close()
-//     return priceInt;
-// }
-
-// async function getTargetPrice(name) {
-//     url = convertTargetItemNameToUrl(name);
-//     return scrapeProductTarget(url);
-// }
-
-// scrapeProductTarget("https://www.target.com/s?searchTerm=milk");
-
-// multiple items
-
-// async function getTargetPrices(names) {
-//     // URL: array of strings
-//     // Returns: an array of prices
-//     urls = convertTargetItemNamesToUrls(names);
-//     prices = [];
-    
-//     const browser = await puppeteer.launch({
-//         headless:true
-//     });
-//     const page = await browser.newPage();
-
-//     for (let i = 0; i < urls.length; i++) {
-//         url = urls[i];
-//         const promise = page.waitForNavigation({ waitUntil: 'networkidle2' });
-//         await page.goto(url);
-//         await promise;
-//         const [el] = await page.$x('//*[@id="pageBodyContainer"]/div[1]/div/div[4]/div/div[1]/div[2]/div/section/div/div[1]/div/div/div[2]/div/div/div[2]/div/div[1]/div/span');
-//         const price = await el.getProperty('textContent');
-//         const rawTxt = await price.jsonValue();
-//         priceInt = await parseFloat(rawTxt.slice(1));
-//         await prices.push(priceInt);
-//     }
-//     browser.close()
-//     console.log(prices)
-//     return prices
-// }
-
-// TRADER JOES
-
-// async function getTraderJoesPrices(names) {
-//     // URL: array of strings
-//     // Returns: an array of prices
-//     urls = convertTraderJoesNamesToUrls(names);
-//     prices = [];
-    
-//     const browser = await puppeteer.launch({
-//         headless:true
-//     });
-//     const page = await browser.newPage();
-
-//     for (let i = 0; i < urls.length; i++) {
-//         url = urls[i];
-//         const promise = page.waitForNavigation({ waitUntil: 'domcontentloaded' });
-//         await page.goto(url);
-//         await promise;
-//         await page.waitForSelector('.Section_section__oNcdC');
-//         const [el] = await page.$x('//*[@id="spa-root"]/div[1]/div[1]/div[2]/div[1]/div/div[2]/main/div/div/div/div[1]/ul/li/div/article[1]/div/div/div/span[1]');
-//         const price = await el.getProperty('textContent')
-//         const rawTxt = await price.jsonValue();
-//         priceInt = await parseFloat(rawTxt.slice(1));
-//         await prices.push(priceInt);
-//     }
-//     browser.close();
-//     console.log(prices);
-//     return prices;
-// }
-
-// console.log(convertTraderJoesNamesToUrls(["Orange Juice", "Turkey Bacon", "Water"]));
-// getTargetPrices(["Orange Juice", "Turkey Bacon", "Milk"])
-// getTraderJoesPrices(["Orange Juice", "Turkey Bacon", "Milk", "Salmon"]);
-// console.log(getUnimplementedPrices(["Orange Juice", "Turkey Bacon", "Milk", "Salmon"]))
-
-// export {getTargetPrices, getTraderJoesPrices, getUnimplementedPrices};
-
-// export {getTraderJoesPrice, getUnimplementedPrices};
-
-// async function callAxios() {
-//     const res = await axios.get("https://www.target.com/s?searchTerm=milk");
-//     console.log("DATA");
-//     console.log(res.data);
-// }
-
-// const getArticlesFromApi = async () => {
-//     try {
-//       let response = await fetch(
-//         'https://www.target.com/s?searchTerm=milk'
-//       );
-//       let data = await response.data;
-//       console.log(data);
-//     } catch (error) {
-//        console.error(error);
-//     }
-//   };
-  
-
-// const res = await axios.get('https://api.webscrapingapi.com/v1', { params: { answer: 42 } });
-
-
-// async function useAPI() {
-//     const searchParams = {
-//         api_key: 'R0YDeuj4qe21H1q996Qgn03HBQ7utex8',
-//         url: 'https://www.target.com/s?searchTerm=milk'
-//       };
-//     const res = await axios.get('https://api.webscrapingapi.com/v1', searchParams);
-//     console.log(res.data)
-// }
+export { getTargetPrices, getTraderJoesPrices, getUnimplementedPrices };

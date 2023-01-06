@@ -109,7 +109,7 @@ const ListsOfGroceryList = ({ navigation, route }) => {
                         </View>
                     }
                     contentContainerStyle={styles.listView}
-
+                    //numColumns={2}
                 />
                 <TouchableOpacity
                     style={styles.addBtn}
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
         color: "#000000"
     },
     listView: {
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         flexDirection: 'row',
         flexWrap: 'wrap',
         flex: 1,
